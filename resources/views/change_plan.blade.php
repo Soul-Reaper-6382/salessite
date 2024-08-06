@@ -67,7 +67,7 @@
         });
 
     $(document).ready(function() {
-    $('.click_change_plan').on('click', function() {
+    $('.click_change_plan_upd').on('click', function() {
     var planId = $(this).data('id');
     var planName = $(this).closest('.price_main_column').find('h5').text().trim(); // Get and trim the plan name
 

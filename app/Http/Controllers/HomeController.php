@@ -47,8 +47,34 @@ class HomeController extends Controller
         $images = Home_Images::all();
         $steps = Home_Steps::all();
 
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+
+         // Fetch Stripe customer details
+        $stripeCustomer = null;
+        $paymentMethods = [];
+        $subscription = null;
+
+        if (Auth::check() && Auth::user()->stripe_id) {
+            // Retrieve customer from Stripe
+            $stripeCustomer = $stripe->customers->retrieve(Auth::user()->stripe_id, []);
+
+            // Retrieve subscription details
+            $subscriptions = $stripe->subscriptions->all([
+                'customer' => $stripeCustomer->id,
+            ]);
+
+        $subscription = !empty($subscriptions->data) ? $subscriptions->data[0] : null;
         
-         return view('home', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps'));
+        $priceId = $subscription ? $subscription->items->data[0]->price->id : 'N/A';
+
+        return view('home', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps','priceId'));
+        }
+        else{
+            return view('home', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps'));
+        }
+
+        
+         
         }
 
    

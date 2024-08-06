@@ -96,7 +96,7 @@
             @if($plan->stripe_plan == $priceId)
            <a href="javascript:void(0);" class="" >Selected</a>
            @else 
-           <a href="javascript:void(0);" class="click_change_plan" data-id="{{ $plan->stripe_plan }}" >Upgrade Plan</a>
+           <a href="javascript:void(0);" class="click_change_plan_upd" data-id="{{ $plan->stripe_plan }}" >Upgrade Plan</a>
            @endif
 
             <!-- <button class="learn-more">Learn More</button> -->
