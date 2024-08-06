@@ -153,6 +153,9 @@ class HomePageController extends Controller
             'video_two' => 'nullable|mimes:mp4,mov,ogg,qt,webm|max:10240',
         ]);
 
+          if ($errors = $request->errors()) {
+           dd($errors);
+            }
         // Fetch the first (or create a new) Home_Videos instance
         $videoSettings = Home_Videos::firstOrNew();
 
