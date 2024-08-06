@@ -19,7 +19,12 @@
 
                         <div class="form-group">
                             <label for="video_one" class="form-label">Video one</label>
-                            <input name="video_one" type="file" class="form-control" id="video_one">
+                            <input name="video_one" type="file" class="form-control @error('video_one') is-invalid @enderror" id="video_one">
+                                @error('video_one')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             @if ($videoSettings && $videoSettings->video_one)
                                 <video width="320" height="240" controls>
                                     <source src="{{ asset($videoSettings->video_one) }}" type="video/mp4">
@@ -30,7 +35,12 @@
 
                         <div class="form-group">
                             <label for="video_two" class="form-label">Video two</label>
-                            <input name="video_two" type="file" class="form-control" id="video_two">
+                            <input name="video_two" type="file" class="form-control @error('video_two') is-invalid @enderror" id="video_two">
+                             @error('video_two')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             @if ($videoSettings && $videoSettings->video_two)
                                 <video width="320" height="240" controls>
                                     <source src="{{ asset($videoSettings->video_two) }}" type="video/mp4">
