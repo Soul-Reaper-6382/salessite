@@ -1,843 +1,879 @@
-@extends('layouts.app')
+@extends('layouts.scrapper')
 
 @section('content')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/scrapper.css')}}">
+  <div class="main-container d-flex">
+        <div class="sidebar" id="side_nav">
+            <div class="header-box px-2 pt-2 d-flex justify-content-between">
+                <h1 class="fs-4"><img src="{{ url('/images/logo.png') }}" alt="logo" style="width: 70px;"></h1>
+                <button class="btn d-md-none d-block close-btn px-1 py-0 text-white"><i
+                        class="fal fa-stream"></i></button>
+            </div>
 
+            <ul class="list-unstyled">
+                <li class="li-item-footer">
+                  <a class="" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
 
-    <div id="main-wrapper">
-        <div class="site-wrapper-reveal">
-            <div class="bg-white">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                </li>
+            </ul>
+            <!-- <hr class="h-color mx-2"> -->
 
-                     <div class="container section-space--pt_60">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!-- section-title-wrap Start -->
-                                <div class="section-title-wrap text-center section-space--mb_60">
-                                    <h1 class="heading">Get ready... <br> this is going to be easy</h1>
-                                    <h5 class="mt-3 mb-3">Lose the stress, find your focus, and achieve better.</h5>
-                                      <a href="{{ route('register') }}" class="ht-btn ht-btn-md">Get Started </a>
-                                </div>
-                                <!-- section-title-wrap Start -->
-                            </div>
-                        </div>
-                     </div>
-
-
-                     <!--===========  feature-icon-wrapper  Start =============-->
-                <div class="feature-icon-wrapper section-space--pb_0">
-                    <div class="container-fluid" style="padding-left: 0px;">
-
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <video class="elementor-video" src="https://sm2.webxcube.com/wp-content/uploads/2023/12/Home_page_3D_animation.webm" autoplay="" loop="" muted="muted" controlslist="nodownload"></video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--===========  feature-icon-wrapper  End =============-->
-
-                <!--===========  feature-icon-wrapper  Start =============-->
-                <div class="feature-icon-wrapper section-space--pb_60">
-                    <div class="container-fluid">
-
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section-title-wrap text-center section-space--mb_40">
-                                    <h3 class="heading">Feature Demos</h3>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                        <div class="col-lg-12 wow move-up">
-                            <div class="marquee">
-        <div class="marquee-content"> 
-          <div class="marquee-item div-class-2 ">
-          <div class="marquee-box  box-image-overlay-1">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-4.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          
-          <div class="marquee-box  box-image-overlay-2">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-5.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          
-          </div>
-          <div class="marquee-item  box-image-overlay-3">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-3.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          <!--hhhhhh-->
-          
-            <div class="marquee-item div-class-2">
-          <div class="marquee-box  box-image-overlay-4">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-9.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          
-          <div class="marquee-box  box-image-overlay-5">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-10.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          
-          </div>
-          <div class="marquee-item  box-image-overlay-6">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-6.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          <!--hhhhhh-->
-          
-           <!--hhhhhh-->
-          
-            <!-- <div class="marquee-item div-class-2">
-          <div class="marquee-box">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-4.png" alt="">
-          </div>
-          
-          <div class="marquee-box">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-13.png" alt="">
-          </div>
-          
-          </div> -->
-          <div class="marquee-item div-ex-box  box-image-overlay-7">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-11.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          <!--hhhhhh-->
-          
-          
-           <!--hhhhhh-->
-          
-            <div class="marquee-item div-class-2 ">
-          <div class="marquee-box  box-image-overlay-8" >
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-5.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          
-          <div class="marquee-box  box-image-overlay-9">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-13.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          
-          </div>
-          <div class="marquee-item  box-image-overlay-10">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-7.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          <!--hhhhhh-->
-          
-           <!--hhhhhh-->
-          
-            <!-- <div class="marquee-item div-class-2">
-          <div class="marquee-box">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-4.png" alt="">
-          </div>
-          
-          <div class="marquee-box">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-13.png" alt="">
-          </div>
-          
-          </div> -->
-          <div class="marquee-item div-ex-box  box-image-overlay-11">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-12.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-            
-          </div>
-          <!--hhhhhh-->
-          
-           <!--hhhhhh-->
-          
-            <div class="marquee-item div-class-2  ">
-          <div class="marquee-box box-image-overlay-12">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-10.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          
-          <div class="marquee-box  box-image-overlay-13">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-9.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          
-          </div>
-          <div class="marquee-item box-image-overlay-14">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-8.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          <!--hhhhhh-->
-          
-          
-           <!--hhhhhh-->
-          
-            <div class="marquee-item div-class-2">
-          <div class="marquee-box  box-image-overlay-15">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-5.png" alt="">
-      
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          
-          <div class="marquee-box box-image-overlay-16">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-10.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          
-          </div>
-          <div class="marquee-item box-image-overlay-17">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-6.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          <!--hhhhhh-->
-          
-          
-           <!--hhhhhh-->
-          
-            <div class="marquee-item div-class-2 box-image-overlay-18">
-          <div class="marquee-box">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-4.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          
-          <div class="marquee-box  box-image-overlay-19">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-13.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          
-          </div>
-          <div class="marquee-item box-image-overlay-20 ">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-3.png" alt="">
-            <div class="image-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          <!--hhhhhh-->
-          
-           <!--hhhhhh-->
-          
-            <!-- <div class="marquee-item div-class-2">
-          <div class="marquee-box">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-4.png" alt="">
-          </div>
-          
-          <div class="marquee-box">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-13.png" alt="">
-          </div>
-          
-          </div> -->
-          <div class="marquee-item div-ex-box box-image-overlay-21 ">
-            <img src="https://sm2.webxcube.com/wp-content/uploads/2024/04/image-12.png" alt="">
-            <div class="image-overlay hide-content-overlay">
-              <p>Text for Image 1</p>
-          </div>
-          </div>
-          <!--hhhhhh-->
-          
-          
         </div>
-      </div>
+        <div class="content">
 
-      
-                        </div>
-                    </div>
-
-                    <div class="popup">
-        <span class="close">&times;</span>
-      <div class="pop-box-css">
-          <div class="pop-box-css-left">
-      <p class="add-content image-overlay-1">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-2">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-3">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-4">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-5">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-6">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-7">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-8">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-9">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-10">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-11">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-12">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-13">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-14">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-15">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-16">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-17">jOne Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-18">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-19">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-20">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-21">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      
-          </div>
-          <div class="pop-box-css-right">
-              <img class="popup-content" src="">
-          </div>
+            <div class="dashboard-content">
+                <div id="browser">
+        <div id="controls">
+            <button class="btn btn-primary text-white" id="gotogoogle">Goto Google</button>
+                <div class="personalize-switch">
+                <input type="checkbox" id="personalize" name="personalize" />
+                <label for="personalize" class="switch">
+              </span>
+              </div>
+            <button id="back-btn" class="gogg_icon_left"><i class="fas fa-long-arrow-alt-left"></i></button>
+            <button id="forward-btn" class="gogg_icon_left"><i class="fas fa-long-arrow-alt-right"></i></button>
+            <button id="refresh-btn" class="gogg_icon_left"><i class="fa fa-refresh"></i></button>
+            <input type="text" class="goog_searchbox" id="url"  placeholder="Enter URL or search term">
+            <button id="go-btn" class="gogg_icon_left_go" ><i class="fa fa-search"></i></button>
+        </div>
+        <div id="preloader" class="hidden">
+            <div class="spinner"></div>
+        </div>
+        <div id="select_mode">
+            <span>Select mode</spam>
+        </div>
+        <webview id="webview"></webview>
+    </div>
+                    <div class="scrapper_json mt-3">
+                  <nav style="position:relative;">
+      <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+        <!-- <button class="nav-link" id="nav-csv-tab" data-bs-toggle="tab" data-bs-target="#nav-csv" type="button" role="tab" aria-controls="nav-csv" aria-selected="true">CSV/Excel</button> -->
+        <button class="nav-link active" id="nav-json-tab" data-bs-toggle="tab" data-bs-target="#nav-json" type="button" role="tab" aria-controls="nav-json" aria-selected="false">JSON</button>
+        <a class="empty_json" id="empty_json_id" href="javascript:void(0);">Empty Data</a>
+        <a class="hideshowbtn" id="hidescrapper_json" href="javascript:void(0);">Hide</a>
+        <a class="hideshowbtn" id="showscrapper_json" href="javascript:void(0);">show</a>
       </div>
-      
+    </nav>
+
+      <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+      <div class="tab-pane fade" id="nav-csv" role="tabpanel" aria-labelledby="nav-csv-tab">
+        <p></p>
+      </div>
+      <div class="tab-pane fade active show" id="nav-json" role="tabpanel" aria-labelledby="nav-json-tab">
+        <div id="preloader2" class="hidden">
+            <div class="spinner"></div>
+        </div>
+        <p id="json_view_parent">
+          
+        </p>
+      </div>
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="module">
+window.userid = '123abca';
+
+
+const back_btn = document.getElementById("back-btn")
+const forward_btn = document.getElementById("forward-btn")
+const refresh_btn = document.getElementById("refresh-btn")
+const go_btn = document.getElementById("go-btn")
+const go_url = document.getElementById("url")
+const webview = document.getElementById("webview")
+const preloader = document.getElementById("preloader")
+const preloader2 = document.getElementById("preloader2")
+const gotogoogle = document.getElementById("gotogoogle")
+const select_mode = document.getElementById("select_mode")
+let json_view_parent = document.getElementById("json_view_parent")
+let empty_json_id = document.getElementById("empty_json_id")
+let finalurl = '';
+
+const hidescrapper_json = document.getElementById("hidescrapper_json");
+const showscrapper_json = document.getElementById("showscrapper_json");
+
+empty_json_id.addEventListener('click',(event) => {
+        showPreloader2();
+        let formData_json = new FormData();
         
-      </div>
-                    </div>
-                </div>
-                <!--===========  feature-icon-wrapper  End =============-->
-
-                <div class="feature-icon-wrappe section-space--ptb_60">
-                    <div class="container">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="main-tabs">
-          <div class="steps">
-            <div class="step active" data-step="1">Step 1</div>
-            <div class="step" data-step="2">Step 2</div>
-            <div class="step" data-step="3">Step 3</div>
-            <div class="step" data-step="4">Step 4</div>
-            <div class="step" data-step="5">Step 5</div>
-        </div>
-        <div class="content sh-contents">
-            <div class="step-content" data-content="1">
-              <div class="stp-content">
-                <div class="stp-con-inn">
-                  <img src="Screenshot 2024-07-05 000127.png" alt="">
-                </div>
-                <div class="stp-con-inn">
-                  <div class="stp-con-inn-sm">
-                   <h3>Enroll</h3>
-                  <p>Join the Smugglers family by entering your basic information to create an account. This first step opens the door to a suite of powerful tools designed to elevate your business.
-                  </p>
-                  <p class="sm-text">Click on the “Sign Up” button to Enroll and begin the sign-up process.  </p>
-                 <a href="#"  class="btn btn-gradient-primary">Sign Up for Free</a>
-                </div>
-                </div>
-              </div>
-
-               
-            </div>
-            <div class="step-content" data-content="2">
-
-              <div class="stp-content">
-                <div class="stp-con-inn">
-                  <div class="stp-con-inn-sm">
-                    <h3>Setup</h3>
-                    <p>Connect your POS system to our cutting-edge OMS and input your preferences. Whether you do it yourself or with our friendly support team, you’ll be set up in no time. This seamless process ensures you’re ready to start transforming your business operations.                    </p>
-                    <p class="sm-text">Choose between setting up independently, requesting assistance, or scheduling a live demo.                    </p>
-                    <div class="btn-2inn">
-                     <a href="#"  class="btn btn-gradient-primary">Get Started</a>
-                     <a href="#"  class="btn btn-gradient-primary_or">Request a Demo</a>
-                    </div>
-                </div>
-                </div>
-                <div class="stp-con-inn">
-                  <img src="Screenshot 2024-07-05 000127.png" alt="">
-                </div>
-                
-              </div>
-
-            </div>
-            <div class="step-content" data-content="3">
-              <div class="stp-content">
-                <div class="stp-con-inn">
-                  <img src="Screenshot 2024-07-05 000127.png" alt="">
-                </div>
-                <div class="stp-con-inn">
-                  <div class="stp-con-inn-sm">
-                    <h3>Customize</h3>
-                    <p>Now, let’s get personal! We’ll work closely with you to tailor our system to your unique business needs. With a dedicated customer representative, you’ll explore features like inventory management, distributor orders, and customer relationship tools. This phase can last as long as you need, allowing you to refine your preferences and feel confident in using our system to its fullest potential.
-
-
-                    </p>
-                    <p class="sm-text">Schedule a walkthrough call with us to customize your account.
-
-                    </p>
-                    <div class="btn-2inn">
-                     <a href="#"  class="btn btn-gradient-primary">Schedule Call</a>
-                     <a href="#"  class="btn btn-gradient-primary_or">Customize Now</a>
-                    </div>
-                </div>
-                </div>
-              </div>
-            </div>
-            <div class="step-content" data-content="4">
-
-              <div class="stp-content">
-                <div class="stp-con-inn">
-                  <div class="stp-con-inn-sm">
-                    <h3>Advance</h3>
-                    <p>Time to level up! With a deep understanding of your operations, we start offering tailored recommendations that can revolutionize your business. Expect insights on new product launches, operational strategies, and more. Advanced features like strategic pricing, customer engagement enhancements, and comprehensive analytics come into play, guiding you towards peak performance.</p>
-                    <p class="sm-text">Explore recommendations and set up campaigns.
-
-                    </p>
-                    <div class="btn-2inn">
-                     <a href="#"  class="btn btn-gradient-primary">Explore Recommendations</a>
-                     <a href="#"  class="btn btn-gradient-primary_or">Set Up Campaigns</a>
-                    </div>
-                </div>
-                </div>
-                <div class="stp-con-inn">
-                  <img src="Screenshot 2024-07-05 000127.png" alt="">
-                </div>
-                
-              </div>
-
-            </div>
-          
-          
-          <div class="step-content" data-content="5">
-            <div class="stp-content">
-              <div class="stp-con-inn">
-                <img src="Screenshot 2024-07-05 000127.png" alt="">
-              </div>
-              <div class="stp-con-inn">
-                <div class="stp-con-inn-sm">
-                  <h3>Master</h3>
-                  <p>Welcome to the pinnacle of optimization! This final stage unleashes the full power of our system with advanced integrations and automations. Seamlessly manage orders, social media, e-commerce channels, and more, while our system handles the details. Continuous, data-driven recommendations ensure your business thrives effortlessly, giving you the freedom to focus on what you love.                  </p>
-                  <p class="sm-text">Upgrade to master solutions for expanded capabilities.</p>
-                 <a href="#"  class="btn btn-gradient-primary">Upgrade to Master</a>
-              </div>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-        </div>                            
-
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <!--===========  feature-icon-wrapper  End =============-->
-
-                <!--===========  feature-icon-wrapper  Start =============-->
-                <div class="feature-icon-wrapper bg-gray section-space--pb_60">
-                    <div class="container-fluid" style="padding-left: 0px;">
-
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <video class="elementor-video" src="https://sm2.webxcube.com/wp-content/uploads/2024/01/Smartsheet-Integrations-Q2-2022.mp4" autoplay="" loop="" muted="muted" controlslist="nodownload"></video>
-                            </div>
-                            <div class="col-lg-4 section-space--pt_100">
-                                <h5 class="heading">Connect over 300 integrations</h5>
-                                    <p class="mt-3 mb-3">Our software connects with the enterprise tools your organization already uses, right out of the box.</p>
-                                      <a href="#" class="ht-btn ht-btn-md">See all integrations </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--===========  feature-icon-wrapper  End =============-->
-
-                <!--===========  feature-icon-wrapper  Start =============-->
-                <div class="feature-icon-wrapper section-space--ptb_60">
-                    <div class="container">
-
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section-title-wrap text-center section-space--mb_40">
-                                    <h3 class="heading">Pricing</h3>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-      <div class="col-md-4">
-        <div class="price-wrap">
-          <div class="price-inner">
-            <h5>Analysis Plan
-            </h5>
-            <h2><div class="sh-contents-plan"><span class=" free-month"> Start  3 month free</span>  <span class="curn">$</span><span class="over-line"> 49 </span> <span class="time">/Month</span> </div></h2>
-            <div class="list-price-dis">
-              <ul>
-                <li>Tools & Management 
-<div class="contentp" >     <ul>         <li style="list-style-type: none;">             <ol>                 <li>Stock, Sales, Purchases  Deals Management</li>                 <li>Employee Scheduling  Tasks</li>                 <li>Marketing, Surveys and Brand Development</li>                 <li>Website, Delivery, Pick-up, Subscriptions  Events</li>                 <li>Chat, Reporting, Preferences  More</li>             </ol>         </li>     </ul> </div>
-                </li>
-                <li><span class="gry">Recommendations</span>
-                  <div class="contentp" >     <ul class="gry">         <li style="list-style-type: none;">             <ol>                 <li>Pricing and Demand Forecasting</li>                 <li>Tailored Employee Considerations and Team Development</li>                 <li>Targeted Customer Engagement</li>                 <li>Accounting Analysis  Insights</li>             </ol>         </li>     </ul> </div></span>
-                </li>
-                <li>
-                  <span class="gry">Automations Integrations</span>
-                  <div class="contentp">     <ul class="gry">         <li style="list-style-type: none;">             <ol>                 <li>Distributor, Social Media, and E-Commerce Integrations</li>                 <li>Preference-based Tools  Management Automations</li>                 <li>Approved Recommendation follow-through</li>             </ol>         </li>     </ul> </div>
-                </li>
-              </ul>
-            </div>
-           <a href="{{ route('register') }}" >Get Started</a>
-
-            <button class="learn-more">Learn More</button>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="price-wrap">
-          <div class="price-inner">
-            <h5>Insight Plan
-            </h5>
-            <h2><div class="sh-contents-plan"> <span class="curn">$</span><span class="over-lin"> 99 </span> <span class="time">/Month</span> </div></h2>
-            <div class="list-price-dis">
-              <ul>
-                <li>Tools & Management 
-<div class="contentp">     <ul>         <li style="list-style-type: none;">             <ol>                 <li>Stock, Sales, Purchases  Deals Management</li>                 <li>Employee Scheduling  Tasks</li>                 <li>Marketing, Surveys and Brand Development</li>                 <li>Website, Delivery, Pick-up, Subscriptions  Events</li>                 <li>Chat, Reporting, Preferences  More</li>             </ol>         </li>     </ul> </div>
-                </li>
-                <li><span class="">Recommendations</span>
-                  <div class="contentp">     <ul class="">         <li style="list-style-type: none;">             <ol>                 <li>Pricing and Demand Forecasting</li>                 <li>Tailored Employee Considerations and Team Development</li>                 <li>Targeted Customer Engagement</li>                 <li>Accounting Analysis  Insights</li>             </ol>         </li>     </ul> </div></span>
-                </li>
-                <li>
-                  <span class="gry">Automations Integrations</span>
-                  <div class="contentp">     <ul class="gry">         <li style="list-style-type: none;">             <ol>                 <li>Distributor, Social Media, and E-Commerce Integrations</li>                 <li>Preference-based Tools  Management Automations</li>                 <li>Approved Recommendation follow-through</li>             </ol>         </li>     </ul> </div>
-                </li>
-              </ul>
-            </div>
-           <a href="{{ route('register') }}" >Get Started</a>
-
-            <button class="learn-more">Learn More</button>
-           
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="price-wrap">
-          <div class="price-inner">
-            <h5>
-              Automation Plan
-
-            </h5>
-            <h2><div class="sh-contents-plan"> <span class="curn">$</span><span class="over-lin"> 199 </span> <span class="time">/Month</span> </div></h2>
-            <div class="list-price-dis">
-              <ul>
-                <li>Tools & Management 
-<div class="contentp">     <ul>         <li style="list-style-type: none;">             <ol>                 <li>Stock, Sales, Purchases  Deals Management</li>                 <li>Employee Scheduling  Tasks</li>                 <li>Marketing, Surveys and Brand Development</li>                 <li>Website, Delivery, Pick-up, Subscriptions  Events</li>                 <li>Chat, Reporting, Preferences  More</li>             </ol>         </li>     </ul> </div>
-                </li>
-                <li><span class="">Recommendations</span>
-                  <div class="contentp">     <ul class="">         <li style="list-style-type: none;">             <ol>                 <li>Pricing and Demand Forecasting</li>                 <li>Tailored Employee Considerations and Team Development</li>                 <li>Targeted Customer Engagement</li>                 <li>Accounting Analysis  Insights</li>             </ol>         </li>     </ul> </div></span>
-                </li>
-                <li>
-                  <span class="">Automations Integrations</span>
-                  <div class="contentp">     <ul class="">         <li style="list-style-type: none;">             <ol>                 <li>Distributor, Social Media, and E-Commerce Integrations</li>                 <li>Preference-based Tools  Management Automations</li>                 <li>Approved Recommendation follow-through</li>             </ol>         </li>     </ul> </div>
-                </li>
-              </ul>
-            </div>
-           <a href="{{ route('register') }}" >Get Started</a>
-
-            <button class="learn-more">Learn More</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-                    </div>
-                </div>
-                <!--===========  feature-icon-wrapper  End =============-->
-
-                <!--===========  rev_redraw-wrapper  Start =============-->
-                <div class="rev_redraw-wrapper ">
-                    <div class="rev_redraw-inner-box  bg-gray-2  section-space--mt_40 rev_redraw-space">
-                        <!-- start Circle Menu -->
-
-<div id="uc_ue_circle_menu_elementor_b433c4f" class="" data-show-tip="false">
-<div class="ue-ciclegraph">
-  <h5 class="heading">Welcome!</h5>  <p>Choose a Metric To Explore</p>  
-  <div class="uc-items-wrapper">
-    <a class="ue-circle elementor-repeater-item-1af21e7 sl-1" title="Inventory Margins  6%" href="#" id="uc_ue_circle_menu_elementor_b433c4f_item1" style="transform: rotate(306deg) translate(271px) rotate(-306deg);">
-  <div class="ue-circle-content">
-        <div class="ue-circle-title">Inventory Margins  6%</div>  </div>  
-</a>
-<a class="ue-circle elementor-repeater-item-9b39ca1 sl-2" title="Customer Retention  27%" href="#" id="uc_ue_circle_menu_elementor_b433c4f_item2" style="transform: rotate(342deg) translate(271px) rotate(-342deg);">
-  <div class="ue-circle-content">
-        <div class="ue-circle-title">Customer Retention  27%</div>  </div>  
-</a>
-<a class="ue-circle elementor-repeater-item-2e4be9a sl-3" title="Time savings  15 brs/wk" href="#" id="uc_ue_circle_menu_elementor_b433c4f_item3" style="transform: rotate(378deg) translate(271px) rotate(-378deg);">
-  <div class="ue-circle-content">
-        <div class="ue-circle-title">Time savings  15 brs/wk</div>  </div>  
-</a>
-<a class="ue-circle elementor-repeater-item-a7d806d sl-4" title="Marketing Campaigns  +31%" href="#" id="uc_ue_circle_menu_elementor_b433c4f_item4" style="transform: rotate(414deg) translate(271px) rotate(-414deg);">
-  <div class="ue-circle-content">
-        <div class="ue-circle-title">Marketing Campaigns  +31%</div>  </div>  
-</a>
-<a class="ue-circle elementor-repeater-item-9cfaa32 sl-5" title="Regulatory Compliance  99%" href="#" id="uc_ue_circle_menu_elementor_b433c4f_item5" style="transform: rotate(450deg) translate(271px) rotate(-450deg);">
-  <div class="ue-circle-content">
-        <div class="ue-circle-title">Regulatory Compliance  &lt;99%</div>  </div>  
-</a>
-<a class="ue-circle elementor-repeater-item-8e6149e sl-6" title="Product Shrinkage  -41%" href="#" id="uc_ue_circle_menu_elementor_b433c4f_item6" style="transform: rotate(486deg) translate(271px) rotate(-486deg);">
-  <div class="ue-circle-content">
-        <div class="ue-circle-title">Product Shrinkage  -41%</div>  </div>  
-</a>
-<a class="ue-circle elementor-repeater-item-851c2bb sl-7" title="Customer satisfaction  +17%" href="#" id="uc_ue_circle_menu_elementor_b433c4f_item7" style="transform: rotate(522deg) translate(271px) rotate(-522deg);">
-  <div class="ue-circle-content">
-        <div class="ue-circle-title">Customer satisfaction  +17%</div>  </div>  
-</a>
-<a class="ue-circle elementor-repeater-item-fa6e22b sl-8" title="Adoption Rate  95%" href="#" id="uc_ue_circle_menu_elementor_b433c4f_item8" style="transform: rotate(558deg) translate(271px) rotate(-558deg);">
-  <div class="ue-circle-content">
-        <div class="ue-circle-title">Adoption Rate  &gt;95%</div>  </div>  
-</a>
-<a class="ue-circle elementor-repeater-item-486e0d7 sl-9" title="Sales Revenue +4%" href="#" id="uc_ue_circle_menu_elementor_b433c4f_item9" style="transform: rotate(594deg) translate(271px) rotate(-594deg);">
-  <div class="ue-circle-content">
-        <div class="ue-circle-title">Inventory Turnover +13%</div>  </div>  
-</a>
-<a class="ue-circle elementor-repeater-item-d22a1fa sl-10" title="Sales Revenue +4%" href="#" id="uc_ue_circle_menu_elementor_b433c4f_item10" style="transform: rotate(630deg) translate(271px) rotate(-630deg);">
-  <div class="ue-circle-content">
-        <div class="ue-circle-title">Sales Revenue +4%</div>  </div>  
-</a>
-
-  </div>
-  
-</div>
-</div>
-<!-- end Circle Menu -->
-                    </div>
-                </div>
-                <!--===========  rev_redraw-wrapper  End =============-->
-            </div>
-        </div>
-
-
-
-
-        <!--====================  footer area ====================-->
-        <div class="footer-area-wrapper" style="background-color:#cc9249;">
-            <div class="footer-copyright-area" style="padding:10px;">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-12 text-center text-md-start">
-                            <p class="copyright-ptext" style="text-align: center;
-    color: white;
-    font-size: 20px;">Copyright © 2024 Smugglerish</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--====================  End of footer area  ====================-->
-
-
-
-
-
-
-
-
-
-    </div>
-    <!--====================  scroll top ====================-->
-    <a href="#" class="scroll-top" id="scroll-top">
-        <i class="arrow-top fas fa-chevron-up"></i>
-        <i class="arrow-bottom fas fa-chevron-up"></i>
-    </a>
-    <!--====================  End of scroll top  ====================-->
-
-    <!--====================  mobile menu overlay ====================-->
-    <div class="mobile-menu-overlay" id="mobile-menu-overlay">
-        <div class="mobile-menu-overlay__inner">
-            <div class="mobile-menu-overlay__header">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <div class="col-md-6 col-8">
-                            <!-- logo -->
-                            <div class="logo">
-                                <a href="index.html">
-                                    <img src="logo.png" class="img-fluid" alt="Smuggler" style="max-width: 90px;">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-4">
-                            <!-- mobile menu content -->
-                            <div class="mobile-menu-content text-end">
-                                <span class="mobile-navigation-close-icon" id="mobile-menu-close-trigger"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mobile-menu-overlay__body">
-                <nav class="offcanvas-navigation">
-                    <ul>
-                        <li class="">
-                            <a href="{{ url('home') }}">Home</a></li>
-                            <li class="">
-                            <a href="{{ route('login') }}">Log in</a></li>
-                            <li class="">
-                                                         <a href="{{ route('register') }}" class="btn btn-gradient-primary custom_header_btn">Try smugglers for free</a>
-                                                        </li>
-                                </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
-    <!--====================  End of mobile menu overlay  ====================-->
-
-
-
-
-
-
-
-    <!--====================  search overlay ====================-->
-    <div class="search-overlay" id="search-overlay">
-
-        <div class="search-overlay__header">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-md-6 ms-auto col-4">
-                        <!-- search content -->
-                        <div class="search-content text-end">
-                            <span class="mobile-navigation-close-icon" id="search-close-trigger"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="search-overlay__inner">
-            <div class="search-overlay__body">
-                <div class="search-overlay__form">
-                    <form action="#">
-                        <input type="text" placeholder="Search">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--====================  End of search overlay  ====================-->
-
-
-
-
-
-
-
-
-    <!-- JS
-    ============================================ -->
-    <!-- Modernizer JS -->
-    <script src="{{ asset('assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
-
-    <!-- jQuery JS -->
-    <script src="{{ asset('assets/js/vendor/jquery-3.5.1.min.js') }}"></script>
-    <script src="{{ asset('assets/js/vendor/jquery-migrate-3.3.0.min.js') }}"></script>
-
-    <!-- Bootstrap JS -->
-    <script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}"></script>
-
-    <!-- Plugins JS (Please remove the comment from below plugins.min.js for better website load performance and remove plugin js files from avobe) -->
-
-    <script src="{{ asset('assets/js/plugins/plugins.min.js') }}"></script>
-
-    <!-- Main JS -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-
-
-<script type="text/javascript">
-    $(document).ready(function() {
-  // Stop carousel on hover
-  $(".marquee").hover(
-    function() {
-      $(".marquee-content").css("animation-play-state", "paused");
-    },
-    function() {
-      $(".marquee-content").css("animation-play-state", "running");
-    }
-  );
-
-  // Open image in lightbox on click
-  $(".marquee-item img").click(function() {
-    var imageUrl = $(this).attr("src");
-    $(".popup-content").attr("src", imageUrl);
-    $(".popup").css("display", "flex");
-  });
-
-  // Close popup
-  $(".close").click(function() {
-    $(".popup").css("display", "none");
-  });
+        // Append the key, value, and url to the FormData object
+        formData_json.append('key', window.userid);
+        formData_json.append('value', '[]');
+        formData_json.append('url', go_url.value);
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        // Make the AJAX call
+        $.ajax({
+            url: 'https://scrapper.webxcube.com/api/save-data',
+            type: 'POST',
+            data: formData_json,
+            processData: false,
+            contentType: false,
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                webview.src = go_url.value;
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + error);
+            }
+        });
+})
+hidescrapper_json.addEventListener('click',(event) => {
+    event.preventDefault();
+    hidescrapper_json.style.display = 'none';
+    showscrapper_json.style.display = 'block';
+    document.querySelector('.scrapper_json').style.height = '5vh';
+    document.getElementById('browser').style.height = '89vh';
+    document.getElementById('nav-tabContent').style.height = '0';
+    document.getElementById('nav-tabContent').classList.remove('p-3');
+})
+showscrapper_json.addEventListener('click',(event) => {
+    event.preventDefault();
+    showscrapper_json.style.display = 'none';
+    hidescrapper_json.style.display = 'block';
+    document.querySelector('.scrapper_json').style.height = '30vh';
+    document.getElementById('browser').style.height = '65vh';
+    document.getElementById('nav-tabContent').style.height = '165px';
+    document.getElementById('nav-tabContent').classList.add('p-3');
+})
+
+function showPreloader() {
+    preloader.classList.remove('hidden');
+}
+
+function hidePreloader() {
+    preloader.classList.add('hidden');
+}
+
+function showPreloader2() {
+    preloader2.classList.remove('hidden');
+}
+
+function hidePreloader2() {
+    preloader2.classList.add('hidden');
+}
+
+
+function selectAllText() {
+    go_url.select();
+}
+
+
+go_url.addEventListener('click',(event) => {
+selectAllText()
+})
+
+go_url.addEventListener('focus',(event) => {
+selectAllText()
+})
+
+
+go_url.addEventListener('keydown',(event) => {
+if(event.key == "Enter"){
+    event.preventDefault();
+    handleUrl();
+}
+})
+
+go_btn.addEventListener('click',(event) => {
+    event.preventDefault();
+    handleUrl();
+})
+
+back_btn.addEventListener('click',(event) => {
+    webview.goBack();
+})
+forward_btn.addEventListener('click',(event) => {
+    webview.goForward();
+})
+refresh_btn.addEventListener('click',(event) => {
+webview.reload();
+})
+
+gotogoogle.addEventListener('click',(event) => {
+webview.src = "https://google.com";
+})
+
+webview.addEventListener('did-navigate', (event) => {
+finalurl = event.url;
+go_url.value = finalurl
+})
+
+webview.addEventListener('did-start-loading', () => {
+        showPreloader();
 });
 
+webview.addEventListener('did-stop-loading', () => {
+        hidePreloader();
+});
 
-    $(document).ready(function() {
-    $('.step').on('click', function() {
-        var step = $(this).data('step');
-        
-        $('.step').removeClass('active');
-        $(this).addClass('active');
-        
-        $('.step-content').removeClass('active');
-        $('.step-content[data-content="' + step + '"]').addClass('active');
-    });
- 
-    $('.next-btn').on('click', function() {
-        var activeStep = $('.step.active').data('step');
-        var nextStep = activeStep + 1;
+function handleUrl() {
+    let inputUrl = go_url.value.trim(); // Trim whitespace from input
 
-        if (nextStep <= 5) {
-            $('.step').removeClass('active');
-            $('.step[data-step="' + nextStep + '"]').addClass('active');
-
-            $('.step-content').removeClass('active');
-            $('.step-content[data-content="' + nextStep + '"]').addClass('active');
+    // Check if input is a valid URL
+    if (isValidUrl(inputUrl)) {
+        finalurl = inputUrl;
+        if(finalurl.startsWith("http://") || finalurl.startsWith("https://")){
+        webview.src = finalurl;
         }
-    });
+        else{
+        webview.src = 'https://' + finalurl; // Load the URL in the webview
+        }
+    } 
+    else if(inputUrl.startsWith("http://") || inputUrl.startsWith("https://")){
+        finalurl = inputUrl;
+        webview.src = finalurl;
+    }
+     else {
+        // If input is not a valid URL, search Google with the input as query
+        webview.src = `https://www.google.com/search?q=${encodeURIComponent(inputUrl)}`;
+    }
+}
 
-    // Initialize first step as active
-    $('.step[data-step="1"]').addClass('active');
-    $('.step-content[data-content="1"]').addClass('active');
-});
 
-    $(document).ready(function(){
-  $(".learn-more").click(function(){
-    $(".contentp").slideToggle();
-    $(".learn-more").text(function(i, text){
-      return text === "Learn More" ? "Show Less" : "Learn More";
-    });
-  });
-});
+function isValidUrl(url) {
+    // Regular expression to validate URL format
+    const urlRegex = /^(?:https?:\/\/)?(?:www\.)?[\w.-]+(?:\.[a-zA-Z]{2,})+(?:\/[\w.-]*)*\/?$/;
+    return urlRegex.test(url);
+}
 
-    $(document).ready(function(){
-  $(".learn-more2").click(function(){
-    $(".contentp2").slideToggle();
-    $(this).text(function(i, text){
-      return text === "Learn More" ? "Show Less" : "Learn More";
-    });
-  });
-});
+window.addEventListener('beforeunload', function(e) {
+    console.log(go_url.value);
+    localStorage.setItem('url', go_url.value);
+        });
 
-    $(document).ready(function(){
-  $(".learn-more2").click(function(){
-    $(".contentp3").slideToggle();
-    $(this).text(function(i, text){
-      return text === "Learn More" ? "Show Less" : "Learn More";
+ function handleCheckboxChange(event) {
+            if (event.target.checked) {
+                localStorage.setItem('checkbox', 'yes');
+            } else {
+                localStorage.setItem('checkbox', 'not');
+            }
+            location.reload(true);
+        }
+
+document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function(){
+            fetchDataToDatabse();
+        },2000)
+          const checkbox = document.getElementById('personalize');
+            checkbox.addEventListener('change', handleCheckboxChange);
+            
+            let store_checkbox_status = localStorage.getItem('checkbox');
+            if (store_checkbox_status === 'yes') {
+                window.browser_toggle = 'yes';
+                checkbox.checked = true;
+                select_mode.style.display = 'block';
+                document.getElementById('browser').classList.add('shadow');
+            } else {
+                window.browser_toggle = 'not';
+                checkbox.checked = false;
+                select_mode.style.display = 'none';
+                document.getElementById('browser').classList.remove('shadow');
+            }
+            
+            // Get the stored URL value from localStorage
+            let storedUrl = localStorage.getItem('url');
+            // alert(storedUrl)
+            if (storedUrl) {
+                // Set the value of the input field
+                setTimeout(function(){
+                document.getElementById('url').value = storedUrl;
+                webview.src = storedUrl;
+                // Remove the stored URL from localStorage
+                localStorage.removeItem('url');
+                },1000)
+            }
+            else{
+                webview.src = "https://google.com";
+            }
+        })
+
+function addWebviewEventListener_a() {
+    webview.addEventListener('dom-ready', () => {
+        webview.executeJavaScript(`
+            document.body.addEventListener('click', event => {
+                let target = event.target;
+                let tagName = target.tagName.toLowerCase();
+                if (tagName === 'a') {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    let href = target.getAttribute('href');
+                    location.href = href;
+                }
+                if (tagName === 'img') {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    let parentA = target.closest('a');
+                    if (parentA) {
+                    let href = parentA.getAttribute('href');
+                    if (href) {
+                    location.href = href;
+                    }
+                    }
+                }
+            });
+        `);
     });
-  });
-});
+}
+
+
+function syntaxHighlight(json) {
+    json = JSON.stringify(json, undefined, 2); // Pretty-print JSON with 2-space indentation
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:\s*)?|true|false|null|[0-9]+)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
+function fetchDataToDatabse() {
+        let formData2 = new FormData();
+        
+        // Append the key, value, and url to the FormData object
+        formData2.append('userid', window.userid);
+        formData2.append('url', document.getElementById('url').value);
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        // Make the AJAX call
+        $.ajax({
+            url: 'https://scrapper.webxcube.com/api/retrieve-data',
+            type: 'POST',
+            data: formData2,
+            processData: false,
+            contentType: false,
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                if(data.message == 'No data found'){
+                    json_view_parent.innerHTML = 'No Scrapping Data';
+                    empty_json_id.style.display = 'none';
+                }
+                else if(data == ''){
+                    json_view_parent.innerHTML = 'No Scrapping Data';
+                    empty_json_id.style.display = 'none';
+                }
+                else{
+                json_view_parent.innerHTML = syntaxHighlight(data);
+                empty_json_id.style.display = 'block';
+                }
+                hidePreloader2();
+                        },
+            error: function(xhr, status, error) {
+                alert('Error: ' + error);
+            }
+        });
+        }
+
+setInterval(function(){
+fetchDataToDatabse()
+},5000)
+
+function addWebviewEventListener() {
+webview.addEventListener('dom-ready', () => {
+       webview.executeJavaScript(`
+        window.userid = '${window.userid}';
+        const style = document.createElement('style');
+        style.innerHTML = \`
+          .highlight {
+            border: 2px solid #29b729 !important;
+            overflow:visible;
+          }
+          .parent_highlight{
+              overflow:visible !important;
+          }
+          .all_highlight{
+            border: 2px solid #29b729 !important;
+          }
+          .tag-name {
+              z-index:9999;
+            background: #29b729;
+            color:black;
+            font-size: 12px;
+            padding: 2px;
+            min-width:30px;
+            height:20px;
+            line-height:1;
+            }
+            #preloader_scraper_oms {
+                position: fixed;
+                top: 0; /* Adjust according to your controls height */
+                left: 0;
+                width: 100%;
+                height:100%; /* Adjust according to your controls height */
+                background-color: rgba(255, 255, 255, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10;
+            }
+
+            .hidden_scraper_oms {
+                display: none !important;
+            }
+
+            .spinner_scraper_oms {
+                border: 4px solid #ffc107;
+                border-top: 4px solid #000;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                animation: spin_scraper_oms 1s linear infinite;
+            }
+
+            @keyframes spin_scraper_oms {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        \`;
+        document.head.appendChild(style);
+        const spiner_scraper_oms = document.createElement('div');
+        spiner_scraper_oms.innerHTML = \`
+            <div id="preloader_scraper_oms" class="hidden_scraper_oms">
+            <span>Please wait </span>
+            <div class="spinner_scraper_oms"></div>
+            </div>
+          \`;
+        document.body.appendChild(spiner_scraper_oms);
+
+        var script_1 = document.createElement('script');
+        script_1.src = "https://code.jquery.com/jquery-3.6.0.min.js";
+        document.head.appendChild(script_1);
+        let preloader_scraper_oms = document.getElementById('preloader_scraper_oms');
+        function showPreloader_scrapper_oms() {
+            preloader_scraper_oms.classList.remove('hidden_scraper_oms');
+        }
+
+        function hidePreloader_scrapper_oms() {
+            preloader_scraper_oms.classList.add('hidden_scraper_oms');
+        }
+        function saveDataToDatabse(key, value, url) {
+        showPreloader_scrapper_oms();
+        let formData = new FormData();
+        
+        // Append the key, value, and url to the FormData object
+        formData.append('key', key);
+        formData.append('value', JSON.stringify(value));
+        formData.append('url', url);
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        // Make the AJAX call
+        $.ajax({
+            url: 'https://scrapper.webxcube.com/api/save-data',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                setTimeout(function(){
+                hidePreloader_scrapper_oms();
+                },3000)
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + error);
+            }
+        });
+        }
+
+        function fetchDataToDatabse2() {
+                let formData3 = new FormData();
+                
+                // Append the key, value, and url to the FormData object
+                formData3.append('userid', window.userid);
+                formData3.append('url', location.href);
+                $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+                });
+                // Make the AJAX call
+                $.ajax({
+                    url: 'https://scrapper.webxcube.com/api/retrieve-data',
+                    type: 'POST',
+                    data: formData3,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.message == 'No data found'){
+                        window.myData_scraper = [];
+                        }
+                        else{
+                        window.myData_scraper = data;
+                        }
+
+                                },
+                    error: function(xhr, status, error) {
+                        alert('Error: ' + error);
+                    }
+                });
+                }
+        fetchDataToDatabse2();
+        
+        
+         document.body.addEventListener('mouseover', event => {
+          let target = event.target;
+          const allowedTags = ['p', 'img', 'h1', 'h2', 'h3', 'h4' , 'h5', 'h6', 'td', 'th', 'span', 'a', 'div', 'code', 'b'];
+
+          if(window.click_tag == 'yes'){
+            return;
+          }
+            // Only highlight if the target is one of the allowed tags
+            if (!allowedTags.includes(target.tagName.toLowerCase())) {
+                return;
+            }
+            
+              if (target.tagName.toLowerCase() !== 'img' && target.innerText.trim() === '') {
+            return;
+            }
+            if (target.tagName.toLowerCase() !== 'img') {
+        const hasDirectText = Array.from(target.childNodes).some(node => node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '');
+        if (!hasDirectText) {
+            return;
+        }
+        }
+
+         
+    if (target.tagName.toLowerCase() === 'img') {
+        // Create a new parent div and wrap the img element
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('highlight');
+        target.parentNode.insertBefore(wrapper, target);
+        wrapper.appendChild(target);
+
+        // Add span with tag name to the new parent div
+        const tagNameSpan = document.createElement('span');
+        tagNameSpan.classList.add('tag-name');
+        tagNameSpan.innerText = target.tagName.toLowerCase();
+        wrapper.appendChild(tagNameSpan);
+    } else {
+        target.classList.add('highlight');
+        const tagNameSpan = document.createElement('span');
+        tagNameSpan.classList.add('tag-name');
+        tagNameSpan.innerText = target.tagName.toLowerCase();
+        target.appendChild(tagNameSpan);
+    }
+    target.parentElement.classList.add('parent_highlight')
+         });
+
+        document.body.addEventListener('mouseout', event => {
+          let target = event.target;
+            if(window.click_tag == 'yes'){
+            return;
+          }
+    if (target.tagName.toLowerCase() === 'img') {
+        // Remove the highlight class and unwrap the img element
+        const wrapper = target.parentElement;
+        if (wrapper && wrapper.classList.contains('highlight')) {
+            wrapper.classList.remove('highlight');
+            const tagNameSpan = wrapper.querySelector('.tag-name');
+            if (tagNameSpan) {
+                tagNameSpan.remove();
+            }
+
+            // Unwrap the img element
+            wrapper.parentNode.insertBefore(target, wrapper);
+            wrapper.remove();
+        }
+    }else {
+        target.classList.remove('highlight');
+        const tagNameSpan = target.querySelector('.tag-name');
+        if (tagNameSpan) {
+            tagNameSpan.remove();
+        }
+    }
+     target.parentElement.classList.remove('parent_highlight')
+        });
+
+        document.body.addEventListener('click', event => {
+          event.preventDefault();
+          event.stopPropagation();
+          if(window.click_tag == 'yes'){
+            return;
+          }
+          let target = event.target;
+          let tagName = target.tagName.toLowerCase();
+
+          const allowedTags = ['p', 'img', 'h1', 'h2', 'h3', 'h4' , 'h5', 'h6', 'td', 'th', 'span', 'a', 'div', 'code', 'b'];
+
+            // Only highlight if the target is one of the allowed tags
+            if (!allowedTags.includes(target.tagName.toLowerCase())) {
+                return;
+            }
+              if (target.tagName.toLowerCase() !== 'img' && target.innerText.trim() === '') {
+            return;
+            }
+            if (target.tagName.toLowerCase() === 'div') {
+        const hasDirectText = Array.from(target.childNodes).some(node => node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '');
+        if (!hasDirectText) {
+            return;
+        }
+        }
+
+        if (target.tagName.toLowerCase() === 'img') {
+        target = target.parentElement;
+        }
+        else{
+         target = target;   
+        }
+           // Create Yes and No buttons if they don't already exist
+          window.click_tag = 'yes';
+            if (!target.querySelector('.yes-btn') && !target.querySelector('.no-btn')) {
+                const yesbtn = document.createElement('span');
+                yesbtn.classList.add('yes-btn');
+                yesbtn.innerText = '✔️';
+                yesbtn.style.marginLeft = '10px';
+                yesbtn.style.cursor = 'pointer';
+                target.appendChild(yesbtn);
+
+                const nobtn = document.createElement('span');
+                nobtn.classList.add('no-btn');
+                nobtn.innerText = '❎';
+                nobtn.style.marginLeft = '10px';
+                nobtn.style.cursor = 'pointer';
+                target.appendChild(nobtn);
+                
+                const allbtn = document.createElement('span');
+                allbtn.classList.add('all-btn');
+                allbtn.innerText = '🔄';
+                allbtn.style.marginLeft = '10px';
+                allbtn.style.cursor = 'pointer';
+                target.appendChild(allbtn);
+                
+                // Handle Yes button click
+                yesbtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.click_tag = 'no';
+
+                    removeButtonsAndBorder_yes(target,tagName);
+
+                });
+
+                // Handle No button click
+                nobtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.click_tag = 'no';
+                    removeButtonsAndBorder_no(target);
+
+                });
+                
+                 // Handle All button click
+                allbtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    applyBorderToAllSimilarElements(target,tagName);
+                });
+        
+            }
+        })
+
+    function removeButtonsAndBorder_no(target) {
+    // Remove the Yes and No buttons if they exist
+    target.classList.remove('highlight');
+    const tagNameSpan = target.querySelector('.tag-name');
+        if (tagNameSpan) {
+            tagNameSpan.remove();
+        }
+    const yesbtn = target.querySelector('.yes-btn');
+    const nobtn = target.querySelector('.no-btn');
+    const allbtn = target.querySelector('.all-btn');
+    if (allbtn) allbtn.remove();
+    if (yesbtn) yesbtn.remove();
+    if (nobtn) nobtn.remove();
+    }
+
+    function removeButtonsAndBorder_yes(target,tagName_get) {
+    // Remove the Yes and No buttons if they exist
+    target.classList.remove('highlight');
+    const tagNameSpan = target.querySelector('.tag-name');
+        if (tagNameSpan) {
+            tagNameSpan.remove();
+        }
+    const yesbtn = target.querySelector('.yes-btn');
+    const nobtn = target.querySelector('.no-btn');
+    const allbtn = target.querySelector('.all-btn');
+    if (allbtn) allbtn.remove();
+    if (yesbtn) yesbtn.remove();
+    if (nobtn) nobtn.remove();
+    if(tagName_get == 'img'){
+    window.myData_scraper.push({
+        [tagName_get]: target.querySelector('img').getAttribute('src'),
+    });
+    }
+    else{
+    window.myData_scraper.push({
+        [target.tagName.toLowerCase()]: target.innerText,
+    });
+    }
+     saveDataToDatabse(window.userid,window.myData_scraper,location.href);
+    }
+    
+    
+    function removeButtonsAndBorder(target) {
+    // Remove the Yes and No buttons if they exist
+    target.classList.remove('highlight');
+    const tagNameSpan = target.querySelector('.tag-name');
+        if (tagNameSpan) {
+            tagNameSpan.remove();
+        }
+    const yesbtn = target.querySelector('.yes-btn');
+    const nobtn = target.querySelector('.no-btn');
+    const allbtn = target.querySelector('.all-btn');
+    if (allbtn) allbtn.remove();
+    if (yesbtn) yesbtn.remove();
+    if (nobtn) nobtn.remove();
+    }
+
+    
+    function applyBorderToAllSimilarElements(target,tagName_get) {
+    const tagNameSpan = target.querySelector('.tag-name');
+        if (tagNameSpan) {
+            tagNameSpan.remove();
+        }
+    const yesbtn = target.querySelector('.yes-btn');
+    const nobtn = target.querySelector('.no-btn');
+    const allbtn = target.querySelector('.all-btn');
+    if (allbtn) allbtn.remove();
+    if (yesbtn) yesbtn.remove();
+    if (nobtn) nobtn.remove();
+    const tagName = target.tagName.toLowerCase();
+    target.classList.remove('highlight');
+    let className = target.className.split(' ').filter(Boolean).map(cls => \`.\${cls}\`\).join(' ');
+    className = target.className.split(' ');
+    className = className.filter(cls => cls !== 'highlight');
+    let classSelector = '';
+    if (tagName_get === 'img') {
+      classSelector = className.length > 0 ? '.' + className.join('.') : '';
+    }
+    else{
+      classSelector = className.length > 1 ? '.' + className.join('.') : '';  
+    }   
+      let selector = tagName + classSelector;
+      let checkimgselect = 'no';
+      
+      if (selector === 'div.parent_highlight') {
+        const imgTarget = target.querySelector('img');
+        let imgClassName = imgTarget.className.split(' ').filter(Boolean).map(cls => \`.\${cls}\`\).join(' ');
+        imgClassName = imgTarget.className.split(' ');
+        
+        const classSelectorimg = imgClassName.length > 0 ? '.' + imgClassName.join('.') : '';
+        selector = imgTarget.tagName.toLowerCase();
+        checkimgselect = 'yes';
+        target.classList.remove('highlight');
+            }
+    if (target.closest('table')) {
+        const transformData = (table) => {
+        const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText.trim());
+        const rows = Array.from(table.querySelectorAll('tr')).slice(1).map(tr => {
+            const cells = Array.from(tr.querySelectorAll('td')).map(td => {
+                const img = td.querySelector('img');
+                return img ? img.src : td.innerText.trim();
+            });
+            const rowData = {};
+            headers.forEach((header, index) => {
+                rowData[header] = cells[index];
+            });
+            return rowData;
+        });
+        return rows;
+        };
+        const tableTarget = target.closest('table');
+        tableTarget.classList.add('all_highlight');
+        tableTarget.querySelectorAll('th, td').forEach(element => {
+            element.classList.add('all_highlight');
+        });
+        window.myData_scraper = transformData(tableTarget);
+        saveDataToDatabse(window.userid,window.myData_scraper,location.href);
+        setTimeout(function(){
+            tableTarget.classList.remove('all_highlight');
+            target.classList.remove('highlight');
+        tableTarget.querySelectorAll('th, td').forEach(element => {
+        element.classList.remove('all_highlight');
+      });
+      window.click_tag = 'no';
+      },5000)
+        }
+        else{
+     const similarElements = document.querySelectorAll(selector);
+      similarElements.forEach(element => {
+        if(checkimgselect == 'no'){
+        if (element.innerText.trim() === '') {
+            return;
+            }
+            const hasDirectText = Array.from(element.childNodes).some(node => node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '');
+        if (!hasDirectText) {
+            return;
+        }
+        }
+        element.classList.add('all_highlight');
+        if(tagName_get == 'img'){
+        window.myData_scraper.push({
+            [tagName_get]: element.getAttribute('src'),
+        });
+        }
+        else{
+        window.myData_scraper.push({
+            [element.tagName.toLowerCase()]: element.innerText,
+        });
+        }
+      });
+      saveDataToDatabse(window.userid,window.myData_scraper,location.href);
+      setTimeout(function(){
+            target.classList.remove('highlight');
+        similarElements.forEach(element => {
+        element.classList.remove('all_highlight');
+      });
+      window.click_tag = 'no';
+      },5000)
+        }
+}
+      `);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+if(window.browser_toggle == 'yes'){
+    addWebviewEventListener();
+}
+else{
+    addWebviewEventListener_a();
+}
+})
+
+    
 </script>
-<!-- Mirrored from htmldemo.net/mitech/index-cybersecurity.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 16 Jul 2023 20:59:07 GMT -->
-</html>
 @endsection
 

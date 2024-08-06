@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegisterStoreController;
+use App\Http\Controllers\ScraperController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,12 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
+Route::get('/ifram', function () {
+    return view('iframe');
+});
+
 Route::get('/home', [HomeController::class,'index']);
+Route::get('/scrape', [ScraperController::class,'index']);
 Route::post('/registerstore', [RegisterStoreController::class, 'registerstore']);
 Auth::routes([]);
 

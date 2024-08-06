@@ -33,7 +33,7 @@ class RegisterController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
 
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/home';
     // 'admin' => '/admin',
     // 'user' => '/home',
    public function redirectTo()
@@ -41,7 +41,7 @@ class RegisterController extends Controller
         //$rollen = Auth()->user();
         $redirects = [
     'admin' => '/admin',
-    'user' => '/dashboard',
+    'user' => '/home',
         ];
 
         $roles = Auth()->user()->roles->map->name;

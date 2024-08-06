@@ -22,8 +22,10 @@ class User extends Authenticatable
         'lname',
         'email',
         'password',
-        'username',
-        'storelic',
+        'phone',
+        'qualifications',
+        'practice_name',
+        'title',
     ];
 
     /**

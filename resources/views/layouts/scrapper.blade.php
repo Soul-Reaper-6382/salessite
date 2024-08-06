@@ -6,7 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/png" href="{{ url('favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     <title>Smugglers OMS Scrapper</title>
 
     <!-- Fonts -->
@@ -25,34 +25,6 @@
 </head>
 <body>
     <div id="app">
-        <div id="header">
-        <div class="container-fluid p-0">
-            <nav class="navbar navbar-expand-lg navbar-light bg-white">
-                <a class="navbar-brand d-block d-lg-none" href="{{ url('/') }}">
-                    <img src="{{ url('/images/logo.png') }}" alt="logo" style="width: 100px;">
-                </a>
-                <button class="navbar-toggler navbar_toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav leftnav">
-                  
-                    </ul>
-                    <a class="navbar-brand d-none d-lg-block" href="{{ url('/') }}">
-                    <img src="{{ url('/images/logo.png') }}" alt="logo" style="width: 100px;">
-                </a>
-                    <ul class="navbar-nav rightnav">
-                        
-                        <li class="navbar-nav">
-                            <a class="nav-link" href="{{ route('login') }}">Log in</a>
-                            <a class="nav-link" href="{{ route('register') }}">Sign up</a>
-
-                            </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
 
         
 
