@@ -19,7 +19,13 @@ use App\Http\Controllers\Auth\RegisterController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/clear_all', function(){
+            Artisan::call('cache:clear');
+            Artisan::call('config:clear');
+            Artisan::call('route:clear');
+            Artisan::call('view:clear');
+                    return response()->json(['message' => 'Application cleared']);
+});
 Route::group(['middleware'=>['auth','roles:admin']],function(){ 
 Route::get('/admin', [AdminController::class,'index']);
 Route::get('/admin_myaccount', [AdminController::class,'admin_myaccount']);
