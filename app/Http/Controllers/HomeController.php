@@ -46,12 +46,6 @@ class HomeController extends Controller
          $videoSettings = Home_Videos::first();
         $images = Home_Images::all();
         $steps = Home_Steps::all();
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-
-         // Fetch Stripe customer details
-        $stripeCustomer = null;
-        $paymentMethods = [];
-        $subscription = null;
 
         
          return view('home', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps'));
