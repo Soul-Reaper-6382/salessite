@@ -14513,17 +14513,17 @@ blockquote {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    padding: 27px;
+    padding: 7px;
     border-radius: 13px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 22px -1px rgb(0 0 0 / 78%);
 }
 
 .price-inner {
     background: #fff;
-    padding: 29px;
+    padding: 25px;
     border-radius: 13px;
     text-align: center;
-    padding-bottom: 40px;
+    padding-bottom: 25px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 }
 .list-price-dis {
@@ -14532,16 +14532,24 @@ blockquote {
 
 .price-inner a {
     padding: 13px 2px;
-    background: #000;
+/*    background: #000;*/
     margin-top: 17px !important;
     display: block;
     max-width: 177px;
     font-size: 16px;
+    font-weight: 700;
     border-radius: 4px;
-    color: #fff;
+    color: #000;
     text-decoration: none;
     margin: auto;
     margin-bottom: 17px;
+    border: 2px solid #000;
+}
+.price-inner a:hover{
+    background: #000;
+color: #fff;
+transition: 0.3s;
+font-weight: 500;
 }
 .price-inner h3 {
     margin-bottom: 13px;
@@ -14550,10 +14558,11 @@ blockquote {
     font-size: 52px;}
 
     li {
-        font-size: 17px;
-        margin-bottom: 9px;
+        font-size: 15px;
+        margin-bottom: 0px;
         font-weight: 500;
         list-style: none;
+            color: black;
     }
     .contentp li{
         font-size: 15px;
@@ -14777,3 +14786,321 @@ footer p{
 .btn-gradient-primary_or{
   background: #CC9249;
 }
+
+
+.cardheader{
+  font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+label.col-form-label {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.loginbtn{
+      text-transform: uppercase;
+    padding: 10px 20px 10px 20px;
+    line-height: 1;
+    font-size: 15px;
+    background: black;
+}
+.loginbtn:hover{
+    background: black;
+}
+select{
+  height: 40px;
+}
+
+
+.inactiveMixin {
+  content: "";
+  position: absolute;
+  display: block;
+}
+.beforeAnimation {
+  -moz-transition: 0.2s cubic-bezier(0.24, 0, 0.5, 1);
+  -o-transition: 0.2s cubic-bezier(0.24, 0, 0.5, 1);
+  -webkit-transition: 0.2s cubic-bezier(0.24, 0, 0.5, 1);
+  transition: 0.2s cubic-bezier(0.24, 0, 0.5, 1);
+}
+.afterAnimation {
+  box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 0px 0 hsla(0, 0%, 0%, 0.04), 0 4px 9px hsla(0, 0%, 0%, 0.13), 0 3px 3px hsla(0, 0%, 0%, 0.05);
+  -moz-transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+  -o-transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+  -webkit-transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+  transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+}
+.toggleWrapper {
+  margin: auto;
+/*  padding: 20px;*/
+  width: 55px;
+/*  border: 1px solid lightgray;*/
+/*  margin-top: 20px;*/
+  border-radius: 5px;
+/*  background: white;*/
+}
+.toggleWrapper input.mobileToggle {
+  opacity: 0;
+  position: absolute;
+}
+.toggleWrapper input.mobileToggle + label {
+  position: relative;
+  display: inline-block;
+  user-select: none;
+  -moz-transition: 0.4s ease;
+  -o-transition: 0.4s ease;
+  -webkit-transition: 0.4s ease;
+  transition: 0.4s ease;
+  -webkit-tap-highlight-color: transparent;
+  height: 30px;
+  width: 50px;
+  border: 1px solid #e4e4e4;
+  border-radius: 60px;
+}
+.toggleWrapper input.mobileToggle + label:before {
+  content: "";
+  position: absolute;
+  display: block;
+  -moz-transition: 0.2s cubic-bezier(0.24, 0, 0.5, 1);
+  -o-transition: 0.2s cubic-bezier(0.24, 0, 0.5, 1);
+  -webkit-transition: 0.2s cubic-bezier(0.24, 0, 0.5, 1);
+  transition: 0.2s cubic-bezier(0.24, 0, 0.5, 1);
+  height: 30px;
+  width: 51px;
+  top: 0;
+  left: 0;
+  border-radius: 30px;
+}
+.toggleWrapper input.mobileToggle + label:after {
+  content: "";
+  position: absolute;
+  display: block;
+  box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 0px 0 hsla(0, 0%, 0%, 0.04), 0 4px 9px hsla(0, 0%, 0%, 0.13), 0 3px 3px hsla(0, 0%, 0%, 0.05);
+  -moz-transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+  -o-transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+  -webkit-transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+  transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+  background: whitesmoke;
+  height: 28px;
+  width: 28px;
+  top: 0px;
+  left: 0px;
+  border-radius: 60px;
+}
+.toggleWrapper input.mobileToggle:checked + label:before {
+  background: #2ecc71;
+  -moz-transition: width 0.2s cubic-bezier(0, 0, 0, 0.1);
+  -o-transition: width 0.2s cubic-bezier(0, 0, 0, 0.1);
+  -webkit-transition: width 0.2s cubic-bezier(0, 0, 0, 0.1);
+  transition: width 0.2s cubic-bezier(0, 0, 0, 0.1);
+}
+.toggleWrapper input.mobileToggle:checked + label:after {
+  left: 24px;
+}
+
+.parent_tabs_price{
+justify-content: center;
+display: flex;
+}
+.tabs_price{
+    background: #edf0f5;
+    padding: 3px 3px 4px;
+    border-radius: 3px;
+        display: flex;
+    align-items: stretch;
+    list-style: none;
+    float: right;
+    margin: 10px 10px 10px 0px;
+}
+.tabs_price>li{
+  margin: 0;
+}
+.tab_price:hover label {
+    border-top-color: #333;
+    color: #333;
+}
+
+.tab_price>label {
+    display: block;
+    margin-bottom: -1px;
+    padding: 10px 21px 8px;
+    background: #edf0f5;
+    color: #7782a1;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+
+.tab_price>label.active {
+
+  background: white;
+}
+
+.price_main_column[data-dur="yearly"] {
+    display: none;
+}
+
+
+
+.dashboard_title_heading {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 10px;
+}
+
+.account-details {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.detail-title {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.detail-value {
+    color: #7f8c8d;
+}
+
+.trial-ends-at{
+  background: red;
+    border-radius: 5px;
+    color: black;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+ul.account-details_all_btn li {
+    display: inline;
+    margin: 0px 5px 0px 0px;
+    padding: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+ul.account-details_all_btn li a:hover {
+    color: white;
+    }
+
+
+     .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+            top: 100%;
+            border-radius: 5px;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 10px 10px;
+            text-decoration: none;
+            display: block;
+            font-size: 15px;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+                .dropdown .dropbtn {
+            background-color: white;
+            color: #caa77a;
+            /* padding: 3px 15px; */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 15px 0px 0px 0px;
+        }
+        .dropdown .dropbtn i {
+            margin-right: 8px;
+        }
+
+        .dis_cls .price-inner{
+          background: #f3e3c3f0;
+        }
+        .dis_cls .price-inner a{
+          background: grey;
+        }
+        .price-list-num{
+        margin-top: -37px;
+        position: relative;
+        margin-bottom: 13px;
+    }
+    span.cur-num.cr1 {
+        left: -40px;
+    }
+
+    .price-list-num span{
+        display: block;
+    }
+    span.cur-num {
+        font-size: 27px;
+        position: relative;
+        left: -53px;
+        top: 39px;
+        opacity: 0.4;
+        display: inline;
+    }
+    span.price-num {
+        font-size: 52px;
+        line-height: 1.2;
+        color:black;
+    }
+    
+    span.lst-month {
+        font-weight: 600;
+    }
+
+    .sec-price .col-md-3{
+    padding:10px 3px ;
+}
+
+.pat-design img {
+    height: 200px;
+    max-width: 996px;
+    object-fit: cover;
+    margin: auto;
+    margin-top: -139px;
+    opacity: 0.5;
+}
+
+.sec-6-row-bg {
+    position: relative;
+    z-index: 99
+  }
+
+  .price-inner h3 {
+    font-weight: 900;
+    margin-bottom: 4px;
+    font-size: 25px;
+    }
+
+    

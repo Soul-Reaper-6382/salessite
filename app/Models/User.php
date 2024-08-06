@@ -22,10 +22,12 @@ class User extends Authenticatable
         'lname',
         'email',
         'password',
+        'username',
         'phone',
-        'qualifications',
-        'practice_name',
-        'title',
+        'status',
+        'stripe_id',
+        'plan_id',
+        'password_apo',
     ];
 
     /**
@@ -45,9 +47,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'trial_ends_at' => 'datetime',
     ];
 
     public function roles(){
         return $this->belongsToMany(Role::Class);
+    }
+
+     public function userDetail()
+    {
+        return $this->hasOne(UserDetail::class);
     }
 }

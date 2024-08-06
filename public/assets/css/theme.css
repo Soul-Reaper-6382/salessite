@@ -372,6 +372,7 @@ p.pmpro_actions_nav {
 
 .gry {
     color: #5252527d !important;
+    text-decoration: line-through;
 }
 
 
@@ -512,7 +513,7 @@ span.free-month {
     font-size: 13px;
     top: 12px;
     position: absolute;
-    right: -5px;
+    right: 0px;
 }
 span.curn {
     font-size: 30px;

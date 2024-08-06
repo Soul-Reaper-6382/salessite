@@ -28,7 +28,7 @@ class LoginController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
 
-      protected $redirectTo = '/home';
+      protected $redirectTo = '/dashboard';
     // 'admin' => '/admin',
     // 'user' => '/home',
    public function redirectTo()
@@ -36,7 +36,7 @@ class LoginController extends Controller
         //$rollen = Auth()->user();
         $redirects = [
     'admin' => '/admin',
-    'user' => '/home',
+    'user' => '/dashboard',
         ];
 
         $roles = Auth()->user()->roles->map->name;

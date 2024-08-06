@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use App\Models\Eula;
+use App\Models\Plan;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
@@ -33,7 +33,7 @@ class RegisterController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
 
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/dashboard';
     // 'admin' => '/admin',
     // 'user' => '/home',
    public function redirectTo()
@@ -41,7 +41,7 @@ class RegisterController extends Controller
         //$rollen = Auth()->user();
         $redirects = [
     'admin' => '/admin',
-    'user' => '/home',
+    'user' => '/dashboard',
         ];
 
         $roles = Auth()->user()->roles->map->name;
@@ -116,9 +116,31 @@ class RegisterController extends Controller
     }
 
     // Add the following method to retrieve and pass $eula to the registration view
-    protected function showRegistrationForm()
+    protected function showRegistrationForm($token = null)
     {
 
-        return view('auth.register');
+         if (!$token) {
+            $plan = Plan::where('name', 'start')
+               ->where('duration', 'monthly')
+               ->first(['stripe_plan']);
+           if ($plan) {
+        // Redirect to the register page with the fetched stripe_plan
+                return redirect('/register/'.$plan->stripe_plan);
+            } else {
+                // Handle the case where no matching plan is found
+                return redirect('/home'); // Redirect to home page or any other route
+            }
+        }
+        $plan = Plan::where('stripe_plan', $token)->first();
+
+            if (!$plan) {
+                return redirect('/home');
+            }
+        $stripe_plan = $token;
+        // dd($stripe_plan);
+        // return view('auth.register', compact('step'));
+        $plan_db = Plan::orderBy('id', 'ASC')->get();
+        return view('auth.register', compact('plan_db','stripe_plan'));
+        // return view('auth.register');
     }
 }

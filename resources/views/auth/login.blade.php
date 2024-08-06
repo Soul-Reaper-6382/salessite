@@ -1,25 +1,36 @@
 @extends('layouts.app')
-
+@section('title', 'Login - Smuggler')
 @section('content')
 <style type="text/css">
-   
+   .footer-area-wrapper{
+        background-color: #cc9249;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+   }
+   .rowcustom{
+    height: 75%;
+    /* margin: 0; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
 </style>
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <h1 class="heading_h1_login">Welcome to Smugglers OMS Scrapper</h1>
-        <div class="col-md-5">
+<div class="container">
+    <div class="row justify-content-center rowcustom">
+        <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header cardheader">{{ __('Welcome') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="email" class="col-md-12 col-form-label">{{ __('Email') }}</label>
+                            <label for="email" class="col-md-12 col-form-label">{{ __('Email Address') }}</label>
 
                             <div class="col-md-12">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email Address">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -43,17 +54,28 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-12">
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link text-end" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                                <button type="submit" class="btn loginbtn">
+
+                        <div class="row mb-0 mt-3">
+                               <div class="col-md-12" style="justify-content:center;display: flex;">
+                                   <button type="submit" class="btn loginbtn">
                                     {{ __('Log in') }}
                                 </button>
-                                <p class="text-end mt-2">Don't have an account? <a href="{{ route('register') }}">{{ __('Sign up') }}</a></p>
+                               </div> 
+                        </div>
+                        <div class="row mb-0">
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            <div class="col-md-12" >
+                                <a class="btn-link text-end" href="{{ route('register') }}">
+                                        {{ __('Join Now') }}
+                                    </a>
+                                    <span>|</span>
+                                @if (Route::has('password.request'))
+                                    <a class="btn-link text-end" href="{{ route('password.request') }}">
+                                        {{ __('Lost Password?') }}
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </form>
@@ -62,4 +84,29 @@
         </div>
     </div>
 </div>
+
+ <!--====================  footer area ====================-->
+        <div class="footer-area-wrapper" style="background-color:#cc9249;">
+            <div class="footer-copyright-area" style="padding:10px;">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 text-center text-md-start">
+                            <p class="copyright-ptext" style="text-align: center;
+    color: white;
+    font-size: 20px;">Copyright © 2024 Smugglerish</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====================  End of footer area  ====================-->
+
+
+
+
+
+
+
+
+@include('layouts.footer_home')
 @endsection
