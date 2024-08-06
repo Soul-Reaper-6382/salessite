@@ -53,25 +53,9 @@ class HomeController extends Controller
         $paymentMethods = [];
         $subscription = null;
 
-        if (Auth::user()->stripe_id) {
-            // Retrieve customer from Stripe
-            $stripeCustomer = $stripe->customers->retrieve(Auth::user()->stripe_id, []);
-
-            // Retrieve subscription details
-            $subscriptions = $stripe->subscriptions->all([
-                'customer' => $stripeCustomer->id,
-            ]);
-
-            $subscription = !empty($subscriptions->data) ? $subscriptions->data[0] : null;
         
-            $priceId = $subscription ? $subscription->items->data[0]->price->id : 'N/A';
-
-            return view('home', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps','priceId'));
-        }
-        else{
          return view('home', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps'));
         }
-    }
 
    
 

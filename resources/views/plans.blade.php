@@ -122,6 +122,6 @@
 @if(Auth::user()->stripe_id == null)
 @include('plan_change_start')
 @else
-@include('plan_change_dash')
+
 @endif
 @endguest
