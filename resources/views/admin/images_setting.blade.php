@@ -42,11 +42,15 @@ form.delete_img_parent {
                         @csrf
 
                         <div class="form-group">
-                            <label for="image" class="form-label">Images</label>
+                            <label for="image" class="form-label">Image</label>
                             <input name="image[]" type="file" class="form-control" id="image" multiple required>
                         </div>
+                        <div class="form-group">
+                            <label for="text" class="form-label">text</label>
+                            <input name="text" type="text" class="form-control" id="text" required>
+                        </div>
                       
-                        <button type="submit" class="btn btn-gradient-primary me-2">Add Images</button>
+                        <button type="submit" class="btn btn-gradient-primary me-2">Add Image</button>
                     </form>
                 </div>
             </div>
@@ -62,6 +66,7 @@ form.delete_img_parent {
                             @foreach($images as $image)
                                 <div class="item">
                                     <img src="{{ url($image->image) }}" alt="Image">
+                                    <p>{{ $image->text }}</p>
                                     <form action="{{ route('delete_image_settings', $image->id) }}" method="POST" class="delete_img_parent">
                                         @csrf
                                         @method('DELETE')

@@ -45,7 +45,9 @@ class HomePageController extends Controller
      public function images_setting_view()
     {
         // Fetch all images from the database
-        $images = Home_Images::all();
+        // $images = Home_Images::all();
+        $images = Home_Images::orderBy('id', 'desc')->get();
+
         
         // Pass the images to the view
         return view('admin.images_setting', compact('images'));
@@ -61,7 +63,7 @@ class HomePageController extends Controller
 	    if ($request->hasFile('image')) {
 	        foreach ($request->file('image') as $file) {
 	            $path = $file->move(public_path('images'), $file->getClientOriginalName());
-	            Home_Images::create(['image' => 'images/' . $file->getClientOriginalName()]);
+	            Home_Images::create(['image' => 'images/' . $file->getClientOriginalName(),'text' => $request->input('text')]);
 	        }
 	    }
 

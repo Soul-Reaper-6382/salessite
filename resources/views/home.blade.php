@@ -67,7 +67,7 @@
                                 <div class="marquee-box box-image-overlay-{{ $index + 1 }}">
                                     <img src="{{ url($image->image) }}" alt="">
                                     <div class="image-overlay">
-                                        <p>Text for Image {{ $index + 1 }}</p>
+                                        <p>{{ $image->text }}</p>
                                     </div>
                                 </div>
 
@@ -92,28 +92,7 @@
         <span class="close">&times;</span>
       <div class="pop-box-css">
           <div class="pop-box-css-left">
-      <p class="add-content image-overlay-1">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-2">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-3">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-4">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-5">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-6">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-7">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-8">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-9">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-10">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-11">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-12">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-13">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-14">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-15">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-16">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-17">jOne Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-18">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-19">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-20">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      <p class="add-content image-overlay-21">One Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus animi, ducimus culpa, aliquam tenetur quos vel repellendus deserunt at, fugiat voluptas adipisci rerum expedita rem nulla optio eos accusamus debitis?</p>
-      
+      <p class="add-content"></p>
           </div>
           <div class="pop-box-css-right">
               <img class="popup-content" src="">
@@ -315,6 +294,9 @@
     var imageUrl = $(this).attr("src");
     $(".popup-content").attr("src", imageUrl);
     $(".popup").css("display", "flex");
+    var textimg = $(this).parents('.marquee-box').find('p').text();
+    $(".add-content").text(textimg);
+    $(".add-content").css("display", "block");
   });
 
   // Close popup

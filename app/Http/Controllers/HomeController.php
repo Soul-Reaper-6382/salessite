@@ -44,7 +44,7 @@ class HomeController extends Controller
         $home_text2 = Home_Text2::first();
         $circleTextSettings = Circle_Text::first();
          $videoSettings = Home_Videos::first();
-        $images = Home_Images::all();
+        $images = Home_Images::orderBy('id', 'desc')->get();
         $steps = Home_Steps::all();
 
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
