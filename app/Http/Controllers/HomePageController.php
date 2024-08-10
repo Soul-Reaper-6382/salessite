@@ -135,6 +135,48 @@ class HomePageController extends Controller
         return back()->with('message', 'Step setting added successfully!');
     }
 
+     public function edit_step($id)
+    {
+        $step = Home_Steps::find($id);
+        if (!$step) {
+            return back()->with('message', 'Step not found!');
+        }
+        return view('admin.edit_step', compact('step'));
+    }
+
+    public function update_step(Request $request, $id)
+    {
+        $request->validate([
+            'imageorvideo' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,mp4,mov,ogg,qt,webm|max:20480',
+            'heading' => 'required|string|max:255',
+            'text' => 'required|string',
+            'buttons' => 'nullable|array',
+            'buttons.*.text' => 'required_with:buttons|string|max:255',
+            'buttons.*.link' => 'required_with:buttons|url',
+            'buttons.*.color' => 'required_with:buttons|string|max:7',
+        ]);
+
+        $step = Home_Steps::find($id);
+        if (!$step) {
+            return back()->with('message', 'Step not found!');
+        }
+
+        $filePath = $step->file;
+        if ($request->hasFile('imageorvideo')) {
+            $imageOrVideo = $request->file('imageorvideo')->move(public_path('images'), $request->file('imageorvideo')->getClientOriginalName());
+            $filePath = 'images/' . $request->file('imageorvideo')->getClientOriginalName();
+        }
+
+        $step->update([
+            'file' => $filePath,
+            'heading' => $request->heading,
+            'text' => $request->text,
+            'buttons' => $request->buttons,
+        ]);
+
+        return redirect()->route('steps_setting')->with('message', 'Step updated successfully!');
+    }
+
     public function videos_setting_view()
     {
         // Fetch the current video settings from the database

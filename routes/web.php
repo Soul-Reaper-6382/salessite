@@ -37,7 +37,7 @@ Route::get('/download-all-csv', [AdminController::class, 'downloadAllCsv'])->nam
 Route::get('/text_setting', [HomePageController::class, 'text_setting_view']);
 Route::get('/videos_setting', [HomePageController::class, 'videos_setting_view']);
 Route::get('/images_setting', [HomePageController::class, 'images_setting_view']);
-Route::get('/steps_setting', [HomePageController::class, 'steps_setting_view']);
+Route::get('/steps_setting', [HomePageController::class, 'steps_setting_view'])->name('steps_setting');;
 Route::post('update_text_settings', [HomePageController::class, 'update_text_settings'])->name('update_text_settings');
 Route::post('update_home_text2', [HomePageController::class, 'update_home_text2'])->name('update_home_text2');
 Route::post('update_circle_text_settings', [HomePageController::class, 'update_circle_text_settings'])->name('update_circle_text_settings');
@@ -45,6 +45,8 @@ Route::post('update_video_settings', [HomePageController::class, 'update_video_s
 Route::post('/add_image_settings', [HomePageController::class, 'add_image_settings'])->name('add_image_settings');
 Route::post('/add_step_settings', [HomePageController::class, 'add_step_settings'])->name('add_step_settings');
 Route::delete('/delete_image_settings/{id}', [HomePageController::class, 'delete_image_settings'])->name('delete_image_settings');
+Route::get('/edit_step/{id}', [HomePageController::class, 'edit_step'])->name('edit_step');
+Route::post('/update_step/{id}', [HomePageController::class, 'update_step'])->name('update_step');
 Route::delete('/delete_step/{id}', [HomePageController::class, 'delete_step'])->name('delete_step');
 
 

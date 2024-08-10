@@ -96,6 +96,7 @@
                                         @endif
                                     </td>
                                     <td>
+                                            <a href="{{ route('edit_step', $step->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                         <form action="{{ route('delete_step', $step->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
