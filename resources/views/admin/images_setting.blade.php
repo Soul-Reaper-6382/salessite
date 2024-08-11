@@ -47,7 +47,7 @@ form.delete_img_parent {
                         </div>
                         <div class="form-group">
                             <label for="text" class="form-label">text</label>
-                            <input name="text" type="text" class="form-control" id="text" required>
+                            <textarea name="text" class="form-control" id="text" required></textarea>
                         </div>
                       
                         <button type="submit" class="btn btn-gradient-primary me-2">Add Image</button>

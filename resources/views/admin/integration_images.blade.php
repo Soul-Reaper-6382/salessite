@@ -30,7 +30,7 @@ form.delete_img_parent {
         <h3 class="page-title">
             <span class="page-title-icon bg-gradient-primary text-white me-2">
                 <i class="mdi mdi-image"></i>
-            </span> Images Setting
+            </span> Integration Images
         </h3>
     </div>
     @include('admin.inc.notify')

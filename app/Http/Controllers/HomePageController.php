@@ -312,46 +312,66 @@ class HomePageController extends Controller
     }
 
         public function update_circle_text_settings(Request $request)
-    {
-        // Validate the incoming request data
-        $request->validate([
-            'heading_one' => 'required|string|max:255',
-            'text' => 'required|string',
-            'cir1' => 'required|string',
-            'cir2' => 'required|string',
-            'cir3' => 'required|string',
-            'cir4' => 'required|string',
-            'cir5' => 'required|string',
-            'cir6' => 'required|string',
-            'cir7' => 'required|string',
-            'cir8' => 'required|string',
-            'cir9' => 'required|string',
-            'cir10' => 'required|string',
-        ]);
+{
+    // Validate the incoming request data
+    $request->validate([
+        'heading_one' => 'required|string|max:255',
+        'text' => 'required|string',
+        'cir1' => 'required|string',
+        'text1' => 'required|string',
+        'cir2' => 'required|string',
+        'text2' => 'required|string',
+        'cir3' => 'required|string',
+        'text3' => 'required|string',
+        'cir4' => 'required|string',
+        'text4' => 'required|string',
+        'cir5' => 'required|string',
+        'text5' => 'required|string',
+        'cir6' => 'required|string',
+        'text6' => 'required|string',
+        'cir7' => 'required|string',
+        'text7' => 'required|string',
+        'cir8' => 'required|string',
+        'text8' => 'required|string',
+        'cir9' => 'required|string',
+        'text9' => 'required|string',
+        'cir10' => 'required|string',
+        'text10' => 'required|string',
+    ]);
 
-        // Fetch the first (or create a new) Circle_Text instance
-        $circleTextSettings = Circle_Text::firstOrNew();
+    // Fetch the first (or create a new) Circle_Text instance
+    $circleTextSettings = Circle_Text::firstOrNew();
 
-        // Update the circle text settings
-        $circleTextSettings->heading_one = $request->input('heading_one');
-        $circleTextSettings->text = $request->input('text');
-        $circleTextSettings->cir1 = $request->input('cir1');
-        $circleTextSettings->cir2 = $request->input('cir2');
-        $circleTextSettings->cir3 = $request->input('cir3');
-        $circleTextSettings->cir4 = $request->input('cir4');
-        $circleTextSettings->cir5 = $request->input('cir5');
-        $circleTextSettings->cir6 = $request->input('cir6');
-        $circleTextSettings->cir7 = $request->input('cir7');
-        $circleTextSettings->cir8 = $request->input('cir8');
-        $circleTextSettings->cir9 = $request->input('cir9');
-        $circleTextSettings->cir10 = $request->input('cir10');
-        
-        // Save the updated settings to the database
-        $circleTextSettings->save();
+    // Update the circle text settings
+    $circleTextSettings->heading_one = $request->input('heading_one');
+    $circleTextSettings->text = $request->input('text');
+    $circleTextSettings->cir1 = $request->input('cir1');
+    $circleTextSettings->text1 = $request->input('text1');
+    $circleTextSettings->cir2 = $request->input('cir2');
+    $circleTextSettings->text2 = $request->input('text2');
+    $circleTextSettings->cir3 = $request->input('cir3');
+    $circleTextSettings->text3 = $request->input('text3');
+    $circleTextSettings->cir4 = $request->input('cir4');
+    $circleTextSettings->text4 = $request->input('text4');
+    $circleTextSettings->cir5 = $request->input('cir5');
+    $circleTextSettings->text5 = $request->input('text5');
+    $circleTextSettings->cir6 = $request->input('cir6');
+    $circleTextSettings->text6 = $request->input('text6');
+    $circleTextSettings->cir7 = $request->input('cir7');
+    $circleTextSettings->text7 = $request->input('text7');
+    $circleTextSettings->cir8 = $request->input('cir8');
+    $circleTextSettings->text8 = $request->input('text8');
+    $circleTextSettings->cir9 = $request->input('cir9');
+    $circleTextSettings->text9 = $request->input('text9');
+    $circleTextSettings->cir10 = $request->input('cir10');
+    $circleTextSettings->text10 = $request->input('text10');
+    
+    // Save the updated settings to the database
+    $circleTextSettings->save();
 
-        // Redirect back with a success message
-        return back()->with('message', 'Circle text settings updated successfully.');
-    }
+    // Redirect back with a success message
+    return back()->with('message', 'Circle text settings updated successfully.');
+}
 
 
 }

@@ -202,15 +202,18 @@
                             <!-- start Circle Menu -->
                             <div id="uc_ue_circle_menu_elementor_b433c4f" class="" data-show-tip="false">
                                 <div class="ue-ciclegraph">
-                                    <h5 class="heading">{{ $circleTextSettings->heading_one }}</h5>
-                                    <p>{{ $circleTextSettings->text }}</p>
+                                    <h5 class="heading gethead">{{ $circleTextSettings->heading_one }}</h5>
+                                    <p class="gettext">{{ $circleTextSettings->text }}</p>
                                     <div class="uc-items-wrapper">
                                         @for ($i = 1; $i <= 10; $i++)
                                             @php
                                                 $circleField = 'cir' . $i;
+                                                $circleField2 = 'text' . $i;
                                                 $circleText = $circleTextSettings->$circleField;
+                                                $circleText2 = $circleTextSettings->$circleField2;
                                             @endphp
-                                            <a class="ue-circle elementor-repeater-item-{{ $i }} sl-{{ $i }}" title="{{ $circleText }}" href="#" id="uc_ue_circle_menu_elementor_b433c4f_item{{ $i }}" style="transform: rotate({{ 306 + ($i - 1) * 36 }}deg) translate(271px) rotate(-{{ 306 + ($i - 1) * 36 }}deg);">
+                                            <a class="element_circle ue-circle elementor-repeater-item-{{ $i }} sl-{{ $i }}" title="{{ $circleText }}" href="javascript:void(0);" id="uc_ue_circle_menu_elementor_b433c4f_item{{ $i }}" data-head="{{ $circleText }}" data-text="{{ $circleText2 }}"
+                                             style="transform: rotate({{ 306 + ($i - 1) * 36 }}deg) translate(271px) rotate(-{{ 306 + ($i - 1) * 36 }}deg);">
                                                 <div class="ue-circle-content">
                                                     <div class="ue-circle-title">{{ $circleText }}</div>
                                                 </div>
@@ -278,6 +281,13 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+
+      $(document).on('click','.element_circle',function(){
+        var head = $(this).attr('data-head');
+        var text = $(this).attr('data-text');
+        $('.gethead').text(head)
+        $('.gettext').text(text)
+      })
       $(document).on('click','.click_reg_a',function(){
         var id = $(this).data('id');
         var url_reg = "{{ url('register') }}/" + id;
