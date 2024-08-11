@@ -112,7 +112,7 @@ class HomePageController extends Controller
             foreach ($request->file('image') as $file) {
                 $fileName = time() . '_' . $file->getClientOriginalName();
                 $path = $file->move(public_path('images'), $fileName);
-                Integrations::create(['image' => 'images/' . $file->getClientOriginalName()]);
+                Integrations::create(['image' => 'images/' . $fileName]);
             }
         }
 
