@@ -184,7 +184,7 @@
                             </div>
                             <div class="col-lg-4 section-space--pt_100">
                                 <h5 class="heading">{{ $home_text2->heading_one ?? '' }}</h5>
-                                    <p class="mt-3 mb-3">{{ $home_text2->text ?? '' }}</p>
+                                    <p class="mt-3 mb-3">{!! $home_text2->text ?? '' !!}</p>
                                      <a href="javascript:void(0);" class="ht-btn ht-btn-md" data-bs-toggle="modal" data-bs-target="#integrationsModal">See all integrations</a>
                             </div>
                         </div>
