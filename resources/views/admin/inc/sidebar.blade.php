@@ -19,6 +19,7 @@
           <li class="nav-item"> <a class="nav-link" href="{{ url('/videos_setting') }}">Videos Setting</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ url('/images_setting') }}">Images Setting</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ url('/steps_setting') }}">Steps Setting</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ url('/integration_images') }}">Integration Images</a></li>
         </ul>
       </div>
     </li>

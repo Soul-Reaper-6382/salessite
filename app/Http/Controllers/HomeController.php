@@ -12,6 +12,7 @@ use App\Models\Circle_Text;
 use App\Models\Home_Videos;
 use App\Models\Home_Images;
 use App\Models\Home_Steps;
+use App\Models\Integrations;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 
@@ -46,6 +47,8 @@ class HomeController extends Controller
          $videoSettings = Home_Videos::first();
         $images = Home_Images::orderBy('id', 'desc')->get();
         $steps = Home_Steps::all();
+        $integrations = Integrations::all();
+
 
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
@@ -67,10 +70,10 @@ class HomeController extends Controller
         
         $priceId = $subscription ? $subscription->items->data[0]->price->id : 'N/A';
 
-        return view('home', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps','priceId'));
+        return view('home', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps','integrations','priceId'));
         }
         else{
-            return view('home', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps'));
+            return view('home', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps','integrations'));
         }
 
         

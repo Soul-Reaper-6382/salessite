@@ -105,7 +105,7 @@
                 </div>
                 <!--===========  feature-icon-wrapper  End =============-->
 
-                <div class="feature-icon-wrappe section-space--ptb_60">
+                <div class="feature-icon-wrappe section-space--ptb_60" style="background-color:#EBEBEB;">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -179,13 +179,13 @@
                     <div class="container-fluid" style="padding-left: 0px;">
 
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-8 section-space--pt_60">
                                 <video class="elementor-video" src="{{ asset($videoSettings->video_two) }}" autoplay="" loop="" muted="muted" controlslist="nodownload"></video>
                             </div>
                             <div class="col-lg-4 section-space--pt_100">
                                 <h5 class="heading">{{ $home_text2->heading_one ?? '' }}</h5>
                                     <p class="mt-3 mb-3">{{ $home_text2->text ?? '' }}</p>
-                                      <a href="#" class="ht-btn ht-btn-md">See all integrations </a>
+                                     <a href="javascript:void(0);" class="ht-btn ht-btn-md" data-bs-toggle="modal" data-bs-target="#integrationsModal">See all integrations</a>
                             </div>
                         </div>
                     </div>
@@ -253,7 +253,27 @@
 
 
 
-  
+<!-- Modal structure -->
+<div class="modal fade" id="integrationsModal" tabindex="-1" aria-labelledby="integrationsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="integrationsModalLabel">Supported POS Systems</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Loop through integration logos here -->
+                    @foreach($integrations as $integration)
+                        <div class="col-md-4 text-center mb-4">
+                            <img src="{{ url($integration->image) }}" class="img-fluid">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @include('layouts.footer_home')
 
 <script type="text/javascript">

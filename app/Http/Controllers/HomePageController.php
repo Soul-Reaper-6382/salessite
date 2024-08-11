@@ -13,6 +13,7 @@ use App\Models\Circle_Text;
 use App\Models\Home_Videos;
 use App\Models\Home_Images;
 use App\Models\Home_Steps;
+use App\Models\Integrations;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
@@ -91,6 +92,52 @@ class HomePageController extends Controller
 }
 
 
+
+    public function integration_images_view()
+    {
+        $images = Integrations::all();
+
+        return view('admin.integration_images', compact('images'));
+    }
+
+    
+    public function add_integration_images(Request $request)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'image.*' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $file) {
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $path = $file->move(public_path('images'), $fileName);
+                Integrations::create(['image' => 'images/' . $file->getClientOriginalName()]);
+            }
+        }
+
+        // Redirect back with a success message
+        return back()->with('message', 'Images added successfully.');
+    }
+
+    public function delete_integration_images($id)
+{
+    // Find the image by ID and delete it
+    $image = Integrations::find($id);
+
+    if ($image) {
+        // Delete the file from the public folder
+        if (file_exists(public_path($image->image))) {
+            unlink(public_path($image->image));
+        }
+        
+        // Delete the database record
+        $image->delete();
+    }
+
+    // Redirect back with a success message
+    return back()->with('message', 'Image deleted successfully.');
+}
 
    public function steps_setting_view()
     {
