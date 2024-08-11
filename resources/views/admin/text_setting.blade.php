@@ -29,7 +29,7 @@
 
                         <div class="form-group">
                             <label for="text" class="form-label">Text</label>
-                            <input name="text" type="text" required class="form-control" id="text" placeholder="Text" value="{{ $textSettings->text ?? '' }}">
+                            <textarea name="text" required class="form-control" id="text" placeholder="Text" value="{{ $textSettings->text ?? '' }}"></textarea>
                         </div>
                       
                         <button type="submit" class="btn btn-gradient-primary me-2">Update</button>
@@ -53,7 +53,7 @@
 
                         <div class="form-group">
                             <label for="text" class="form-label">Text</label>
-                            <input name="text" type="text" required class="form-control" id="text" placeholder="Text" value="{{ $home_text2->text ?? '' }}">
+                            <textarea name="text" required class="form-control" id="text" placeholder="Text" value="{{ $home_text2->text ?? '' }}"></textarea>
                         </div>
                       
                         <button type="submit" class="btn btn-gradient-primary me-2">Update</button>
