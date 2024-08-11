@@ -9173,10 +9173,10 @@ ol {
  * Defines the positoning logic for the tooltips.
  *
  * Classes added:
- * 	1) hint--top
- * 	2) hint--bottom
- * 	3) hint--left
- * 	4) hint--right
+ *  1) hint--top
+ *  2) hint--bottom
+ *  3) hint--left
+ *  4) hint--right
  */
 /**
  * set default color for tooltip arrows
@@ -14927,8 +14927,8 @@ display: flex;
     margin-bottom: -1px;
     padding: 10px 21px 8px;
     background: #edf0f5;
-    color: #cdc3c3;
-    font-size: 21px;
+    color: #7782a1;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 1px;
     cursor: pointer;
@@ -14938,8 +14938,7 @@ display: flex;
 
 .tab_price>label.active {
 
-  background: #f9b700;
-    color: white;
+  background: white;
 }
 
 .price_main_column[data-dur="yearly"] {
