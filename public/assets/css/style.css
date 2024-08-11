@@ -14927,8 +14927,8 @@ display: flex;
     margin-bottom: -1px;
     padding: 10px 21px 8px;
     background: #edf0f5;
-    color: #7782a1;
-    font-size: 13px;
+    color: #cdc3c3;
+    font-size: 21px;
     font-weight: 600;
     letter-spacing: 1px;
     cursor: pointer;
@@ -14938,7 +14938,8 @@ display: flex;
 
 .tab_price>label.active {
 
-  background: white;
+  background: #f9b700;
+    color: white;
 }
 
 .price_main_column[data-dur="yearly"] {
