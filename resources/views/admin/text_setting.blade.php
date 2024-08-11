@@ -29,7 +29,7 @@
 
                         <div class="form-group">
                             <label for="text" class="form-label">Text</label>
-                            <textarea name="text" required class="form-control" id="text" placeholder="Text" value="{{ $textSettings->text ?? '' }}"></textarea>
+                            <textarea name="text" required class="form-control" id="text" placeholder="Text">{{ $textSettings->text ?? '' }}</textarea>
                         </div>
                       
                         <button type="submit" class="btn btn-gradient-primary me-2">Update</button>
@@ -53,7 +53,7 @@
 
                         <div class="form-group">
                             <label for="text" class="form-label">Text</label>
-                            <textarea name="text" required class="form-control" id="text" placeholder="Text" value="{{ $home_text2->text ?? '' }}"></textarea>
+                            <textarea name="text" required class="form-control" id="text2" placeholder="Text">{{ $home_text2->text ?? '' }}</textarea>
                         </div>
                       
                         <button type="submit" class="btn btn-gradient-primary me-2">Update</button>
@@ -137,4 +137,10 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('text');
+    CKEDITOR.replace('text2');
+</script>
 @endsection
