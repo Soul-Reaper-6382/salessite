@@ -3582,7 +3582,7 @@ input[type=checkbox] {
   height: 100%;
   float: right;
   cursor: default;
-  background: #CC9249;
+  background: #df9242;
   -webkit-transition: all 0.7s cubic-bezier(0.645, 0.045, 0.355, 1);
   -o-transition: all 0.7s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: all 0.7s cubic-bezier(0.645, 0.045, 0.355, 1);
