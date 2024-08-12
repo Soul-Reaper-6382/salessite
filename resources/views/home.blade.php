@@ -25,7 +25,8 @@ margin-bottom:0px !important;
         <div class="site-wrapper-reveal">
             <div class="bg-white">
 
-                     <div class="container section-space--pt_60">
+                     <div class="projects-wrapper projectinfotechno-bg section-space--pt_60" style="    background-position: left;">
+                        <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
                                 <!-- section-title-wrap Start -->
@@ -36,6 +37,7 @@ margin-bottom:0px !important;
                                 </div>
                                 <!-- section-title-wrap Start -->
                             </div>
+                        </div>
                         </div>
                      </div>
 
@@ -123,7 +125,7 @@ margin-bottom:0px !important;
                 </div>
                 <!--===========  feature-icon-wrapper  End =============-->
 
-                <div class="feature-icon-wrappe section-space--ptb_60" style="background-color:#EBEBEB;">
+                <div class="feature-icon-wrappe section-space--ptb_60 infotechno-section-bg-01" style="background-color:#EBEBEB;">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
