@@ -486,12 +486,16 @@ class DashboardController extends Controller
         $plan = Plan::find($request->plan_id);
 
         if($plan->name == 'Start'){
-        $end_date = Carbon::now()->addMonth();
+        $end_date = Carbon::now()->addMonth()->format('Y-m-d'); // Format as YYYY-MM-DD
         $user->trial_ends_at = Carbon::now()->addMonth();
         $user->save();
+        $is_trial = true;
+        $plan_name = 'Starter';
          }
          else{
          $end_date = '';
+         $is_trial = false;
+         $plan_name = $plan->name;
          $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
         $stripeCustomer = $stripe->customers->create([
@@ -540,7 +544,48 @@ class DashboardController extends Controller
             'quantity' => $quantity,
         ]);
         }
-        
+        $formatted_plan_name = strtolower($plan_name);
+        $client = new Client();
+
+            // Prepare data to be sent
+            $data = [
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'username' => $user->username,
+                'password' => $user->password_apo, // Ensure this is the correct field or hash the password if needed
+                'email' => $user->email,
+                'phone_number' => $user->phone,
+                'license_number' => $request->License_old,
+                'store_address' => $request->store_address,
+                'store_name' => $request->store_name,
+                'store_county' => $request->store_county,
+                'store_state' => $request->state_old,
+                'subscription_plan' => $formatted_plan_name,
+                'subscription_end_date' => $end_date,
+                'is_trial' => $is_trial,
+            ];
+
+            // dd($data);
+
+            try {
+                $response = $client->post('https://api.smugglers-system.dev/api/store/public/onboarding/', [
+                    'json' => $data,
+                ]);
+
+                $responseBody = json_decode($response->getBody()->getContents(), true);
+
+                // Handle API response if needed
+                // dd($responseBody);
+
+            } catch (\GuzzleHttp\Exception\ClientException $e) {
+                // Handle 4xx errors
+                $errorResponse = $e->getResponse();
+                $errorBody = $errorResponse ? json_decode($errorResponse->getBody()->getContents(), true) : [];
+                dd($errorBody);
+            } catch (\Exception $e) {
+                // Handle other errors
+                dd(['message' => 'Error submitting store info: ' . $e->getMessage()]);
+            }
         session()->flash('message', 'Account Created Successfully!');
         return redirect('https://smugglers-systems.com/');
 
