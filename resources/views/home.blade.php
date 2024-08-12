@@ -1,7 +1,25 @@
 @extends('layouts.app')
 @section('title', 'Home - Smuggler')
 @section('content')
+<style>
+    .main-circle-content {
+    text-align: center;
+    border: 3px solid #fbbc04;
+    padding: 50px 20px;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 9px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
 
+.content-hide p{
+margin-bottom:0px !important;
+}
+
+</style>
 
     <div id="main-wrapper">
         <div class="site-wrapper-reveal">
@@ -200,7 +218,7 @@
                 <div class="rev_redraw-wrapper">
                         <div class="rev_redraw-inner-box bg-gray-2 section-space--mt_40 rev_redraw-space">
                             <!-- start Circle Menu -->
-                            <div id="uc_ue_circle_menu_elementor_b433c4f" class="" data-show-tip="false">
+                            <div id="uc_ue_circle_menu_elementor_b433c4f" class="element_circle_main_window d-none d-md-block" data-show-tip="false">
                                 <div class="ue-ciclegraph">
                                     <h5 class="heading gethead">{{ $circleTextSettings->heading_one }}</h5>
                                     <p class="gettext">{{ $circleTextSettings->text }}</p>
@@ -221,6 +239,23 @@
                                         @endfor
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="container element_circle_main_mobile d-block d-md-none">
+                            <div class="row">
+                                 @for ($i = 1; $i <= 10; $i++)
+                                            @php
+                                                $circleField = 'cir' . $i;
+                                                $circleField2 = 'text' . $i;
+                                                $circleText = $circleTextSettings->$circleField;
+                                                $circleText2 = $circleTextSettings->$circleField2;
+                                            @endphp
+                            <div class="col-md-6 main-circle-content">
+                                  <h5>{{ $circleText }}</h5>
+                                  <p>{{ $circleText2 }}</p>
+                            </div>
+                            @endfor
+                            </div>
                             </div>
                             <!-- end Circle Menu -->
                         </div>
