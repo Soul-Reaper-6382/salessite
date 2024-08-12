@@ -142,6 +142,12 @@ h3 {
     font-size: 32px;
   }
 }
+@media (min-width: 1250px) {
+    .sec-price .col-md-3 {
+        margin: 0px 10px 0px 10px;
+        width: 23%;
+    }
+}
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   h3 {
     font-size: 28px;
@@ -15083,8 +15089,6 @@ ul.account-details_all_btn li a:hover {
 
     .sec-price .col-md-3{
     padding: 11px 3px;
-    margin: 0px 10px 0px 10px;
-    width: 23%;
 }
 
 .pat-design img {
