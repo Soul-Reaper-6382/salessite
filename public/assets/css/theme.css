@@ -241,7 +241,7 @@ flex-direction:unset !important;
 .ue-circle-title {
     width: 113px;
     height: 113px;
-    background: #FBBC04;
+    background: #df9242;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -249,8 +249,9 @@ flex-direction:unset !important;
     border-radius: 100%;
     line-height: 1.2;
     position: relative;
-    color: #000;
+    color: white;
     border: 2px solid #000;
+    font-size: 15px;
 }
 
 
@@ -267,7 +268,7 @@ flex-direction:unset !important;
 
 .main-circle-content {
     text-align: center;
-    border: 3px solid #fbbc04;
+    border: 3px solid #df9242;
     padding: 50px 20px;
     min-height: 360px;
     display: flex;

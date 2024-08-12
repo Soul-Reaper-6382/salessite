@@ -587,7 +587,7 @@ class DashboardController extends Controller
                 dd(['message' => 'Error submitting store info: ' . $e->getMessage()]);
             }
         session()->flash('message', 'Account Created Successfully!');
-        return redirect('https://smugglers-systems.com/');
+        return redirect('https://smugglers-system.com/');
 
     }
 

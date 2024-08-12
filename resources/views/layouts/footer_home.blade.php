@@ -38,7 +38,7 @@
                             <li class="">
                             <a href="{{ route('login') }}">Log in</a></li>
                             <li class="">
-                                                         <a href="{{ route('register') }}" class="btn btn-gradient-primary custom_header_btn">Try smugglers for free</a>
+                                                         <a href="{{ route('register') }}" class="ht-btn ht-btn-md btn-blue custom_header_btn">Try smugglers for free</a>
                                                         </li>
                                 </ul>
                     @else

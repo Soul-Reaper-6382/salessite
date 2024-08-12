@@ -846,7 +846,7 @@ input[type=checkbox] {
   z-index: 999999;
 }
 .preloader-active .preloader-area-wrap .spinner div {
-  background-color: #086AD8;
+  background-color: #2f3f58;
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -14615,7 +14615,8 @@ font-weight: 500;
 
 }
 .step:hover{
-    background-color: #CC9249;
+    background-color: #df9242;
+    color: white!important;
 }
 
 .content {
@@ -14938,7 +14939,7 @@ display: flex;
 
 .tab_price>label.active {
 
-  background: #f9b700;
+  background: #df9242;
     color: white;
 }
 
@@ -15081,7 +15082,9 @@ ul.account-details_all_btn li a:hover {
     }
 
     .sec-price .col-md-3{
-    padding:10px 3px ;
+    padding: 11px 3px;
+    margin: 0px 10px 0px 10px;
+    width: 23%;
 }
 
 .pat-design img {
@@ -15104,4 +15107,10 @@ ul.account-details_all_btn li a:hover {
     font-size: 25px;
     }
 
-    
+    .list-price-dis ul li span{
+      text-transform: capitalize;
+    }
+
+    .btn-blue{
+      background: #2f3f58;
+    }

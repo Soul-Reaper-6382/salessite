@@ -32,8 +32,8 @@ margin-bottom:0px !important;
                                 <!-- section-title-wrap Start -->
                                 <div class="section-title-wrap text-center section-space--mb_60">
                                     <h1 class="heading">{{ $textSettings->heading_one ?? '' }} <br> {{ $textSettings->heading_two ?? '' }}</h1>
-                                    <h5 class="mt-3 mb-3">{{ $textSettings->text ?? '' }}</h5>
-                                      <a href="{{ route('register') }}" class="ht-btn ht-btn-md">Get Started </a>
+                                    <h5 class="mt-3 mb-3">{!! $textSettings->text ?? '' !!}</h5>
+                                      <a href="{{ route('register') }}" class="ht-btn ht-btn-md btn-blue">Get Started </a>
                                 </div>
                                 <!-- section-title-wrap Start -->
                             </div>
@@ -205,7 +205,7 @@ margin-bottom:0px !important;
                             <div class="col-lg-4 section-space--pt_100">
                                 <h5 class="heading">{{ $home_text2->heading_one ?? '' }}</h5>
                                     <p class="mt-3 mb-3">{!! $home_text2->text ?? '' !!}</p>
-                                     <a href="javascript:void(0);" class="ht-btn ht-btn-md" data-bs-toggle="modal" data-bs-target="#integrationsModal">See all integrations</a>
+                                     <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue" data-bs-toggle="modal" data-bs-target="#integrationsModal">See all integrations</a>
                             </div>
                         </div>
                     </div>
@@ -270,7 +270,7 @@ margin-bottom:0px !important;
 
 
         <!--====================  footer area ====================-->
-        <div class="footer-area-wrapper" style="background-color:#cc9249;">
+        <div class="footer-area-wrapper" style="background-color:#df9242;">
             <div class="footer-copyright-area" style="padding:10px;">
                 <div class="container">
                     <div class="row align-items-center">

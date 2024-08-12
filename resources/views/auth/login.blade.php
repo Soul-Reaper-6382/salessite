@@ -86,7 +86,7 @@
 </div>
 
  <!--====================  footer area ====================-->
-        <div class="footer-area-wrapper" style="background-color:#cc9249;">
+        <div class="footer-area-wrapper" style="background-color:#df9242;">
             <div class="footer-copyright-area" style="padding:10px;">
                 <div class="container">
                     <div class="row align-items-center">

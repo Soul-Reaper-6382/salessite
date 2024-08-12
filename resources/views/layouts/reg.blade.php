@@ -41,6 +41,7 @@
     <div class="preloader-activate preloader-active open_tm_preloader">
         <div class="preloader-area-wrap">
             <div class="spinner d-flex justify-content-center align-items-center h-100">
+                <img src="{{ url('logo.png') }}" aria-label="Smuggler" width="90px" height="48" class="img-fluid" alt="Smuggler">
                 <div class="bounce1"></div>
                 <div class="bounce2"></div>
                 <div class="bounce3"></div>
