@@ -14617,7 +14617,7 @@ font-weight: 500;
 }
 .step.active {
     background-color: #df9242;
-    color: black;
+    color: white;
 
 }
 .step:hover{
