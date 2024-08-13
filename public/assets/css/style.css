@@ -14616,7 +14616,7 @@ font-weight: 500;
     clip-path: polygon(84% 0%, 97% 50%, 84% 100%, 0% 101%, 0% 50%, 0% 0%) !important;
 }
 .step.active {
-    background-color: #FFD700;
+    background-color: #df9242;
     color: black;
 
 }
