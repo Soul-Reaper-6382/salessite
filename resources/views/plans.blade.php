@@ -1,5 +1,5 @@
 @guest
-    <div class="feature-icon-wrapper section-space--ptb_60">
+    <div id="price" class="feature-icon-wrapper section-space--ptb_60">
                     <div class="container-md">
 
                         <div class="row">

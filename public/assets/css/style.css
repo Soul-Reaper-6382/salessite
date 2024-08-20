@@ -156,6 +156,7 @@ h3 {
 @media only screen and (max-width: 767px) {
   h3 {
     font-size: 25px;
+    text-align: center;
   }
 }
 
@@ -175,6 +176,7 @@ h4 {
 @media only screen and (max-width: 767px) {
   h4 {
     font-size: 24px;
+    text-align: center;
   }
 }
 
@@ -184,6 +186,7 @@ h5 {
 @media only screen and (max-width: 767px) {
   h5 {
     font-size: 20px;
+    text-align: center;
   }
 }
 
@@ -14596,6 +14599,7 @@ font-weight: 500;
 .btn-2inn {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .step {
@@ -14746,7 +14750,26 @@ footer p{
     video.elementor-video {
         max-width: 1000px;
     }
-
+       .int_img {
+          width: 50%;
+        }
+        .pop-box-css{
+          display: block !important;
+    justify-content: center;
+    align-items: center;
+    width: 95% !important;
+        }
+        .pop-box-css-right {
+    width: 100% !important;
+  }
+  .pop-box-css-left {
+    width: 100% !important;
+            margin-top: 20px;
+        padding: 10px 10px 10px 10px;
+}
+.popup-content{
+  max-width: 100% !important;
+}
 }
 
 @media (max-width:1024px){
@@ -14767,7 +14790,7 @@ footer p{
 
 @media (max-width:624px){
     video.elementor-video {
-        max-width: 500px;
+        max-width: 100%;
     }
 
 
@@ -14784,7 +14807,7 @@ footer p{
 
 @media (max-width:504px){
     video.elementor-video {
-        max-width: 300px;
+        max-width: 100%;
     }
 
 }

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Home - Smuggler')
+@section('title', 'Home - Smugglers')
 @section('content')
 <style>
     .main-circle-content {
@@ -56,7 +56,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  End =============-->
 
                 <!--===========  feature-icon-wrapper  Start =============-->
-                <div class="feature-icon-wrapper section-space--pb_60">
+                <div class="feature-icon-wrapper section-space--ptb_60">
                     <div class="container-fluid">
 
                         <div class="row">
@@ -111,11 +111,11 @@ margin-bottom:0px !important;
                     <div class="popup">
         <span class="close">&times;</span>
       <div class="pop-box-css">
-          <div class="pop-box-css-left">
-      <p class="add-content"></p>
-          </div>
           <div class="pop-box-css-right">
               <img class="popup-content" src="">
+          </div>
+           <div class="pop-box-css-left">
+      <p class="add-content"></p>
           </div>
       </div>
       
@@ -202,7 +202,9 @@ margin-bottom:0px !important;
                             <div class="col-lg-8 section-space--pt_60">
                                 <video class="elementor-video" src="{{ asset($videoSettings->video_two) }}" autoplay="" loop="" muted="muted" controlslist="nodownload"></video>
                             </div>
-                            <div class="col-lg-4 section-space--pt_100">
+                            <div class="col-lg-4 section-space--pt_100" style="padding: 100px 25px;    justify-content: center;
+    display: ruby;
+    flex-wrap: wrap;">
                                 <h5 class="heading">{{ $home_text2->heading_one ?? '' }}</h5>
                                     <p class="mt-3 mb-3">{!! $home_text2->text ?? '' !!}</p>
                                      <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue" data-bs-toggle="modal" data-bs-target="#integrationsModal">See all integrations</a>
@@ -305,7 +307,7 @@ margin-bottom:0px !important;
                 <div class="row">
                     <!-- Loop through integration logos here -->
                     @foreach($integrations as $integration)
-                        <div class="col-md-4 text-center mb-4">
+                        <div class="col-md-4 text-center mb-4 int_img">
                             <img src="{{ url($integration->image) }}" class="img-fluid">
                         </div>
                     @endforeach
@@ -318,7 +320,12 @@ margin-bottom:0px !important;
 
 <script type="text/javascript">
     $(document).ready(function() {
-
+         if(window.location.hash) {
+        var target = window.location.hash;
+        $('html, body').animate({
+            scrollTop: $(target).offset().top
+        }, 500);
+        }
       $(document).on('click','.element_circle',function(){
         var head = $(this).attr('data-head');
         var text = $(this).attr('data-text');

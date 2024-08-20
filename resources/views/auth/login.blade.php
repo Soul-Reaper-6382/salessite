@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Login - Smuggler')
+@section('title', 'Login - Smugglers')
 @section('content')
 <style type="text/css">
    .footer-area-wrapper{

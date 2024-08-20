@@ -2,7 +2,7 @@
     $layout = isset($layout) ? $layout : 'layouts.default'; // Provide a default layout if needed
 @endphp
 @if(Auth::user()->status == 1)
-@section('title', 'Dashboard - Smuggler')
+@section('title', 'Dashboard - Smugglers')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -107,6 +107,14 @@
    .underbody {
     top: 0;
 }
+@media only screen and (max-width: 767px) {
+  body {
+    display: block;
+    justify-content: center;
+    align-items: center;
+   margin-top: 30px;
+   }
+  }
 .spinner_btn {
     border: 4px solid rgba(0, 0, 0, 0.1);
     width: 24px;
@@ -174,7 +182,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
 @endphp
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8" style="">
+        <div class="col-md-12 col-sm-12 col-lg-8" style="">
             <div class="card">
                 <div class="card-header cardheader">{{ __("Welcome!") }} {{ Auth()->user()->username }} <a class="" style="float: right;color: red;" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

@@ -1,5 +1,5 @@
 @extends('layouts.reg')
-@section('title', 'Register - Smuggler')
+@section('title', 'Register - Smugglers')
 @section('content')
 <style type="text/css">
     body{
@@ -11,10 +11,18 @@
    .underbody {
     top: 0;
 }
+@media only screen and (max-width: 767px) {
+  body {
+    display: block;
+    justify-content: center;
+    align-items: center;
+   margin-top: 30px;
+   }
+  }
 </style>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8" style="">
+        <div class="col-md-12 col-sm-12 col-lg-8" style="">
             <div class="card">
                 <div class="card-header cardheader">{{ __("Let's Get You Started!") }}</div>
 

@@ -1,6 +1,6 @@
 @if(Auth()->user()->status == 1)
 @extends('layouts.dashboard')
-@section('title', 'Payment Method - Smuggler')
+@section('title', 'Payment Method - Smugglers')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

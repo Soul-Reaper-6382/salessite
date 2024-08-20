@@ -1,7 +1,7 @@
 @if(Auth()->user()->status == 1)
 @if(Auth()->user()->stripe_id == '')
 @extends('layouts.dashboard')
-@section('title', 'Add a Card - Smuggler')
+@section('title', 'Add a Card - Smugglers')
 @section('content')
 @php
 $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
