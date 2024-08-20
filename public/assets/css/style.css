@@ -113,6 +113,12 @@ h1 {
   h1 {
     font-size: 34px;
   }
+  .homeh1 {
+    font-size: 16px !important;
+  }
+  .homeh5 {
+    font-size: 14px !important;
+  }
 }
 
 h2 {
@@ -2406,13 +2412,13 @@ input[type=checkbox] {
 }
 @media only screen and (max-width: 767px) {
   .header.default-menu-style .header__logo {
-    -webkit-flex-basis: 50%;
-        -ms-flex-preferred-size: 50%;
-            flex-basis: 50%;
-    -webkit-box-pack: start;
-    -webkit-justify-content: flex-start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
+    -webkit-flex-basis: 55%;
+        -ms-flex-preferred-size: 55%;
+            flex-basis: 55%;
+    -webkit-box-pack: end;
+    -webkit-justify-content: end;
+        -ms-flex-pack: end;
+            justify-content: end;
   }
 }
 .header.default-menu-style .header-midle-box {

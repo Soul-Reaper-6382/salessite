@@ -31,8 +31,8 @@ margin-bottom:0px !important;
                             <div class="col-lg-12">
                                 <!-- section-title-wrap Start -->
                                 <div class="section-title-wrap text-center section-space--mb_60">
-                                    <h1 class="heading">{{ $textSettings->heading_one ?? '' }} <br> {{ $textSettings->heading_two ?? '' }}</h1>
-                                    <h5 class="mt-3 mb-3">{!! $textSettings->text ?? '' !!}</h5>
+                                    <h1 class="heading homeh1">{{ $textSettings->heading_one ?? '' }} <br> {{ $textSettings->heading_two ?? '' }}</h1>
+                                    <h5 class="mt-3 mb-3 homeh5">{!! $textSettings->text ?? '' !!}</h5>
                                       <a href="{{ route('register') }}" class="ht-btn ht-btn-md btn-blue">Get Started </a>
                                 </div>
                                 <!-- section-title-wrap Start -->
@@ -202,9 +202,7 @@ margin-bottom:0px !important;
                             <div class="col-lg-8 section-space--pt_60">
                                 <video class="elementor-video" src="{{ asset($videoSettings->video_two) }}" autoplay="" loop="" muted="muted" controlslist="nodownload"></video>
                             </div>
-                            <div class="col-lg-4 section-space--pt_100" style="padding: 100px 25px;    justify-content: center;
-    display: ruby;
-    flex-wrap: wrap;">
+                            <div class="col-lg-4 section-space--pt_100" style="padding: 100px 25px;    justify-content: center;flex-wrap: wrap;">
                                 <h5 class="heading">{{ $home_text2->heading_one ?? '' }}</h5>
                                     <p class="mt-3 mb-3">{!! $home_text2->text ?? '' !!}</p>
                                      <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue" data-bs-toggle="modal" data-bs-target="#integrationsModal">See all integrations</a>
