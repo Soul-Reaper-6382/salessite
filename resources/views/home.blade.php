@@ -19,6 +19,10 @@
 margin-bottom:0px !important;
 }
 
+.secondvid_text a{
+    align-self: center;
+}
+
 </style>
 
     <div id="main-wrapper">
@@ -202,7 +206,7 @@ margin-bottom:0px !important;
                             <div class="col-lg-8 section-space--pt_60">
                                 <video class="elementor-video" src="{{ asset($videoSettings->video_two) }}" autoplay="" loop="" muted="muted" controlslist="nodownload"></video>
                             </div>
-                            <div class="col-lg-4 section-space--pt_100" style="padding: 100px 25px;    justify-content: center;flex-wrap: wrap;">
+                            <div class="col-lg-4 section-space--pt_100 secondvid_text" style="padding: 100px 25px;  display: flex; flex-direction: column;">
                                 <h5 class="heading">{{ $home_text2->heading_one ?? '' }}</h5>
                                     <p class="mt-3 mb-3">{!! $home_text2->text ?? '' !!}</p>
                                      <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue" data-bs-toggle="modal" data-bs-target="#integrationsModal">See all integrations</a>
