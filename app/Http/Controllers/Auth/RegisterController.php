@@ -120,7 +120,8 @@ class RegisterController extends Controller
     {
 
          if (!$token) {
-            $plan = Plan::where('name', 'start')
+            $plan = Plan::where('name', 'Start')
+                ->where('price', '!=', 0)
                ->where('duration', 'monthly')
                ->first(['stripe_plan']);
            if ($plan) {

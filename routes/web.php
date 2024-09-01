@@ -63,6 +63,7 @@ Route::post('/registerstore', [RegisterStoreController::class, 'registerstore'])
 
 Route::group(['middleware'=>['auth','roles:user']],function(){ 
 Route::get('/dashboard', [DashboardController::class,'index']);
+Route::get('/card_details', [DashboardController::class,'card_details']);
 Route::get('/billing_history', [DashboardController::class,'billing_history_view']);
 Route::get('/payment_method', [DashboardController::class,'payment_method_view']);
 Route::get('/monthly_yearly', [DashboardController::class,'monthly_yearly_view']);
@@ -78,6 +79,7 @@ Route::post('/submit_checkstore_license', [DashboardController::class,'submit_ch
 Route::post('/stateget_change', [DashboardController::class,'stateget_change']);
 Route::post('/submit_store_info', [DashboardController::class,'submit_store_info']);
 Route::post('/update_make_payment', [DashboardController::class,'update_make_payment']);
+Route::post('/update_card_detail', [DashboardController::class,'update_card_detail']);
 Route::post('/statefetch_func', [DashboardController::class,'statefetch_func']);
 });
 Route::get('/register/{token}', [RegisterController::class, 'showRegistrationForm'])->name('register');

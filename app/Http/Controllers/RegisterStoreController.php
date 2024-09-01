@@ -25,12 +25,23 @@ class RegisterStoreController extends Controller
 
    public function registerstore(Request $request){
         $request->validate([
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'phone_number' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'email_confirmation' => ['required', 'same:email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+                'username' => [
+                    'required', 
+                    'string',
+                    'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/', // Requires at least one uppercase letter, one lowercase letter, and one number
+                    'min:5', // Minimum length of 5 characters
+                    'max:20', // Maximum length of 20 characters
+                    'unique:users,username' // Username must be unique in the users table
+                ],
+                'phone_number' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'email_confirmation' => ['required', 'same:email'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ], [
+                // Custom error message for the regex rule on username
+                'username.regex' => 'The username must contain at least one uppercase letter, one lowercase letter, and one number.',
+                // You can add other custom messages if needed
+            ]);
 
         $plan = Plan::where('stripe_plan', $request['stripe_plan'])
                ->first(['id']);

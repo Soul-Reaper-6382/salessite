@@ -40,7 +40,7 @@ class HomeController extends Controller
     {
         // Auth()->logout();
         // return view('home');
-        $plan_db = Plan::orderBy('id', 'ASC')->get();
+        $plan_db = Plan::where('price', '!=', 0)->orderBy('id', 'ASC')->get();
         $textSettings = Home_Text::first();
         $home_text2 = Home_Text2::first();
         $circleTextSettings = Circle_Text::first();

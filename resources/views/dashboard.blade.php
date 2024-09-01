@@ -30,7 +30,10 @@
                          @if(Auth::user()->stripe_id == null)
                         <span class="detail-value subscription-status">Trial</span>
                         @else
-                        <span class="detail-value subscription-status">{{ $planStatus }}</span>
+                        <span class="detail-value subscription-status">{{ $planStatus }} 
+                        @if ($planStatus === 'trialing' && isset($trialEnd))
+                        Trial End: {{ \Carbon\Carbon::createFromTimestamp($trialEnd)->toDateTimeString() }} 
+                    @endif
                         @endif
                     </div>
                     <div class="detail-item">
@@ -195,6 +198,25 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                                     </form></div>
 
                 <div class="card-body">
+  @if ($flash = session('message'))
+        <div class="container" style="justify-content: center;display: flex;">
+            <div class="col-md-6">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ $flash }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+            </div>
+        </div>
+        @elseif ($flash = session('error'))
+        <div class="container" style="justify-content: center;display: flex;">
+            <div class="col-md-6">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ $flash }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            </div>
+        </div>
+        @endif
     <form method="POST" action="{{ url('submit_checkstore_license') }}" id="checkstore_license">
     @csrf
     <div class="row mb-3">
