@@ -30,6 +30,24 @@ class HomePageController extends Controller
     }
    
 
+
+    public function updateImageOrder(Request $request)
+    {
+
+    // Update the order in the database
+    foreach ($request->sortedIDs as $index => $id) {
+            Home_Images::whereId($id)->update([
+                'reorder' => $index
+            ]);
+    }
+    // foreach ($request->sortedIDs as $index => $id) {
+    //     Home_Images::where('id', $id)->update(['sort_order' => $index]);
+    // }
+
+    return response()->json(['success' => true]);
+    }
+
+
    public function text_setting_view()
     {
         // Fetch the current text settings from the database
@@ -47,7 +65,7 @@ class HomePageController extends Controller
     {
         // Fetch all images from the database
         // $images = Home_Images::all();
-        $images = Home_Images::orderBy('id', 'desc')->get();
+        $images = Home_Images::orderBy('reorder', 'asc')->get();
 
         
         // Pass the images to the view

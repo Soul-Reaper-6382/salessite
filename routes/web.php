@@ -37,6 +37,7 @@ Route::get('/download-all-csv', [AdminController::class, 'downloadAllCsv'])->nam
 Route::get('/text_setting', [HomePageController::class, 'text_setting_view']);
 Route::get('/videos_setting', [HomePageController::class, 'videos_setting_view']);
 Route::get('/images_setting', [HomePageController::class, 'images_setting_view']);
+Route::post('/update-image-order', [HomePageController::class, 'updateImageOrder'])->name('update_image_order');
 Route::get('/integration_images', [HomePageController::class, 'integration_images_view']);
 Route::get('/steps_setting', [HomePageController::class, 'steps_setting_view'])->name('steps_setting');;
 Route::post('update_text_settings', [HomePageController::class, 'update_text_settings'])->name('update_text_settings');

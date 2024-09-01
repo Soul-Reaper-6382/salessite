@@ -62,9 +62,9 @@ form.delete_img_parent {
             <div class="card">
                 <div class="card-body">
                     @if($images->count() > 0)
-                        <div class="row-mas">
+                        <div class="row-mas" id="image-list">
                             @foreach($images as $image)
-                                <div class="item">
+                                <div class="item" data-id="{{ $image->id }}">
                                     <img src="{{ url($image->image) }}" alt="Image">
                                     <p>{{ $image->text }}</p>
                                     <form action="{{ route('delete_image_settings', $image->id) }}" method="POST" class="delete_img_parent">
@@ -83,4 +83,45 @@ form.delete_img_parent {
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const imageList = document.getElementById('image-list');
+
+    new Sortable(imageList, {
+        // animation: 150,
+        onEnd: function (evt) {
+            // Handle the reordering logic here
+            const sortedIDs = Array.from(imageList.children).map(item => item.getAttribute('data-id'));
+            updateImageOrder(sortedIDs);
+        }
+    });
+
+    function updateImageOrder(sortedIDs) {
+        console.log(sortedIDs);
+        // Send the reordered IDs to the server
+        fetch('{{ route('update_image_order') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ sortedIDs: sortedIDs })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            if (data.success) {
+                // Optionally show a success message
+                console.log('Order updated successfully');
+            } else {
+                // Optionally show an error message
+                console.error('Failed to update order');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+});
+
+</script>
 @endsection

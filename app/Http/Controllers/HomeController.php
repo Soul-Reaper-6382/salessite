@@ -45,7 +45,7 @@ class HomeController extends Controller
         $home_text2 = Home_Text2::first();
         $circleTextSettings = Circle_Text::first();
          $videoSettings = Home_Videos::first();
-        $images = Home_Images::orderBy('id', 'desc')->get();
+        $images = Home_Images::orderBy('reorder', 'asc')->get();
         $steps = Home_Steps::all();
         $integrations = Integrations::all();
 

@@ -9,5 +9,5 @@ class Home_Images extends Model
 {
     use HasFactory;
     protected $table = 'homeimages';
-    protected $fillable = ['image','text'];
+    protected $fillable = ['image','text','reorder'];
 }
