@@ -496,7 +496,7 @@ class DashboardController extends Controller
     {
         $client = new Client();
       try {
-        $response = $client->get('https://api.smugglers-system.com/api/application/public/states');
+        $response = $client->get('https://api.smugglers-system.dev/api/application/public/states');
         
         if ($response->getStatusCode() !== 200) {
             throw new \Exception('Error response from API: ' . $response->getStatusCode());
@@ -588,7 +588,7 @@ class DashboardController extends Controller
             // dd($data);
 
             try {
-                $response = $client->post('https://api.smugglers-system.com/api/store/public/onboarding/', [
+                $response = $client->post('https://api.smugglers-system.dev/api/store/public/onboarding/', [
                     'json' => $data,
                 ]);
 
