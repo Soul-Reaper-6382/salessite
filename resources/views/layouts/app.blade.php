@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title', 'Smugglers')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Smuggler">
+    <meta name="description" content="Smugglers">
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('favicon.png') }}">
 
