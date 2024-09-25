@@ -84,7 +84,7 @@
                                                                     <img src="{{ url($integration->image) }}" class="img-fluid">
                                                                 </div>
                                                                 <div class="content">
-                                                                    <h6 class="heading">{{ \Illuminate\Support\Str::limit($integration->heading, 20) }}</h6>
+                                                                    <h6 class="heading mt-3">{{ \Illuminate\Support\Str::limit($integration->heading, 20) }}</h6>
                                                                     <div class="text">{{ \Illuminate\Support\Str::limit($integration->text, 20) }}</div>
                                                                     <div class="feature-btn">
                                                                         <a href="javascript:void(0)" class="learn-more-btn mt-1" data-integration='@json($integration)'>
