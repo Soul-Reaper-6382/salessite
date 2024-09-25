@@ -161,7 +161,6 @@ margin-bottom:0px !important;
             <div class="col-lg-12 wow move-up">
                 <div class="marquee">
                     <div class="marquee-content">
-                        @for($i = 0; $i < 5; $i++)
                         @if($images->count() > 0)
                             @php
                                 $count = 0;
@@ -193,7 +192,7 @@ margin-bottom:0px !important;
                         @else
                             <p>No images found</p>
                         @endif
-                        @endfor
+                        
                     </div>
                 </div>
             </div>
