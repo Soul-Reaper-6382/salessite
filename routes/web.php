@@ -7,6 +7,7 @@ use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegisterStoreController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\Auth\RegisterController;
 
 /*
@@ -35,9 +36,11 @@ Route::post('/admin_update-password', [AdminController::class,'admin_update_pass
 Route::get('/download-all-csv', [AdminController::class, 'downloadAllCsv'])->name('licenses.downloadAllCsv');
 
 Route::get('/text_setting', [HomePageController::class, 'text_setting_view']);
+Route::get('/graphic_textsetting', [HomePageController::class, 'graphic_text_setting_view']);
 Route::get('/videos_setting', [HomePageController::class, 'videos_setting_view']);
 Route::get('/images_setting', [HomePageController::class, 'images_setting_view']);
 Route::post('/update-image-order', [HomePageController::class, 'updateImageOrder'])->name('update_image_order');
+Route::post('/update_graphic_settings', [HomePageController::class, 'update_graphic_settings']);
 Route::get('/integration_images', [HomePageController::class, 'integration_images_view']);
 Route::get('/steps_setting', [HomePageController::class, 'steps_setting_view'])->name('steps_setting');;
 Route::post('update_text_settings', [HomePageController::class, 'update_text_settings'])->name('update_text_settings');
@@ -45,6 +48,21 @@ Route::post('update_home_text2', [HomePageController::class, 'update_home_text2'
 Route::post('update_circle_text_settings', [HomePageController::class, 'update_circle_text_settings'])->name('update_circle_text_settings');
 Route::post('update_video_settings', [HomePageController::class, 'update_video_settings'])->name('update_video_settings');
 Route::post('/add_integration_images', [HomePageController::class, 'add_integration_images'])->name('add_integration_images');
+Route::post('/add_category', [HomePageController::class, 'addCategory'])->name('add_category');
+Route::delete('/delete_category/{id}', [HomePageController::class, 'deleteCategory'])->name('delete_category');
+Route::delete('/delete_integration/{id}', [HomePageController::class, 'deleteIntegration'])->name('delete_integration');
+// Route to fetch images based on category
+Route::get('/category_images/{id}', [HomePageController::class, 'getCategoryImages'])->name('category_images');
+
+Route::get('/edit_category/{id}', [HomePageController::class, 'editCategory'])->name('edit_category');
+Route::post('/update_category/{id}', [HomePageController::class, 'updateCategory'])->name('update_category');
+// Fetch data to edit image
+Route::get('/edit_image/{id}', [HomePageController::class, 'editImage'])->name('edit_image');
+
+// Update the image
+Route::put('/update_image/{id}', [HomePageController::class, 'updateImage'])->name('update_image');
+
+
 Route::delete('/delete_integration_images/{id}', [HomePageController::class, 'delete_integration_images'])->name('delete_integration_images');
 Route::post('/add_image_settings', [HomePageController::class, 'add_image_settings'])->name('add_image_settings');
 Route::post('/add_step_settings', [HomePageController::class, 'add_step_settings'])->name('add_step_settings');
@@ -53,6 +71,12 @@ Route::get('/edit_step/{id}', [HomePageController::class, 'edit_step'])->name('e
 Route::post('/update_step/{id}', [HomePageController::class, 'update_step'])->name('update_step');
 Route::delete('/delete_step/{id}', [HomePageController::class, 'delete_step'])->name('delete_step');
 
+Route::get('/testimonials', [TestimonialController::class, 'index'])->name('testimonials.index');
+Route::get('/testimonials/create', [TestimonialController::class, 'create'])->name('testimonials.create');
+Route::post('/testimonials/store', [TestimonialController::class, 'store'])->name('testimonials.store');
+Route::get('/testimonials/edit/{id}', [TestimonialController::class, 'edit'])->name('testimonials.edit');
+Route::post('/testimonials/update/{id}', [TestimonialController::class, 'update'])->name('testimonials.update');
+Route::delete('/testimonials/delete/{id}', [TestimonialController::class, 'destroy'])->name('testimonials.destroy');
 
 });
 Route::get('/', function () {
@@ -60,6 +84,9 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [HomeController::class,'index']);
+Route::get('/all_integration', [HomeController::class,'all_integration']);
+Route::post('/statefetch_func_home', [HomeController::class,'statefetch_func_home']);
+Route::post('/stateget_change_home', [HomeController::class,'stateget_change_home']);
 Route::post('/registerstore', [RegisterStoreController::class, 'registerstore']);
 
 Route::group(['middleware'=>['auth','roles:user']],function(){ 

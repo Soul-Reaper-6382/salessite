@@ -18,7 +18,7 @@
                         @csrf
 
                         <div class="form-group">
-                            <label for="video_one" class="form-label">Video one</label>
+                            <label for="video_one" class="form-label">Intro Video</label>
                             <input name="video_one" type="file" class="form-control @error('video_one') is-invalid @enderror" id="video_one">
                                 @error('video_one')
                                     <span class="invalid-feedback" role="alert">
@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="video_two" class="form-label">Video two</label>
+                            <label for="video_two" class="form-label">Integrations Video</label>
                             <input name="video_two" type="file" class="form-control @error('video_two') is-invalid @enderror" id="video_two">
                              @error('video_two')
                                     <span class="invalid-feedback" role="alert">

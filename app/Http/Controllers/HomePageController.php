@@ -11,9 +11,11 @@ use App\Models\Home_Text;
 use App\Models\Home_Text2;
 use App\Models\Circle_Text;
 use App\Models\Home_Videos;
+use App\Models\Graphic_Text;
 use App\Models\Home_Images;
 use App\Models\Home_Steps;
 use App\Models\Integrations;
+use App\Models\Integrations_Cat;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
@@ -58,6 +60,16 @@ class HomePageController extends Controller
         
         // Pass the settings to the view
         return view('admin.text_setting', compact('textSettings','home_text2','circleTextSettings'));
+    }
+
+    public function graphic_text_setting_view()
+    {
+        // Fetch the current text settings from the database
+        $g_textSettings = Graphic_Text::first();
+
+        
+        // Pass the settings to the view
+        return view('admin.graphic_setting', compact('g_textSettings'));
     }
 
 
@@ -114,8 +126,20 @@ class HomePageController extends Controller
     public function integration_images_view()
     {
         $images = Integrations::all();
+        $categories = Integrations_Cat::all();
+        return view('admin.integration_images', compact('categories', 'images'));
+    }
 
-        return view('admin.integration_images', compact('images'));
+    // Add new category
+    public function addCategory(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        Integrations_Cat::create(['name' => $request->name]);
+
+        return back()->with('message', 'Category added successfully.');
     }
 
     
@@ -123,19 +147,132 @@ class HomePageController extends Controller
     {
         // Validate the incoming request data
         $request->validate([
-            'image.*' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'heading' => 'required|string|max:255',
+            'text' => 'required|string',
+            'cat_id' => 'required|integer|exists:integrations_cat,id',
         ]);
 
         if ($request->hasFile('image')) {
-            foreach ($request->file('image') as $file) {
-                $fileName = time() . '_' . $file->getClientOriginalName();
-                $path = $file->move(public_path('images'), $fileName);
-                Integrations::create(['image' => 'images/' . $fileName]);
-            }
+            $file = $request->file('image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images'), $fileName);
+
+            Integrations::create([
+                'image' => 'images/' . $fileName,
+                'heading' => $request->heading,
+                'text' => $request->text,
+                'cat_id' => $request->cat_id,
+            ]);
         }
 
         // Redirect back with a success message
         return back()->with('message', 'Images added successfully.');
+    }
+
+
+
+            public function editImage($id)
+            {
+                // Find the specific image using the ID
+                $image = Integrations::findOrFail($id);
+                $categories = Integrations_Cat::all(); // Fetch all categories
+
+                // Return the image data as a JSON response along with categories
+                return response()->json([
+                    'heading' => $image->heading,
+                    'text' => $image->text,
+                    'image' => $image->image,
+                    'cat_id' => $image->cat_id, // Include the selected category ID
+                    'categories' => $categories // Pass categories to the frontend
+                ]);
+            }
+
+    public function updateImage(Request $request, $id)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'heading_upd' => 'required|string|max:255',
+            'text_upd' => 'required|string|max:255',
+            'cat_id_upd' => 'required|exists:integrations_cat,id', // Validate that the category exists
+            'image_upd' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048', // Image is optional
+        ]);
+
+        // Find the image by ID
+        $imageData = Integrations::findOrFail($id);
+
+        // If a new image is uploaded, process it
+        if ($request->hasFile('image_upd')) {
+            // Delete the old image from the public directory
+            if (file_exists(public_path($imageData->image))) {
+                unlink(public_path($imageData->image));
+            }
+
+            // Store the new image and update the image path
+            $fileName = time() . '_' . $request->file('image_upd')->getClientOriginalName();
+            $request->file('image_upd')->move(public_path('images'), $fileName);
+            $imagePath = 'images/' . $fileName;
+
+            // Update image field
+            $imageData->image = $imagePath;
+        }
+
+        // Update the rest of the data
+        $imageData->heading = $request->input('heading_upd');
+        $imageData->text = $request->input('text_upd');
+        $imageData->cat_id = $request->input('cat_id_upd');
+
+        // Save the updated data to the database
+        $imageData->save();
+        // Redirect back with a success message
+        return back()->with('message', 'Image updated successfully.');
+    }
+        public function editCategory($id)
+    {
+        $category = Integrations_Cat::find($id);
+        return response()->json($category);  // Return the category data as JSON
+    }
+
+    public function updateCategory(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $category = Integrations_Cat::find($id);
+        if ($category) {
+            $category->update(['name' => $request->name]);
+        }
+
+        return back()->with('message', 'Category updated successfully.');
+    }
+
+    public function getCategoryImages($categoryId)
+    {
+        $category = Integrations_Cat::with('integrations')->find($categoryId);
+
+        if ($category) {
+            return response()->json([
+                'images' => $category->integrations
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Category not found!'
+        ], 404);
+    }
+
+
+
+     // Delete Category
+    public function deleteCategory($id)
+    {
+        $category = Integrations_Cat::find($id);
+        if ($category) {
+            $category->delete();
+        }
+
+        return back()->with('message', 'Category deleted successfully.');
     }
 
     public function delete_integration_images($id)
@@ -299,6 +436,30 @@ class HomePageController extends Controller
         $textSettings->heading_one = $request->input('heading_one');
         $textSettings->heading_two = $request->input('heading_two');
         $textSettings->text = $request->input('text');
+        
+        // Save the updated settings to the database
+        $textSettings->save();
+
+        // Redirect back with a success message
+        return back()->with('message', 'Text settings updated successfully.');
+    }
+
+    public function update_graphic_settings(Request $request)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'heading_one' => 'required|string',
+            'heading_two' => 'required|string',
+            'text' => 'required|string',
+        ]);
+
+        // Fetch the first (or create a new) Home_Text instance
+        $textSettings = Graphic_Text::firstOrNew();
+
+        // Update the text settings
+        $textSettings->heading = $request->input('heading_one');
+        $textSettings->text = $request->input('heading_two');
+        $textSettings->text2 = $request->input('text');
         
         // Save the updated settings to the database
         $textSettings->save();

@@ -19,11 +19,24 @@
           <li class="nav-item"> <a class="nav-link" href="{{ url('/videos_setting') }}">Videos Setting</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ url('/images_setting') }}">Images Setting</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ url('/steps_setting') }}">Steps Setting</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{{ url('/integration_images') }}">Integration Images</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ url('/graphic_textsetting') }}">Graphic Text Setting</a></li>
         </ul>
       </div>
     </li>
 
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url('/integration_images') }}">
+      <span class="menu-title">Integration Images</span>
+        <i class="mdi mdi-image menu-icon"></i>
+    </a>
+  </li>
+
+     <li class="nav-item">
+      <a class="nav-link" href="{{ url('/testimonials') }}">
+        <span class="menu-title">Testimonials</span>
+        <i class="mdi mdi-comment-account menu-icon"></i>
+      </a>
+    </li>
 
 
     <!-- <li class="nav-item">
