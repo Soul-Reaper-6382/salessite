@@ -315,7 +315,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  End =============-->
 
                  <!--====================  Conact us Section Start ====================-->
-            <div class="contact-us-section-wrappaer bg-black section-space--ptb_120">
+            <div class="contact-us-section-wrappaer bg-black section-space--ptb_120" style="display: none;">
                 <div class="container" style="position:relative;">
                     <img class="d-none d-lg-block" src="{{ url('sunlight.webp') }}" style="position: absolute;
     bottom: 0;
@@ -349,7 +349,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  Start =============-->
 @include('plans')
 
-<div class="feature-icon-wrapper section-space--pt_60 section_pricing-calculator">
+<div class="feature-icon-wrapper section-space--pt_60 section_pricing-calculator" style="display: none;">
                     <div class="container" style="border-radius: 10px;
     border: 1px solid #ccc;
     padding: 20px 20px 50px 20px;">
@@ -455,7 +455,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  End =============-->
 
                 <!--====================  testimonial section ====================-->
-            <div class="testimonial-slider-area section-space--ptb_60 bg-gray-3">
+            <div class="testimonial-slider-area section-space--ptb_60 bg-gray-3" style="display:none;">
                 <div class="container-fluid container-fluid--cp-80">
                     <div class="row">
                         <div class="col-lg-12">
@@ -593,7 +593,7 @@ margin-bottom:0px !important;
                     <div class="col-md-12 text-center">
                         <a href="{{ url('all_integration') }}" style="text-decoration: underline;
     font-size: 17px;
-    color: #df9242;">see more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+    color: #df9242;display: none;">see more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -895,11 +895,11 @@ function fetch_state_func(){
           }
         }
 
-        for (var i = 0, len = triggers.length; i < len; i++) {
-          triggers[i].addEventListener("click", toggleModal);
-        }
-        closeButton.addEventListener("click", toggleModal);
-        window.addEventListener("click", windowOnClick);
+        // for (var i = 0, len = triggers.length; i < len; i++) {
+        //   triggers[i].addEventListener("click", toggleModal);
+        // }
+        // closeButton.addEventListener("click", toggleModal);
+        // window.addEventListener("click", windowOnClick);
 
         let hasScrolled = false;
 
