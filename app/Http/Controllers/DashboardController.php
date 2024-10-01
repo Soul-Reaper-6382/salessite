@@ -523,6 +523,7 @@ class DashboardController extends Controller
         $worksheet = $spreadsheet->getActiveSheet();
         $licenseValid = false;
         $storeData = [];
+        $allStoreNames = [];
 
          foreach ($worksheet->getRowIterator() as $row) {
             $cellIterator = $row->getCellIterator();
@@ -546,7 +547,20 @@ class DashboardController extends Controller
                 break;
             }
         }
-        return response()->json(['message' => $storeData]);
+         foreach ($worksheet->getRowIterator() as $row) {
+            $cellIterator = $row->getCellIterator();
+            $cellIterator->setIterateOnlyExistingCells(false);
+            $data = [];
+            foreach ($cellIterator as $cell) {
+                $data[] = $cell->getValue();
+            }
+            if ($data[6] === $state_get) {
+                $licenseValid = true;
+                $allStoreNames[] = $data[2];
+
+            }
+        }
+        return response()->json(['message' => $storeData,'storename' => $allStoreNames]);
     }
     
     public function submit_store_info(Request $request)
@@ -588,7 +602,7 @@ class DashboardController extends Controller
             // dd($data);
 
             try {
-                $response = $client->post('https://api.smugglers-system.com/api/store/public/onboarding/', [
+                $response = $client->post('https://api.smugglers-system.dev/api/store/public/onboarding/', [
                     'json' => $data,
                 ]);
 
@@ -712,14 +726,21 @@ class DashboardController extends Controller
 
         $licenseNumber = $request->store_license;
         $statefetch = $request->statefetch;
-        // Check if the license number and state already exist in the user_detail table
-        $existingRecord = UserDetail::where('lic_no', $licenseNumber)
-                                    ->where('store_state', $statefetch)
-                                    ->first();
+        $storeName = $request->store_name;
 
-        if ($existingRecord) {
-            return response()->json(['message' => 'already_exist']);
+        // Check if the license number and state already exist in the user_detail table
+        $existingRecord = UserDetail::where(function ($query) use ($licenseNumber, $storeName) {
+        if ($licenseNumber) {
+            $query->where('lic_no', $licenseNumber);
         }
+        if ($storeName) {
+            $query->orWhere('store_name', $storeName);
+        }
+    })->where('store_state', $statefetch)->first();
+
+    if ($existingRecord) {
+        return response()->json(['message' => 'already_exist']);
+    }
         $path = public_path('Retail Package Store Licenses.xlsx');
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($path);
         $worksheet = $spreadsheet->getActiveSheet();
@@ -733,7 +754,7 @@ class DashboardController extends Controller
             foreach ($cellIterator as $cell) {
                 $data[] = $cell->getValue();
             }
-            if ($data[0] === $licenseNumber) {
+        if (($licenseNumber && $data[0] === $licenseNumber) || ($storeName && $data[2] === $storeName)) {
                 $licenseValid = true;
                 $storeData = [
                     'entity_name' => $data[1],
@@ -744,6 +765,10 @@ class DashboardController extends Controller
                     'state' => $data[6],
                     'phone' => $data[7],
                 ];
+
+                if ($statefetch != $storeData['state']) {
+                return response()->json(['message' => 'notmatch']);
+                }
                 break;
             }
         }

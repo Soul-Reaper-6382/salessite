@@ -1,0 +1,124 @@
+.p4 { padding: 0 4rem; }
+.p8 { padding: 0 8rem; }
+.full-screen {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+.panel h2 {
+    font-weight: bold;
+    text-transform: capitalize;
+    margin-bottom: 25px;
+}
+.panel a {
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    display: inline-block;
+    margin-top: 20px;
+}
+#intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  padding: 150px 0;
+}
+#afterpenel { padding: 150px 0; }
+
+#masthead {
+  position: absolute;
+  display: flex;
+  z-index: 9999;
+  text-align: center;
+  width: 100%;
+}
+#masthead a {
+    padding: 10px 25px;
+    background: #fff;
+    font-size: 16px;
+    border-radius: 3px;
+    margin: 30px 5px;
+    display: inline-block;
+    text-decoration: none;
+    box-shadow: 0 0 10px #999;
+}
+#masthead .anchor-nav {
+    position: absolute;
+    left: 2.5%;
+}
+
+#panels #panels-container {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  padding: 0;
+  overflow: hidden;
+  background-color: #ddd;
+}
+#panels #panels-container .panel {
+  color: var(--color-just-black);
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  text-align: left;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #f00;
+}
+#panels #panels-container .panel img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+#panels #panels-container .panel .panels-navigation {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+#panels #panels-container .panel .anchor-panel,
+#panels #panels-container .panel .nav-panel {
+  text-transform: uppercase;
+  margin-right: 2rem;
+}
+#panels #panels-container .panels-navigation {
+  position: absolute;
+  width: 100%;
+  bottom: 2rem;
+  right: 2rem;
+}
+
+
+
+
+
+
+
+@media only screen and (max-width: 767px) {
+  
+}
+
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+  
+}
+
+@media only screen and (min-width: 1200px) {
+
+}
+
+@media only screen and (min-width: 1600px) {
+  
+}

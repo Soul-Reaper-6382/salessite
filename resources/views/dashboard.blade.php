@@ -220,7 +220,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
     <form method="POST" action="{{ url('submit_checkstore_license') }}" id="checkstore_license">
     @csrf
     <div class="row mb-3">
-    <div class="col-md-6">
+    <div class="col-md-4">
     <label for="state" class="col-md-12 col-form-label">State</label>
     <div class="col-md-12">
         <select id="statefetch" name="statefetch" class="form-control @error('statefecth') is-invalid @enderror" required>
@@ -232,11 +232,27 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
         @enderror
     </div>
     </div>
-    
-    <div class="col-md-6">
+
+    <div class="col-md-4">
+     <label for="store-license" class="col-md-12 col-form-label">Store Name</label>
+    <div class="col-md-12" style="position: relative;">
+        <select name="store_name"  class="form-control @error('store_name') is-invalid @enderror" id="store_names">
+        </select>
+        <span class="invalid-feedback error_already_storename" role="alert" style="display:none;">
+            <strong>Store name already exists</strong>
+        </span>
+        @error('store_name')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+    </div>
+
+    <div class="col-md-4">
      <label for="store-license" class="col-md-12 col-form-label">Store License Number</label>
     <div class="col-md-12" style="position: relative;">
-        <input name="store_license" type="text"  class="form-control @error('store_license') is-invalid @enderror" id="store_license" required>
+        <input name="store_license" type="text"  class="form-control @error('store_license') is-invalid @enderror" id="store_license">
         <span class="invalid-feedback error_already" role="alert" style="display:none;">
             <strong>License already exists</strong>
         </span>
@@ -597,6 +613,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                  $('#store_license').val('')
                  $('#store_license').attr('placeholder', 'License Number');
                  $('#state_old').val('');
+                 $('#store_names').empty();
             }
             else{
             $('#state_old').val(stateget_id);
@@ -619,6 +636,22 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
         // dataType: "json",
          success: function(data) {
             console.log(data.message.license_no);
+            $('#store_names').empty();
+
+             // Check if store names are available
+            if (data.storename && data.storename.length > 0) {
+                // Append a default "Select a Store" option
+                $('#store_names').append('<option value="">Select a Store</option>');
+                
+                // Loop through the store names and append them to the select dropdown
+                $.each(data.storename, function(index, storeName) {
+                    $('#store_names').append('<option value="' + storeName + '">' + storeName + '</option>');
+                });
+            } else {
+                // If no stores are found, show a placeholder
+                $('#store_names').append('<option value="">No stores available</option>');
+            }
+
             if(data.message.license_no === undefined){
                 $('#store_license').unmask();
                  $('#store_license').val('')
@@ -660,6 +693,18 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
         $('.error_licenses').hide();
         $('.error_already').hide();
         $('.ci_submit_btn_loader').show();
+
+        var storeName = $('#store_names').val();
+        var licenseNumber = $('#store_license').val();
+        var stateSelected = $('#statefetch').val();
+
+        if (!storeName && !licenseNumber) {
+        alert("Please select a store or enter a license number.");
+        $('.ci_submit_btn_loader').hide();
+        $('.ci_submit_btn').show();
+        return false;
+        }
+
         let formData = new FormData(this);
         $.ajaxSetup({
           headers: {

@@ -199,7 +199,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="learnMoreModal" tabindex="-1" aria-labelledby="learnMoreModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-sm">
+  <div class="modal-dialog modal-dialog-centered modal-md">
     <div class="modal-content" style="border: 2px solid #df9242;">
       <div class="modal-header" style="border:none;">
         <button type="button" class="btn-close close-button_form" data-bs-dismiss="modal" aria-label="Close"></button>

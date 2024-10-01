@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('title', 'Home - Smugglers')
 @section('content')
+<link rel="stylesheet" href="{{ asset('assets/css/codepen_bg_panel.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 <style>
     .main-circle-content {
     text-align: center;
@@ -216,7 +218,106 @@ margin-bottom:0px !important;
                 </div>
                 <!--===========  feature-icon-wrapper  End =============-->
 
-                <div class="feature-icon-wrappe section-space--ptb_60 infotechno-section-bg-01" style="background-color:#EBEBEB;">
+                <!--===========  panel slider  start =============-->
+
+                <section id="panels" class="d-none d-md-block">
+
+      <div id="panels-container" style="width: 500%;">
+        <div id="masthead">
+            <nav class="anchor-nav" role="navigation">
+              <!-- <a href="#header" class="anchor">Header</a> -->
+              <a href="#panel-1" class="anchor">Import/create a lead list</a>
+              <a href="#panel-2" class="anchor">Enrich your data with 75+ tools</a>
+              <a href="#panel-3" class="anchor">Use our AI research agent</a>
+              <a href="#panel-4" class="anchor">Scale your outreach</a>
+              <!-- <a href="#footer" class="anchor">Footer</a> -->
+            </nav>  
+        </div>  
+
+        <article id="panel-1" class="panel full-screen gradient-green">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-6 p4">
+                <h2>Lorem Ipsum is simply dummy</h2>
+                <p class="step-description">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Including versions of Lorem Ipsum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat vero libero dolor pariatur magni perspiciatis modi fugit est dignissimos maxime consequuntur, hic unde consequatur, ut nobis, harum quam, quibusdam adipisci!
+                </p>
+                  <a href="#">Learn More</a>
+              </div>
+              <div class="col-6">
+                <video controls autoplay>
+                  <source src="{{ url('assets/images/dummyvideo.mp4') }}" type="video/mp4">
+                </video>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="panel-2" class="panel full-screen gradient-blue">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-6 p4">
+                <img src="{{ url('assets/images/dummyimg1.jpg') }}" alt="img-fluid">
+              </div>
+              <div class="col-6">
+                <h2>Placeat vero libero dolor</h2>
+                <p class="step-description">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Including versions of Lorem Ipsum. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem, dignissimos ex dolor accusamus quasi ad minima quam ratione expedita, perferendis quisquam quibusdam voluptatum praesentium. Eos alias laboriosam, distinctio fugit repellendus.
+                  <a href="#">Learn More</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="panel-3" class="panel full-screen gradient-orange">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-6">
+                <h2>Simply dummy libero dolor</h2>
+                <p class="step-description">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Including versions of Lorem Ipsum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                  <a href="#">Learn More</a>
+              </div>
+              <div class="col-6">
+                <img src="{{ url('assets/images/dummyimg2.jpg') }}" alt="img-fluid">
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="panel-4" class="panel full-screen gradient-green">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-5">
+                <img src="{{ url('assets/images/dummyimg1.jpg') }}" alt="img-fluid">
+              </div>
+              <div class="col-7 p8">
+
+                <h2>Printing and typesetting</h2>
+
+                <p class="step-description">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Including versions of Lorem Ipsum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt culpa, non voluptates exercitationem consectetur quod, repellat quibusdam
+                </p>
+                  <a href="#">Learn More</a>
+
+<!--                 <div class="panels-navigation">
+                  <div class="nav-panel" data-sign="minus"><a href="#panel-3" class="anchor">Prev</a></div>
+                  <div class="nav-panel" data-sign="plus"><a href="#panel-5" class="anchor">Next</a></div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+                <!--===========  panel slider End =============-->
+
+                <div id="afterpenel" class="feature-icon-wrappe section-space--ptb_60 infotechno-section-bg-01" style="background-color:#EBEBEB;">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -349,7 +450,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  Start =============-->
 @include('plans')
 
-<div class="feature-icon-wrapper section-space--pt_60 section_pricing-calculator" style="display: none;">
+<div class="feature-icon-wrapper section-space--pt_60 section_pricing-calculator">
                     <div class="container" style="border-radius: 10px;
     border: 1px solid #ccc;
     padding: 20px 20px 50px 20px;">
@@ -455,7 +556,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  End =============-->
 
                 <!--====================  testimonial section ====================-->
-            <div class="testimonial-slider-area section-space--ptb_60 bg-gray-3" style="display:none;">
+            <div class="testimonial-slider-area section-space--ptb_60 bg-gray-3">
                 <div class="container-fluid container-fluid--cp-80">
                     <div class="row">
                         <div class="col-lg-12">
@@ -593,7 +694,7 @@ margin-bottom:0px !important;
                     <div class="col-md-12 text-center">
                         <a href="{{ url('all_integration') }}" style="text-decoration: underline;
     font-size: 17px;
-    color: #df9242;display: none;">see more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+    color: #df9242;">see more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -667,7 +768,7 @@ margin-bottom:0px !important;
 </div>
 
 <div class="row mb-3">
-    <div class="col-md-6">
+    <div class="col-md-12">
     <label for="state" class="col-md-12 col-form-label">State</label>
     <div class="col-md-12">
         <select id="statefetch" name="statefetch" class="form-control @error('statefecth') is-invalid @enderror" required>
@@ -679,15 +780,19 @@ margin-bottom:0px !important;
         @enderror
     </div>
     </div>
+
+    </div>
+
+<div class="row mb-3">
     
-    <div class="col-md-6 spinner_license_text" style="display:none;">
+    <div class="col-md-12 spinner_license_text" style="display:none;">
     <div class="col-md-12" style="position: relative;">
         <div class="" style="    text-align: center;
     color: red;
     position: absolute;
     left: 0;
     right: 0;
-    top: 40px;">Please Wait...</div>
+    top: -15px;">Please Wait...</div>
     </div>
     </div>
 
@@ -704,6 +809,22 @@ margin-bottom:0px !important;
             </span>
         @enderror
         <div class="spinner_license" style="display:none;"></div>
+    </div>
+    </div>
+
+    <div class="col-md-6 store_license_div" style="display:none;">
+     <label for="store-name" class="col-md-12 col-form-label">Store Name</label>
+    <div class="col-md-12" style="position: relative;">
+        <select id="store_names" name="store_name" class="form-control @error('store_name') is-invalid @enderror">
+        </select>
+        <span class="invalid-feedback error_already_store_name" role="alert" style="display:none;">
+            <strong>Store name already exists</strong>
+        </span>
+        @error('store_name')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
     </div>
     </div>
 
@@ -725,7 +846,9 @@ margin-bottom:0px !important;
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollToPlugin.min.js"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
 
 <script>
@@ -840,7 +963,24 @@ function fetch_state_func(){
         // cache: false,
         // dataType: "json",
          success: function(data) {
+            console.log(data);
             console.log(data.message.license_no);
+            $('#store_names').empty();
+
+             // Check if store names are available
+            if (data.storename && data.storename.length > 0) {
+                // Append a default "Select a Store" option
+                $('#store_names').append('<option value="">Select a Store</option>');
+                
+                // Loop through the store names and append them to the select dropdown
+                $.each(data.storename, function(index, storeName) {
+                    $('#store_names').append('<option value="' + storeName + '">' + storeName + '</option>');
+                });
+            } else {
+                // If no stores are found, show a placeholder
+                $('#store_names').append('<option value="">No stores available</option>');
+            }
+
             if(data.message.license_no === undefined){
                 $('#store_license').unmask();
                  $('#store_license').val('')
@@ -895,11 +1035,11 @@ function fetch_state_func(){
           }
         }
 
-        // for (var i = 0, len = triggers.length; i < len; i++) {
-        //   triggers[i].addEventListener("click", toggleModal);
-        // }
-        // closeButton.addEventListener("click", toggleModal);
-        // window.addEventListener("click", windowOnClick);
+        for (var i = 0, len = triggers.length; i < len; i++) {
+          triggers[i].addEventListener("click", toggleModal);
+        }
+        closeButton.addEventListener("click", toggleModal);
+        window.addEventListener("click", windowOnClick);
 
         let hasScrolled = false;
 

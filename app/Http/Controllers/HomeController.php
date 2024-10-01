@@ -47,6 +47,7 @@ class HomeController extends Controller
         $worksheet = $spreadsheet->getActiveSheet();
         $licenseValid = false;
         $storeData = [];
+        $allStoreNames = [];
 
          foreach ($worksheet->getRowIterator() as $row) {
             $cellIterator = $row->getCellIterator();
@@ -70,7 +71,21 @@ class HomeController extends Controller
                 break;
             }
         }
-        return response()->json(['message' => $storeData]);
+
+        foreach ($worksheet->getRowIterator() as $row) {
+            $cellIterator = $row->getCellIterator();
+            $cellIterator->setIterateOnlyExistingCells(false);
+            $data = [];
+            foreach ($cellIterator as $cell) {
+                $data[] = $cell->getValue();
+            }
+            if ($data[6] === $state_get) {
+                $licenseValid = true;
+                $allStoreNames[] = $data[2];
+
+            }
+        }
+        return response()->json(['message' => $storeData,'storename' => $allStoreNames]);
     }
 
     public function statefetch_func_home(Request $request)
