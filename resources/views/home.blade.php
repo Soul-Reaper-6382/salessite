@@ -220,7 +220,8 @@ margin-bottom:0px !important;
 
                 <!--===========  panel slider  start =============-->
 
-                <section id="panels" class="d-none d-md-block" style="display:none;">
+                <!-- <section id="panels" class="d-none d-md-block" style="display:none;"> -->
+                <section id="panels" class="" style="display:none;">
 
       <div id="panels-container" style="width: 500%;">
         <div id="masthead">
