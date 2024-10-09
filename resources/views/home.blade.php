@@ -123,9 +123,7 @@ margin-bottom:0px !important;
                               <h1 class="heading homeh1">{{ $textSettings->heading_one ?? '' }} <br> {{ $textSettings->heading_two ?? '' }}</h1>
                               <h5 class="mt-3 mb-3 homeh5">{!! $textSettings->text ?? '' !!}</h5>
                               <a href="{{ route('register') }}" class="ht-btn ht-btn-md btn-blue">Get Started </a>
-                              <a href="javascript:void(0);" class="click_all_learnmore" style="text-decoration: underline;
-    font-size: 17px;
-    color: #df9242;">learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+                              <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue click_all_learnmore" style="background: #df9242;">learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
                             </div>
                             <!-- section-title-wrap Start -->
                           </div>
@@ -220,101 +218,109 @@ margin-bottom:0px !important;
 
                 <!--===========  panel slider  start =============-->
 
-                <!-- <section id="panels" class="d-none d-md-block" style="display:none;"> -->
-                <section id="panels" class="" style="display:none;">
+                <section id="panels" class="d-none d-md-block" style="position:relative;">
 
-      <div id="panels-container" style="width: 500%;">
-        <div id="masthead">
-            <nav class="anchor-nav" role="navigation">
-              <!-- <a href="#header" class="anchor">Header</a> -->
-              <a href="#panel-1" class="anchor">Import/create a lead list</a>
-              <a href="#panel-2" class="anchor">Enrich your data with 75+ tools</a>
-              <a href="#panel-3" class="anchor">Use our AI research agent</a>
-              <a href="#panel-4" class="anchor">Scale your outreach</a>
-              <!-- <a href="#footer" class="anchor">Footer</a> -->
-            </nav>  
-        </div>  
+  <div class="page">
 
-        <article id="panel-1" class="panel full-screen gradient-green">
-          <div class="container-fluid">
-            <div class="row align-items-center">
-              <div class="col-6 p4">
-                <h2>Lorem Ipsum is simply dummy</h2>
-                <p class="step-description">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Including versions of Lorem Ipsum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat vero libero dolor pariatur magni perspiciatis modi fugit est dignissimos maxime consequuntur, hic unde consequatur, ut nobis, harum quam, quibusdam adipisci!
-                </p>
-                  <a href="#">Learn More</a>
-              </div>
-              <div class="col-6">
-                <video controls autoplay>
-                  <source src="{{ url('assets/images/dummyvideo.mp4') }}" type="video/mp4">
-                </video>
-              </div>
-            </div>
-          </div>
-        </article>
-        <article id="panel-2" class="panel full-screen gradient-blue">
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-6 p4">
-                <img src="{{ url('assets/images/dummyimg1.jpg') }}" alt="img-fluid">
-              </div>
-              <div class="col-6">
-                <h2>Placeat vero libero dolor</h2>
-                <p class="step-description">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Including versions of Lorem Ipsum. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem, dignissimos ex dolor accusamus quasi ad minima quam ratione expedita, perferendis quisquam quibusdam voluptatum praesentium. Eos alias laboriosam, distinctio fugit repellendus.
-                  <a href="#">Learn More</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </article>
-        <article id="panel-3" class="panel full-screen gradient-orange">
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-6">
-                <h2>Simply dummy libero dolor</h2>
-                <p class="step-description">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Including versions of Lorem Ipsum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                  <a href="#">Learn More</a>
-              </div>
-              <div class="col-6">
-                <img src="{{ url('assets/images/dummyimg2.jpg') }}" alt="img-fluid">
-              </div>
-            </div>
-          </div>
-        </article>
-        <article id="panel-4" class="panel full-screen gradient-green">
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-5">
-                <img src="{{ url('assets/images/dummyimg1.jpg') }}" alt="img-fluid">
-              </div>
-              <div class="col-7 p8">
-
-                <h2>Printing and typesetting</h2>
-
-                <p class="step-description">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Including versions of Lorem Ipsum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt culpa, non voluptates exercitationem consectetur quod, repellat quibusdam
-                </p>
-                  <a href="#">Learn More</a>
-
-<!--                 <div class="panels-navigation">
-                  <div class="nav-panel" data-sign="minus"><a href="#panel-3" class="anchor">Prev</a></div>
-                  <div class="nav-panel" data-sign="plus"><a href="#panel-5" class="anchor">Next</a></div>
-                </div> -->
-              </div>
-            </div>
-          </div>
-        </article>
+    <div class="sc-slide-wrapper" id="scSlideWrapper">
+        <header>
+    <div class="sc-top-nav nav-bar">
+      <div class="container">
+        <ul class="sc-top-nav-list">
+          <li class="active"><a href="#scHeroSection" class="sc-slide-nav">panel 1</a></li>
+          <li><a href="#scSaleSection" class="sc-slide-nav">panel 2</a></li>
+          <li><a href="#scWhySection" class="sc-slide-nav">panel 3</a></li>
+          <li><a href="#scEstimateSection" class="sc-slide-nav">panel 4</a></li>
+        </ul>
       </div>
-    </section>
+    </div>
+  </header>
+      <section class="sc-slide-section gradient-green" id="scHeroSection">
+        <div class="container position-relative">
+          <div class="row">
+            <div class="col-sm-12">
+              <h1>panel 1</h1>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <section class="sc-slide-section gradient-blue" id="scSaleSection">
+        <div class="container position-relative">
+          <div class="row">
+            <div class="col-sm-12">
+              <h1>panel 2</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="sc-slide-section gradient-orange" id="scWhySection">
+        <div class="container position-relative">
+          <div class="row">
+            <div class="col-sm-12">
+              <h1>panel 3</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="sc-slide-section gradient-green" id="scEstimateSection">
+        <div class="container position-relative">
+          <div class="d-flex">
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <div class="sc-page-nav">
+      <span class="sc-page-nav-prev">
+
+      </span>
+      <span class="sc-page-nav-next">
+        <a href="#scSaleSection" class="sc-page-nav-item">
+          <i class="fa-solid fa-circle-chevron-right"></i>
+        </a>
+      </span>
+    </div>
+  </div>
+
+                </section>
 
                 <!--===========  panel slider End =============-->
 
@@ -349,9 +355,9 @@ margin-bottom:0px !important;
                                                         @foreach($step->buttons as $button)
                                                             <a href="{{ $button['link'] }}" class="btn" style="background-color: {{ $button['color'] }};">{{ $button['text'] }}</a>
                                                         @endforeach
-                                                        <a href="javascript:void(0);" class="click_all_learnmore" style="text-decoration: underline;
-    font-size: 17px;
-    color: #df9242;margin: 18px;">learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+                                                         @if(count($step->buttons) == 1)
+                                                        <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue click_all_learnmore" style="background: #df9242;">learn more  <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+                                                        @endif
                                                     </div>
                                                 @endif
                                             </div>
@@ -366,9 +372,9 @@ margin-bottom:0px !important;
                                                         @foreach($step->buttons as $button)
                                                             <a href="{{ $button['link'] }}" class="btn" style="background-color: {{ $button['color'] }};">{{ $button['text'] }}</a>
                                                         @endforeach
-                                                        <a href="javascript:void(0);" class="click_all_learnmore" style="text-decoration: underline;
-    font-size: 17px;
-    color: #df9242;margin: 18px;">learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+                                                        @if(count($step->buttons) == 1)
+                                                        <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue click_all_learnmore" style="background: #df9242;">learn more  <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+                                                        @endif
                                                     </div>
                                                 @endif
                                             </div>
@@ -406,9 +412,7 @@ margin-bottom:0px !important;
                                     <p class="mt-3 mb-3">{!! $home_text2->text ?? '' !!}</p>
                                     <div class="btn-2inn">
                                      <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue" data-bs-toggle="modal" data-bs-target="#integrationsModal">See all integrations</a>
-                                     <a href="javascript:void(0);" class="click_all_learnmore" style="text-decoration: underline;
-    font-size: 17px;
-    color: #df9242;">learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+                                     <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue click_all_learnmore" style="background: #df9242;">learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
                                     </div>
                             </div>
                         </div>
@@ -451,7 +455,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  Start =============-->
 @include('plans')
 
-<div class="feature-icon-wrapper section-space--pt_60 section_pricing-calculator" style="display:none;">
+<div class="feature-icon-wrapper section-space--pt_60 section_pricing-calculator">
                     <div class="container" style="border-radius: 10px;
     border: 1px solid #ccc;
     padding: 20px 20px 50px 20px;">
@@ -557,7 +561,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  End =============-->
 
                 <!--====================  testimonial section ====================-->
-            <div class="testimonial-slider-area section-space--ptb_60 bg-gray-3" style="display:none;">
+            <div class="testimonial-slider-area section-space--ptb_60 bg-gray-3">
                 <div class="container-fluid container-fluid--cp-80">
                     <div class="row">
                         <div class="col-lg-12">
@@ -603,9 +607,7 @@ margin-bottom:0px !important;
                                 <div class="ue-ciclegraph">
                                     <h5 class="heading gethead">{{ $circleTextSettings->heading_one }}</h5>
                                     <p class="gettext">{{ $circleTextSettings->text }}</p>
-                                    <a href="javascript:void(0);" class="click_all_learnmore" style="text-decoration: underline;
-    font-size: 17px;
-    color: #df9242;">learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+                                    <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue click_all_learnmore" style="background: #df9242;">learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
                                     <div class="uc-items-wrapper">
                                         @for ($i = 1; $i <= 10; $i++)
                                             @php
@@ -695,7 +697,7 @@ margin-bottom:0px !important;
                     <div class="col-md-12 text-center">
                         <a href="{{ url('all_integration') }}" style="text-decoration: underline;
     font-size: 17px;
-    color: #df9242;display:none;">see more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+    color: #df9242;">see more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -845,13 +847,122 @@ margin-bottom:0px !important;
 </div>
 @include('layouts.footer_home')
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/gsap@3/dist/ScrollToPlugin.min.js"></script>
-<script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/ScrollToPlugin.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
 
+
+
+  <script>
+    gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
+
+    let slidesContainer = document.querySelector("#scSlideWrapper"),
+      tween;
+
+    const slides = gsap.utils.toArray("#scSlideWrapper .sc-slide-section");
+    tween = gsap.to(slides, {
+      // xPercent: -100 * (slides.length - 1),
+      x: () => -1 * (slidesContainer.scrollWidth - innerWidth),
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#scSlideWrapper",
+        pin: true,
+        start: "top top",
+        scrub: 1,
+        // snap: {
+        //     snapTo: 1 / (slides.length - 1),
+        //     inertia: false,
+        //     duration: {
+        //         min: 0.1,
+        //         max: 0.1,
+        //     },
+        // },
+        end: () => "+=" + (slidesContainer.scrollWidth - innerWidth),
+        onUpdate: (self) => {
+          const slideIndex = Math.round(self.progress * (slides.length - 1));
+          const slideId = slides[slideIndex].id;
+          updateActiveNav(slideId);
+          updatePrevNext(slideId);
+        }
+      }
+    });
+
+    document.querySelectorAll(".sc-slide-nav").forEach((link) => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        scrollToTarget(e.target.getAttribute("href"));
+      });
+    });
+
+    jQuery(document).on("click", ".sc-page-nav-item", function (e) {
+      e.preventDefault();
+      scrollToTarget(e.target.parentNode.getAttribute("href"));
+    });
+
+    function scrollToTarget(href) {
+      let targetEle = document.querySelector(href),
+        y = targetEle;
+      if (targetEle && slidesContainer.isSameNode(targetEle.parentElement)) {
+        let totalScroll = tween.scrollTrigger.end - tween.scrollTrigger.start,
+          totalMovement = slidesContainer.scrollWidth - innerWidth;
+        y = Math.round(
+          tween.scrollTrigger.start +
+            (targetEle.offsetLeft / totalMovement) * totalScroll
+        );
+      }
+      gsap.to(window, {
+        scrollTo: {
+          y: y,
+          autoKill: false
+        },
+        duration: 1
+      });
+    }
+
+    function updateActiveNav(slideId) {
+      jQuery(".sc-top-nav-list li").removeClass("active");
+      jQuery(`a[href="#${slideId}"]`).parent().addClass("active");
+    }
+
+    function updatePrevNext(slideId) {
+      let links = {
+        scHeroSection: {
+          next: "#scSaleSection"
+        },
+        scSaleSection: {
+          prev: "#scHeroSection",
+          next: "#scWhySection"
+        },
+        scWhySection: {
+          prev: "#scSaleSection",
+          next: "#scEstimateSection"
+        },
+        scEstimateSection: {
+          prev: "#scWhySection"
+        }
+      };
+
+      jQuery(".sc-page-nav-prev").html("");
+      jQuery(".sc-page-nav-next").html("");
+
+      if (links[slideId].hasOwnProperty("prev")) {
+        jQuery(".sc-page-nav-prev").html(`
+                        <a href="${links[slideId]["prev"]}" class="sc-page-nav-item">
+                            <i class="fa-solid fa-circle-chevron-left"></i>
+                        </a>`);
+      }
+
+      if (links[slideId].hasOwnProperty("next")) {
+        jQuery(".sc-page-nav-next").html(`
+                        <a href="${links[slideId]["next"]}" class="sc-page-nav-item">
+                            <i class="fa-solid fa-circle-chevron-right"></i>
+                        </a>`);
+      }
+    }
+
+  </script>
 <script>
     // Wait for the document to load
     window.onload = function() {
@@ -1036,61 +1147,13 @@ function fetch_state_func(){
           }
         }
 
-        // for (var i = 0, len = triggers.length; i < len; i++) {
-        //   triggers[i].addEventListener("click", toggleModal);
-        // }
-        // closeButton.addEventListener("click", toggleModal);
-        // window.addEventListener("click", windowOnClick);
-
-        let hasScrolled = false;
-
-  // Function to check the scroll position of elements
-  function checkScroll() {
-    let h1 = $('.homeh1');
-    let h5 = $('.homeh5');
-
-    // Check if user scrolled more than 100px
-    if ($(window).scrollTop() > 100) {
-      if (!hasScrolled) {
-        hasScrolled = true; // Set flag to true
-
-        // Add scrolled class to h1 if scrolled past 100px
-        if (isInView(h1)) {
-          h1.addClass('scrolled-h1');
+        for (var i = 0, len = triggers.length; i < len; i++) {
+          triggers[i].addEventListener("click", toggleModal);
         }
+        closeButton.addEventListener("click", toggleModal);
+        window.addEventListener("click", windowOnClick);
 
-        // Add scrolled class to h5 if scrolled past 100px
-        if (isInView(h5)) {
-          h5.addClass('scrolled-h5');
-        }
-      }
-    } else {
-      // Reset when scrolled back to less than 100px
-      if (hasScrolled) {
-        hasScrolled = false;
         
-        // Remove the class from both elements
-        h1.removeClass('scrolled-h1');
-        h5.removeClass('scrolled-h5');
-      }
-    }
-  }
-
-  // Helper function to check if an element is in the viewport
-  function isInView(element) {
-    let elementTop = element.offset().top;
-    let elementBottom = elementTop + element.outerHeight();
-    let viewportTop = $(window).scrollTop();
-    let viewportBottom = viewportTop + $(window).height();
-    
-    // Return true if the element is in the viewport
-    return elementBottom > viewportTop && elementTop < viewportBottom;
-  }
-
-  // Listen for scroll event
-  $(window).on('scroll', function() {
-    checkScroll();
-  });
 
 function updateROI() {
   const hoursSaved = parseInt(parseInt(document.getElementById("hoursSaved").value) + parseInt(1)) * 4;
