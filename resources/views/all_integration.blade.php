@@ -126,9 +126,7 @@
                                 <div class="ue-ciclegraph">
                                     <h5 class="heading gethead">{{ $circleTextSettings->heading_one }}</h5>
                                     <p class="gettext">{{ $circleTextSettings->text }}</p>
-                                    <a href="javascript:void(0);" class="click_all_learnmore" style="text-decoration: underline;
-    font-size: 17px;
-    color: #df9242;">learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+                                    <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue click_all_learnmore" style="background: #df9242;">learn more  <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
                                     <div class="uc-items-wrapper">
                                         @for ($i = 1; $i <= 10; $i++)
                                             @php
