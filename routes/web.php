@@ -10,6 +10,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\Auth\RegisterController;
 
+use Illuminate\Http\Request;
+use SevenShores\Hubspot\Factory;
+use GuzzleHttp\Client;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -89,6 +95,54 @@ Route::post('/statefetch_func_home', [HomeController::class,'statefetch_func_hom
 Route::post('/stateget_change_home', [HomeController::class,'stateget_change_home']);
 Route::post('/registerstore', [RegisterStoreController::class, 'registerstore']);
 
+Route::post('/lead_storehubspot', function (Request $request) {
+    // Store form data in session to retrieve later after OAuth
+    session([
+        'form_data' => $request->all(),
+    ]);
+
+    // Build HubSpot OAuth authorization URL
+    $clientId = env('HUBSPOT_CLIENT_ID');
+    $redirectUri = route('hubspot.callback');
+    $scopes = 'contacts'; // You can specify other scopes as needed
+    $authUrl = "https://app.hubspot.com/oauth/authorize?client_id={$clientId}&redirect_uri={$redirectUri}&scope={$scopes}";
+    // dd($authUrl);
+    // Redirect user to HubSpot OAuth
+    return redirect($authUrl);
+})->name('lead.store');
+
+
+Route::get('/hubspot/callback', function (Request $request) {
+    $code = $request->query('code');
+    $clientId = env('HUBSPOT_CLIENT_ID');
+    $clientSecret = env('HUBSPOT_CLIENT_SECRET');
+    $redirectUri = route('hubspot.callback');
+
+    // Exchange the authorization code for an access token
+    $client = new Client();
+    $response = $client->post('https://api.hubapi.com/oauth/v1/token', [
+        'form_params' => [
+            'grant_type' => 'authorization_code',
+            'client_id' => $clientId,
+            'client_secret' => $clientSecret,
+            'redirect_uri' => $redirectUri,
+            'code' => $code,
+        ],
+    ]);
+
+    $responseBody = json_decode($response->getBody(), true);
+
+    // Store access token and refresh token in session
+    session([
+        'hubspot_access_token' => $responseBody['access_token'],
+        'hubspot_refresh_token' => $responseBody['refresh_token'],
+    ]);
+
+    // Redirect to lead submission
+    return redirect()->route('lead.submit');
+})->name('hubspot.callback');
+
+
 Route::group(['middleware'=>['auth','roles:user']],function(){ 
 Route::get('/dashboard', [DashboardController::class,'index']);
 Route::get('/card_details', [DashboardController::class,'card_details']);
@@ -109,6 +163,8 @@ Route::post('/submit_store_info', [DashboardController::class,'submit_store_info
 Route::post('/update_make_payment', [DashboardController::class,'update_make_payment']);
 Route::post('/update_card_detail', [DashboardController::class,'update_card_detail']);
 Route::post('/statefetch_func', [DashboardController::class,'statefetch_func']);
+
+
 });
 Route::get('/register/{token}', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Auth::routes([]);

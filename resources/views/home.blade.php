@@ -218,7 +218,7 @@ margin-bottom:0px !important;
 
                 <!--===========  panel slider  start =============-->
 
-                <section id="panels" class="d-none d-md-block" style="position:relative;">
+                <section id="panels" class="d-none d-md-block" style="position:relative;display: none !important;">
 
   <div class="page">
 
@@ -455,7 +455,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  Start =============-->
 @include('plans')
 
-<div class="feature-icon-wrapper section-space--pt_60 section_pricing-calculator">
+<div class="feature-icon-wrapper section-space--pt_60 section_pricing-calculator" style="display: none !important;">
                     <div class="container" style="border-radius: 10px;
     border: 1px solid #ccc;
     padding: 20px 20px 50px 20px;">
@@ -561,7 +561,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  End =============-->
 
                 <!--====================  testimonial section ====================-->
-            <div class="testimonial-slider-area section-space--ptb_60 bg-gray-3">
+            <div class="testimonial-slider-area section-space--ptb_60 bg-gray-3" style="display: none !important;">
                 <div class="container-fluid container-fluid--cp-80">
                     <div class="row">
                         <div class="col-lg-12">
@@ -708,7 +708,7 @@ margin-bottom:0px !important;
 <div class="modal_form">
   <div class="modal-content_form">
     <span class="close-button_form">&times;</span>
-    <form id="multi-step-form" method="POST" action="{{ url('registerstore') }}">
+    <form id="multi-step-form" method="POST" action="{{ url('lead_storehubspot') }}">
     @csrf
      <div class="row mb-3">
         <div class="col-md-12 text-center">
@@ -802,7 +802,7 @@ margin-bottom:0px !important;
     <div class="col-md-6 store_license_div" style="display:none;">
      <label for="store-license" class="col-md-12 col-form-label">Store License Number</label>
     <div class="col-md-12" style="position: relative;">
-        <input name="store_license" type="text"  class="form-control @error('store_license') is-invalid @enderror" id="store_license" required>
+        <input name="store_license" type="text"  class="form-control @error('store_license') is-invalid @enderror" id="store_license" >
         <span class="invalid-feedback error_already" role="alert" style="display:none;">
             <strong>License already exists</strong>
         </span>

@@ -10,6 +10,7 @@
         "anhskohbo/no-captcha": "^3.5",
         "embed/embed": "^4.4",
         "guzzlehttp/guzzle": "^7.8",
+        "hubspot/hubspot-php": "^5.3",
         "laravel/cashier": "^14.14",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
