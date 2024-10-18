@@ -400,14 +400,14 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  End =============-->
 
                 <!--===========  feature-icon-wrapper  Start =============-->
-                <div class="feature-icon-wrapper bg-gray section-space--pb_60">
+                <div class="feature-icon-wrapper bg-gray section-space--pb_0">
                     <div class="container-fluid" style="padding-left: 0px;">
 
                         <div class="row">
                             <div class="col-lg-8 section-space--pt_60">
                                 <video class="elementor-video" src="{{ asset($videoSettings->video_two) }}" autoplay="" loop="" muted="muted" controlslist="nodownload"></video>
                             </div>
-                            <div class="col-lg-4 section-space--pt_100 secondvid_text" style="padding: 100px 25px;  display: flex; flex-direction: column;">
+                            <div class="col-lg-4 section-space--pt_100 secondvid_text" style="padding: 25px 25px;  display: flex; flex-direction: column;">
                                 <h5 class="heading">{{ $home_text2->heading_one ?? '' }}</h5>
                                     <p class="mt-3 mb-3">{!! $home_text2->text ?? '' !!}</p>
                                     <div class="btn-2inn">
