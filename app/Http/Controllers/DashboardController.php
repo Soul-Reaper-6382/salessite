@@ -602,7 +602,7 @@ class DashboardController extends Controller
             // dd($data);
 
             try {
-                $response = $client->post('https://api.smugglers-system.dev/api/store/public/onboarding/', [
+                $response = $client->post('https://api.smugglers-system.com/api/store/public/onboarding/', [
                     'json' => $data,
                 ]);
 

@@ -216,113 +216,7 @@ margin-bottom:0px !important;
                 </div>
                 <!--===========  feature-icon-wrapper  End =============-->
 
-                <!--===========  panel slider  start =============-->
-
-                <section id="panels" class="d-none d-md-block" style="position:relative;display: none !important;">
-
-  <div class="page">
-
-    <div class="sc-slide-wrapper" id="scSlideWrapper">
-        <header>
-    <div class="sc-top-nav nav-bar">
-      <div class="container">
-        <ul class="sc-top-nav-list">
-          <li class="active"><a href="#scHeroSection" class="sc-slide-nav">panel 1</a></li>
-          <li><a href="#scSaleSection" class="sc-slide-nav">panel 2</a></li>
-          <li><a href="#scWhySection" class="sc-slide-nav">panel 3</a></li>
-          <li><a href="#scEstimateSection" class="sc-slide-nav">panel 4</a></li>
-        </ul>
-      </div>
-    </div>
-  </header>
-      <section class="sc-slide-section gradient-green" id="scHeroSection">
-        <div class="container position-relative">
-          <div class="row">
-            <div class="col-sm-12">
-              <h1>panel 1</h1>
-            </div>
-          </div>
-        </div>
-
-      </section>
-      <section class="sc-slide-section gradient-blue" id="scSaleSection">
-        <div class="container position-relative">
-          <div class="row">
-            <div class="col-sm-12">
-              <h1>panel 2</h1>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="sc-slide-section gradient-orange" id="scWhySection">
-        <div class="container position-relative">
-          <div class="row">
-            <div class="col-sm-12">
-              <h1>panel 3</h1>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="sc-slide-section gradient-green" id="scEstimateSection">
-        <div class="container position-relative">
-          <div class="d-flex">
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-          </div>
-        </div>
-
-      </section>
-    </div>
-
-    <div class="sc-page-nav">
-      <span class="sc-page-nav-prev">
-
-      </span>
-      <span class="sc-page-nav-next">
-        <a href="#scSaleSection" class="sc-page-nav-item">
-          <i class="fa-solid fa-circle-chevron-right"></i>
-        </a>
-      </span>
-    </div>
-  </div>
-
-                </section>
-
-                <!--===========  panel slider End =============-->
+                
 
                 <div id="afterpenel" class="feature-icon-wrappe section-space--ptb_60 infotechno-section-bg-01" style="background-color:#EBEBEB;">
     <div class="container">
@@ -421,7 +315,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  End =============-->
 
                  <!--====================  Conact us Section Start ====================-->
-            <div class="contact-us-section-wrappaer bg-black section-space--ptb_120" style="display: none;">
+            <div class="contact-us-section-wrappaer bg-black section-space--ptb_120" style="display:;">
                 <div class="container" style="position:relative;">
                     <img class="d-none d-lg-block" src="{{ url('sunlight.webp') }}" style="position: absolute;
     bottom: 0;
@@ -455,7 +349,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  Start =============-->
 @include('plans')
 
-<div class="feature-icon-wrapper section-space--pt_60 section_pricing-calculator" style="display: none !important;">
+<div class="feature-icon-wrapper section-space--pt_60 section_pricing-calculator" style="display:">
                     <div class="container" style="border-radius: 10px;
     border: 1px solid #ccc;
     padding: 20px 20px 50px 20px;">
@@ -561,7 +455,7 @@ margin-bottom:0px !important;
                 <!--===========  feature-icon-wrapper  End =============-->
 
                 <!--====================  testimonial section ====================-->
-            <div class="testimonial-slider-area section-space--ptb_60 bg-gray-3" style="display: none !important;">
+            <div class="testimonial-slider-area section-space--ptb_60 bg-gray-3" style="display: ">
                 <div class="container-fluid container-fluid--cp-80">
                     <div class="row">
                         <div class="col-lg-12">
@@ -831,6 +725,21 @@ margin-bottom:0px !important;
     </div>
     </div>
 
+    <div class="col-md-12 error_invalid_lead_lic" style="display:none;">
+        <p class="" style="    text-align: center;
+    color: red;;">Invalid Store name and License Number</p>
+    </div>
+
+    <div class="col-md-12 error_invalid_lead" style="display:none;">
+        <p class="" style="    text-align: center;
+    color: red;;"></p>
+    </div>
+
+    <div class="col-md-12 success_lead" style="display:none;">
+        <p class="" style="    text-align: center;
+    color: green;;">Lead submitted successfully</p>
+    </div>
+
     </div>
 
      <div class="row mb-0 ">
@@ -1006,6 +915,64 @@ margin-bottom:0px !important;
 
 <script type="text/javascript">
 
+$('#multi-step-form').submit(function(e) {
+        e.preventDefault();
+        $('.error_invalid_lead_lic').hide();
+        $('.error_invalid_lead').hide();
+        $('.success_lead').hide();
+        var storeName = $('#store_names').val();
+        var licenseNumber = $('#store_license').val();
+        var stateSelected = $('#statefetch').val();
+
+        if (!storeName && !licenseNumber) {
+        alert("Please select a store or enter a license number.");
+        return false;
+        }
+
+        let formData = new FormData(this);
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+         $.ajax({
+        // headers: {
+        //     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        // },
+        url: $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: formData,
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "json",
+         success: function(data) {
+            console.log(data);
+            if(data.message == 'notmatch'){
+            $('.error_invalid_lead_lic').show();
+            }
+            else{
+                $('.success_lead').show();
+                location.reload(true);
+            }
+        },
+        error: function(err) {
+            if (err.responseJSON && err.responseJSON.message) {
+                console.log('Error message:', err.responseJSON.message);
+                $('.error_invalid_lead p').text(err.responseJSON.message);
+            } else if (err.responseText) {
+                // Fallback in case responseJSON is not available
+                console.log('Raw error response:', err.responseText);
+                $('.error_invalid_lead p').text('An unexpected error occurred. Please try again.');
+            } else {
+                console.log('Unknown error:', err);
+                $('.error_invalid_lead p').text('Something went wrong. Please contact support.');
+            }
+            $('.error_invalid_lead').show();
+        }
+
+    });
+    });
 function fetch_state_func(){
             $.ajaxSetup({
           headers: {
