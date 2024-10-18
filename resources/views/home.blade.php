@@ -134,7 +134,7 @@ margin-bottom:0px !important;
 
                      <!--===========  feature-icon-wrapper  Start =============-->
                 <div class="feature-icon-wrapper section-space--pb_0">
-                    <div class="container-fluid" style="padding-left: 0px;">
+                    <div class="container-fluid p-0">
 
                         <div class="row">
                             <div class="col-lg-12">
@@ -147,7 +147,7 @@ margin-bottom:0px !important;
 
                 <!--===========  feature-icon-wrapper  Start =============-->
                 <div class="feature-icon-wrapper section-space--ptb_60">
-                    <div class="container-fluid">
+                    <div class="container-fluid p-0">
 
                         <div class="row">
                             <div class="col-lg-12">
