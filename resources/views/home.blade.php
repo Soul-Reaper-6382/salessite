@@ -1463,6 +1463,18 @@ $(".range-input input").on("input", function () {
   });
 });
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const marqueeContent = document.getElementById("marquee-content");
+    
+    // Duplicate the content after the page loads
+    const duplicateContent = marqueeContent.innerHTML;
+    marqueeContent.innerHTML += duplicateContent;
+
+});
+</script>
+
 <!-- Mirrored from htmldemo.net/mitech/index-cybersecurity.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 16 Jul 2023 20:59:07 GMT -->
 </html>
 @endsection
