@@ -216,7 +216,113 @@ margin-bottom:0px !important;
                 </div>
                 <!--===========  feature-icon-wrapper  End =============-->
 
-                
+                <!--===========  panel slider  start =============-->
+
+                <section id="panels" class="d-none d-md-block" style="position:relative;display: none !important;">
+
+  <div class="page">
+
+    <div class="sc-slide-wrapper" id="scSlideWrapper">
+        <header>
+    <div class="sc-top-nav nav-bar">
+      <div class="container">
+        <ul class="sc-top-nav-list">
+          <li class="active"><a href="#scHeroSection" class="sc-slide-nav">panel 1</a></li>
+          <li><a href="#scSaleSection" class="sc-slide-nav">panel 2</a></li>
+          <li><a href="#scWhySection" class="sc-slide-nav">panel 3</a></li>
+          <li><a href="#scEstimateSection" class="sc-slide-nav">panel 4</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+      <section class="sc-slide-section gradient-green" id="scHeroSection">
+        <div class="container position-relative">
+          <div class="row">
+            <div class="col-sm-12">
+              <h1>panel 1</h1>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <section class="sc-slide-section gradient-blue" id="scSaleSection">
+        <div class="container position-relative">
+          <div class="row">
+            <div class="col-sm-12">
+              <h1>panel 2</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="sc-slide-section gradient-orange" id="scWhySection">
+        <div class="container position-relative">
+          <div class="row">
+            <div class="col-sm-12">
+              <h1>panel 3</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="sc-slide-section gradient-green" id="scEstimateSection">
+        <div class="container position-relative">
+          <div class="d-flex">
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+            <div class="fix-w">
+              dynamic card
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <div class="sc-page-nav">
+      <span class="sc-page-nav-prev">
+
+      </span>
+      <span class="sc-page-nav-next">
+        <a href="#scSaleSection" class="sc-page-nav-item">
+          <i class="fa-solid fa-circle-chevron-right"></i>
+        </a>
+      </span>
+    </div>
+  </div>
+
+                </section>
+
+                <!--===========  panel slider End =============-->
 
                 <div id="afterpenel" class="feature-icon-wrappe section-space--ptb_60 infotechno-section-bg-01" style="background-color:#EBEBEB;">
     <div class="container">
