@@ -9,10 +9,11 @@ use App\Http\Controllers\RegisterStoreController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\Auth\RegisterController;
-
-use Illuminate\Http\Request;
-use SevenShores\Hubspot\Factory;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\Log;
 
 
 
@@ -96,51 +97,88 @@ Route::post('/stateget_change_home', [HomeController::class,'stateget_change_hom
 Route::post('/registerstore', [RegisterStoreController::class, 'registerstore']);
 
 Route::post('/lead_storehubspot', function (Request $request) {
-    // Store form data in session to retrieve later after OAuth
-    session([
-        'form_data' => $request->all(),
-    ]);
+    // dd($request->email);
+    try {
+        $licenseNumber = $request->store_license;
+        $statefetch = $request->statefetch;
+        $storeName = $request->store_name;
 
-    // Build HubSpot OAuth authorization URL
-    $clientId = env('HUBSPOT_CLIENT_ID');
-    $redirectUri = route('hubspot.callback');
-    $scopes = 'contacts'; // You can specify other scopes as needed
-    $authUrl = "https://app.hubspot.com/oauth/authorize?client_id={$clientId}&redirect_uri={$redirectUri}&scope={$scopes}";
-    // dd($authUrl);
-    // Redirect user to HubSpot OAuth
-    return redirect($authUrl);
+        $path = public_path('Retail Package Store Licenses.xlsx');
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($path);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $licenseValid = false;
+        $storeData = [];
+
+         foreach ($worksheet->getRowIterator() as $row) {
+            $cellIterator = $row->getCellIterator();
+            $cellIterator->setIterateOnlyExistingCells(false);
+            $data = [];
+            foreach ($cellIterator as $cell) {
+                $data[] = $cell->getValue();
+            }
+        if (($licenseNumber && $data[0] === $licenseNumber) || ($storeName && $data[2] === $storeName)) {
+                $licenseValid = true;
+                $storeData = [
+                    'entity_name' => $data[1],
+                    'store_name' => $data[2],
+                    'store_address' => $data[3],
+                    'city' => $data[4],
+                    'country' => $data[5],
+                    'state' => $data[6],
+                    'phone' => $data[7],
+                ];
+
+                if ($statefetch != $storeData['state']) {
+                return response()->json(['message' => 'notmatch']);
+                }
+                break;
+            }
+        }
+
+        if (!$licenseValid || $statefetch != $storeData['state']) {
+            $error_license = 'notmatch';
+            return response()->json(['message' => 'notmatch']);
+        }
+   
+        // Collect lead data
+         $leadData = [
+            'properties' => [
+                'email'     => $request->input('email'),
+                'firstname' => $request->input('first_name'),
+                'lastname'  => $request->input('last_name'),
+                'phone'     => $request->input('phone_number'),
+                'state'   => $request->input('statefetch'),       // Added State
+                'store_license' => $request->input('store_license'),    // Added Store License
+                'store_name'   => $request->input('store_name'),       // Added Store Name
+            ],
+        ];
+
+
+        // API URL
+        $url = 'https://api.hubapi.com/crm/v3/objects/contacts';
+        
+        // Send request with Guzzle
+        $client = new Client();
+        $response = $client->post($url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
+                'Content-Type'  => 'application/json',
+            ],
+            'json' => $leadData,
+        ]);
+
+        return response()->json(['message' => 'Lead submitted successfully']);
+    } catch (RequestException $e) {
+        // Handle error and display response from HubSpot
+        if ($e->hasResponse()) {
+            $response = $e->getResponse();
+            $message = json_decode($response->getBody()->getContents(), true);
+            return response()->json(['error' => $message], $response->getStatusCode());
+        }
+        return response()->json(['error' => 'An error occurred while submitting the lead'], 500);
+    }
 })->name('lead.store');
 
-
-Route::get('/hubspot/callback', function (Request $request) {
-    $code = $request->query('code');
-    $clientId = env('HUBSPOT_CLIENT_ID');
-    $clientSecret = env('HUBSPOT_CLIENT_SECRET');
-    $redirectUri = route('hubspot.callback');
-
-    // Exchange the authorization code for an access token
-    $client = new Client();
-    $response = $client->post('https://api.hubapi.com/oauth/v1/token', [
-        'form_params' => [
-            'grant_type' => 'authorization_code',
-            'client_id' => $clientId,
-            'client_secret' => $clientSecret,
-            'redirect_uri' => $redirectUri,
-            'code' => $code,
-        ],
-    ]);
-
-    $responseBody = json_decode($response->getBody(), true);
-
-    // Store access token and refresh token in session
-    session([
-        'hubspot_access_token' => $responseBody['access_token'],
-        'hubspot_refresh_token' => $responseBody['refresh_token'],
-    ]);
-
-    // Redirect to lead submission
-    return redirect()->route('lead.submit');
-})->name('hubspot.callback');
 
 
 Route::group(['middleware'=>['auth','roles:user']],function(){ 
