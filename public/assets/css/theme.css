@@ -736,7 +736,7 @@ transform: scale(0.8);
 /*}*/
     
 .marquee-box img{
-    height: auto !important;
+    height: 200px !important;
   
 }
 
@@ -757,6 +757,10 @@ flex: 0 0 25vw !important;
     .marquee-item {
     flex: 0 0 24vw !important;
     margin: 0 1vw;
+}
+.marquee-box img{
+    height: 120px !important;
+  
 }
 
     .marquee-item.div-ex-box {
