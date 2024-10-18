@@ -160,7 +160,7 @@ margin-bottom:0px !important;
                           <div class="row">
             <div class="col-lg-12 wow move-up">
                 <div class="marquee">
-                    <div class="marquee-content">
+                    <div class="marquee-content" id="marquee-content">
                         @if($images->count() > 0)
                             @php
                                 $count = 0;
