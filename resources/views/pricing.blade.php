@@ -213,7 +213,32 @@
 
 
 
+<div class="modal fade" id="integrationsModal" tabindex="-1" aria-labelledby="integrationsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="integrationsModalLabel">Supported POS Systems</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Loop through integration logos here -->
+                    @foreach($integrations as $integration)
+                        <div class="col-md-3 text-center mb-4 int_img">
+                            <img src="{{ url($integration->image) }}" class="img-fluid">
+                        </div>
+                    @endforeach
 
+                    <div class="col-md-12 text-center">
+                        <a href="{{ url('all_integration') }}" style="text-decoration: underline;
+    font-size: 17px;
+    color: #df9242;">see more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @include('layouts.lead_form')
