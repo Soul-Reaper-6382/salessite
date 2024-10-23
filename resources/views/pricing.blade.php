@@ -162,11 +162,11 @@
                 <!--===========  rev_redraw-wrapper  End =============-->
 
                 <!--===========  feature-icon-wrapper  Start =============-->
-                <div class="feature-icon-wrapper bg-gray section-space--pb_0">
+                <div class="feature-icon-wrapper bg- section-space--pb_0">
                     <div class="container-fluid" style="padding-left: 0px;">
 
                         <div class="row">
-                            <div class="col-lg-8 section-space--pt_60">
+                            <div class="col-lg-8 section-space--pt_0">
                                 <video class="elementor-video" src="{{ asset($videoSettings->video_two) }}" autoplay="" loop="" muted="muted" controlslist="nodownload"></video>
                             </div>
                             <div class="col-lg-4 section-space--pt_100 secondvid_text" style="padding: 25px 25px;  display: flex; flex-direction: column;">
