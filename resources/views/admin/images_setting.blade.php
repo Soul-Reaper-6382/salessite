@@ -4,7 +4,7 @@
 
 <style type="text/css">
   .row-mas {
-  columns: 5;
+  columns: 2;
   column-gap: 1rem;
 }
 
