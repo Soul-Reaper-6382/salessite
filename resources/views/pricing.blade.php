@@ -496,6 +496,23 @@ function fetch_state_func(){
         location.href = url_reg;
       })
 
+       $('.tab_price').on('click', function() {
+                var name = $(this).data('name').toLowerCase(); // Get the data-name value and convert to lowercase
+
+                // Remove active class from all labels and add to the clicked one
+                $('.tab_price label').removeClass('active');
+                $(this).find('label').addClass('active');
+
+                // Show elements matching the data-name and hide others
+                $('.price_main_column').each(function() {
+                    if ($(this).data('dur') === name) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
 
     $('.click_change_plan_upd').on('click', function() {
     var planId = $(this).data('id');
