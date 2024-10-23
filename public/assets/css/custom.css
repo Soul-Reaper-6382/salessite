@@ -1,0 +1,376 @@
+:root {
+    --theme-primary: #8E1E7D;
+    --theme-font-color: #000000;
+    --theme-border-color: #000000;
+}
+
+
+.fixed {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: darkslategrey;
+}
+
+.toleft {
+  margin-right: 50%;
+}
+
+
+.sc-dark-button,
+.sc-light-button {
+    border-radius: 50px;
+    padding: 10px 20px;
+    transition: all 0.4s;
+}
+
+.sc-dark-button {
+    background: var(--theme-primary);
+    color: #fff;
+    border: 1px solid var(--theme-primary);
+}
+
+.sc-dark-button:hover {
+    background: #fff;
+    color: var(--theme-primary);
+}
+
+.sc-light-button {
+    background: #fff;
+    color: var(--theme-primary);
+    border: 1px solid var(--theme-primary);
+}
+
+.sc-light-button:hover {
+    background: var(--theme-primary);
+    color: #fff;
+}
+
+.sc-img {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.sc-section-heading {
+    margin-bottom: 5vh
+}
+
+.sc-page-nav {
+    position: fixed;
+    top: 50%;
+    width: 100%;
+}
+
+.sc-page-nav span i {
+    font-size: 2.5rem;
+    color: var(--theme-primary);
+}
+
+.sc-page-nav-prev {
+    display: inline-block;
+    left: 2vw;
+    position: absolute;
+}
+
+.sc-page-nav-next {
+    display: inline-block;
+    right: 2vw;
+    position: absolute;
+}
+
+.sc-page-nav-item {
+    display: inline-block;
+}
+
+
+/*####### Header ######*/
+header {
+    position: fixed;
+    width: 100%;
+    background-color:red;
+    z-index: 100;
+    top: 0;
+}
+.hidden-header {
+  display: none;
+}
+
+header nav {
+    border-bottom: 1px solid #6670801A;
+}
+
+.sc-nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sc-nav-logo img {
+    height: 6vh;
+    width: 100%;
+}
+
+.sc-nav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2vh 0vw;
+}
+
+.sc-nav-menu {
+    border: none;
+    background: #fff;
+}
+
+.sc-nav-menu i {
+    font-size: 2rem;
+    padding-top: 4px;
+}
+
+/*##### Top Nav ####*/
+.sc-top-nav {
+    padding: 6vh;
+}
+
+.sc-top-nav-list {
+    display: flex;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    justify-content: center;
+}
+
+.sc-top-nav-list li a {
+    color: #000;
+    text-decoration: none;
+    padding: 0px;
+    margin: 0px 15px;
+    position: relative;
+    font-weight: 600;
+    font-size: 0.9vw;
+}
+
+.sc-top-nav-list li.active a {
+    color: var(--theme-primary);
+}
+
+.sc-top-nav-list li.active a::after {
+    position: absolute;
+    content: "";
+    background: var(--theme-primary);
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    border-radius: 80px;
+    display: inline-block;
+}
+
+/*#### Page Slider ###*/
+#scSlideWrapper {
+    /* width: 500%; */
+    height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding: 0;
+    /* overflow: hidden; */
+}
+
+.sc-slide-section {
+    /* position: relative; */
+    min-width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    padding-top: 30vh;
+/*  border:1px solid red;*/
+}
+#scEstimateSection{
+    /* width: unset;
+    flex: 1 0 auto; */
+}
+
+
+/*####### Estimate Section #######*/
+.sc-estimate-card {
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    margin: 0 1vw;
+}
+
+.sc-estimate-card-tag {
+    display: block;
+    margin-left: auto;
+    width: fit-content;
+    background: #6EB5B2;
+    padding: 0.5rem 01rem;
+    border-radius: 20px;
+    color: #fff;
+}
+
+.sc-estimate-card-type {
+    background: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: #86357A;
+    margin: 0.8rem 0;
+    display: inline-block;
+    border: 1px solid #86357A;
+}
+
+.sc-estimate-card-services p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.sc-estimate-card-services p:nth-child(2) {
+    font-weight: 700;
+}
+
+.sc-estimate-button {
+    max-width: fit-content;
+    margin-top: 1.5rem !important;
+}
+
+.sc-estimate-card-price p {
+    margin: 0;
+}
+
+.sc-estimate-card-price {
+    margin: 1rem 0;
+}
+
+.sc-estimate-card-services {
+    margin: 1rem 0;
+}
+
+.fix-w {
+    width: 800px;
+  border:1px solid blue;
+}
+
+
+
+
+@media only screen and (max-width: 767px) {
+  
+}
+
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+  
+}
+
+@media only screen and (min-width: 1200px) {
+
+}
+
+@media only screen and (min-width: 1600px) {
+  
+}
+
+    .main-circle-content {
+    text-align: center;
+    border: 3px solid #fbbc04;
+    padding: 50px 20px;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 9px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.content-hide p{
+margin-bottom:0px !important;
+}
+
+.secondvid_text a{
+    align-self: center;
+}
+
+  h1, h5 {
+    transition: color 0.5s ease;
+  }
+ .scrolled-h1 {
+    color: #df9242;
+    font-family: monospace;
+  }
+
+  .scrolled-h5 {
+    color: #2f3f58;
+    font-family: monospace;
+  }
+
+
+.modal_form {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.1);
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+.modal-content_form {
+  position: absolute;
+  border: 2px solid #df9242;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 2rem 2.5rem;
+  width: 50em;
+  border-radius: 0.5rem;
+}
+.close-button_form {
+  float: right;
+  width: 2.5rem;
+  font-size: 1.2em;
+  line-height: 2;
+  padding: 0 .2em .15em;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background-color: #ddd;
+  color: #333;
+  transition: color 0.12s ease-in-out;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+.close-button_form:hover {
+  color: #d75b4c;
+}
+.show-modal_form {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1.0);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+  z-index: 9;
+}
+.spinner_license{
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border-left-color: #09f;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 7px;
+    left: 50%;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
