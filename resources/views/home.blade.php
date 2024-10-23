@@ -6,7 +6,7 @@
             <div class="bg-white">
 
                      <div class="projects-wrapper projectinfotechno-bg section-space--pt_60" style="background-position: left;">
-                      <div class="container">
+                      <div class="container abc">
                         <div class="row">
                           <div class="col-lg-12">
                             <!-- section-title-wrap Start -->
