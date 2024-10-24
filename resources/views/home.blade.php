@@ -13,8 +13,10 @@
                             <div class="section-title-wrap text-center section-space--mb_60">
                               <h1 class="heading homeh1">{{ $textSettings->heading_one ?? '' }} <br> {{ $textSettings->heading_two ?? '' }}</h1>
                               <h5 class="mt-3 mb-3 homeh5">{!! $textSettings->text ?? '' !!}</h5>
+                              <div class="btn-2inn">
                               <a href="{{ route('register') }}" class="ht-btn ht-btn-md btn-blue">Get Started </a>
                               <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue click_all_learnmore" style="background: #df9242;">learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+                              </div>
                             </div>
                             <!-- section-title-wrap Start -->
                           </div>
@@ -27,7 +29,7 @@
                 <div class="feature-icon-wrapper section-space--pb_0">
                     <div class="container-fluid p-0">
 
-                        <div class="row">
+                        <div class="row g-0">
                             <div class="col-lg-12">
                                 <video class="elementor-video" src="{{ asset($videoSettings->video_one) }}" autoplay="" loop="" muted="muted" controlslist="nodownload"></video>
                             </div>
@@ -40,7 +42,7 @@
                 <div class="feature-icon-wrapper section-space--ptb_60">
                     <div class="container-fluid p-0">
 
-                        <div class="row">
+                        <div class="row g-0">
                             <div class="col-lg-12">
                                 <div class="section-title-wrap text-center section-space--mb_40">
                                     <h3 class="heading">Feature Demos</h3>
@@ -48,7 +50,7 @@
                             </div>
                         </div>
 
-                          <div class="row">
+                          <div class="row g-0">
             <div class="col-lg-12 wow move-up">
                 <div class="marquee">
                     <div class="marquee-content" id="marquee-content">
@@ -99,8 +101,10 @@
            <div class="pop-box-css-left">
       <p class="add-content"></p>
       <div class="section-title-wrap text-center section-space--mb_60">
+        <div class="btn-2inn">
                               <a href="{{ route('register') }}" class="ht-btn ht-btn-md btn-blue">Get Started </a>
                               <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue click_all_learnmore" style="background: #df9242;">learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+                            </div>
                             </div>
           </div>
       </div>
@@ -120,7 +124,7 @@
                 <div class="container" style="position:relative;">
                     <img class="d-none d-lg-block" src="{{ url('sunlight.webp') }}" style="position: absolute;
     bottom: 0;
-    left: 25%;
+    left: 17%;
     width: 300px;
     height: 300px;
     z-index: 0;">

@@ -25,6 +25,51 @@
                         </div>
 
                         <div class="row sec-6-row-bg sec-price g-0">
+@php
+    $features = [
+        'Start' => [
+            'home' => '',
+            'products' => '',
+            'Customers' => 'gry',
+            'employees' => 'gry',
+            'e-commerce' => 'gry',
+            'back office' => '',
+            'recommendations' => 'gry',
+            'automations' => 'gry'
+        ],
+        'Manage' => [
+            'home' => '',
+            'products' => '',
+            'Customers' => '',
+            'employees' => '',
+            'e-commerce' => '',
+            'back office' => '',
+            'recommendations' => 'gry',
+            'automations' => 'gry'
+        ],
+        'Own' => [
+            'home' => '',
+            'products' => '',
+            'Customers' => '',
+            'employees' => '',
+            'e-commerce' => '',
+            'back office' => '',
+            'recommendations' => '',
+            'automations' => 'gry'
+        ],
+        'Grow' => [
+            'home' => '',
+            'products' => '',
+            'Customers' => '',
+            'employees' => '',
+            'e-commerce' => '',
+            'back office' => '',
+            'recommendations' => '',
+            'automations' => ''
+        ]
+    ];
+@endphp
+
 @foreach($plan_db as $plan)
     <div class="col-md-3 price_main_column" data-dur="{{ $plan->duration }}">
         <div class="price-wrap">
@@ -57,17 +102,13 @@
                         <li class="gry" style="display:none;">Tools & Management 
                 <div class="contentp" >     <ul class="gry">         <li style="list-style-type: none;">             <ol>                 <li>Stock, Sales, Purchases  Deals Management</li>                 <li>Employee Scheduling  Tasks</li>                 <li>Marketing, Surveys and Brand Development</li>                 <li>Website, Delivery, Pick-up, Subscriptions  Events</li>                 <li>Chat, Reporting, Preferences  More</li>             </ol>         </li>     </ul> </div>
                 </li>
-                @foreach($plan->keys as $key)
-                <li>
-                    @if ($key->video_url)
-                        <span class="{{ $key->given == 'no' ? 'gry' : $key->given }}" 
-                              data-url="{{ asset($key->video_url) }}" 
-                              onclick="showVideoModal(this)" style="cursor: pointer;">{{ $key->key_name }}</span>
-                    @else
-                        <span class="{{ $key->given == 'no' ? 'gry' : $key->given }}" title="Video not available">{{ $key->key_name }}</span>
-                    @endif
-                </li>
-            @endforeach
+                         @if(array_key_exists($plan->name, $features))
+                            @foreach($features[$plan->name] as $feature => $class)
+                                <li><span class="{{ $class }}">{{ $feature }}</span></li>
+                            @endforeach
+                        @else
+                            <li>No features available</li>
+                        @endif
                     </ul>
                 </div>
 

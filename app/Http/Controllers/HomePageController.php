@@ -13,8 +13,11 @@ use App\Models\Circle_Text;
 use App\Models\Home_Videos;
 use App\Models\Graphic_Text;
 use App\Models\Home_Images;
+use App\Models\Plan;
 use App\Models\Home_Steps;
 use App\Models\Integrations;
+use App\Models\Calc_Text;
+use App\Models\PlanKey;
 use App\Models\Integrations_Cat;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
@@ -30,6 +33,185 @@ class HomePageController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function price_setting_view()
+    {
+        $plan_db = Plan::where('price', '!=', 0)->orderBy('id', 'ASC')->get();
+
+        return view('admin.pricing_setting', compact('plan_db'));
+    }
+
+    public function editPricing($id, $duration)
+    {
+    // Find the plan by its ID
+    $plan_db = Plan::find($id);
+
+    // Check if the plan exists
+    if (!$plan_db) {
+    return back()->with('error', 'Plan not found.');
+    }
+
+    // Return the view with the plan and duration
+    return view('admin.edit_pricing', compact('plan_db'));
+    }
+
+    public function updatePricing(Request $request, $id)
+    {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'name'           => 'required|string|max:255',
+            'price'          => 'required|numeric|min:0',
+            'stripe_plan_id' => 'required|string|max:255',
+            'duration'       => 'required|in:monthly,yearly',
+        ]);
+
+        // Find the plan by its ID
+        $plan = Plan::find($id);
+
+        // Check if the plan exists
+        if (!$plan) {
+        return back()->with('error', 'Plan not found.');
+        }
+
+        // Update the plan's fields with the validated data
+        $plan->name = $request->input('name');
+        $plan->slug = $request->input('name');
+        $plan->description = $request->input('name');
+        $plan->plan = $request->input('name');
+        $plan->price = $request->input('price');
+        $plan->stripe_plan = $request->input('stripe_plan_id');
+        $plan->duration = $request->input('duration');
+
+        // Save the updated plan
+        $plan->save();
+
+        // Redirect back with a success message
+        return redirect()->route('price_setting')->with('message', 'Plan updated successfully.');
+    }
+
+    public function addKey(Request $request, $id)
+{
+    $validatedData = $request->validate([
+        'key_name'  => 'required|string|max:255',
+        'video_url' => 'nullable|mimes:mp4,mov,ogg,qt,webm|max:10240',
+        'given'       => 'required|in:yes,no',
+
+    ]);
+        // Handle video upload
+        $videoUrl = null;
+        if ($request->hasFile('video_url')) {
+            $videoOnePath = $request->file('video_url')->move(public_path('videos'), $request->file('video_url')->getClientOriginalName());
+            $videoUrl = 'videos/' . $request->file('video_url')->getClientOriginalName();
+        }
+
+
+    $plan = Plan::findOrFail($id);
+
+    // Create the new key and associate it with the plan
+    $plan->keys()->create([
+        'key_name'  => $validatedData['key_name'],
+        'given'  => $validatedData['given'],
+        'video_url' => $videoUrl,
+    ]);
+
+    return back()->with('message', 'Key added successfully.');
+}
+
+public function deleteKey($id, $key_id)
+{
+    $plan = Plan::findOrFail($id);
+    $key = PlanKey::findOrFail($key_id);
+
+    // Ensure the key belongs to the plan
+    if ($key->plan_id != $plan->id) {
+        return back()->with('error', 'Key does not belong to this plan.');
+    }
+
+    // Delete the key
+    $key->delete();
+
+    return back()->with('message', 'Key deleted successfully.');
+}
+
+public function updateKey(Request $request, $id, $key_id)
+{
+    $validatedData = $request->validate([
+        'key_name'  => 'required|string|max:255',
+        'video_url' => 'nullable|mimes:mp4,mov,ogg,qt,webm|max:10240', // Optional, 10MB max size
+        'given'       => 'required|in:yes,no',
+
+    ]);
+
+    // Find the plan and key
+    $plan = Plan::findOrFail($id);
+    $key = $plan->keys()->findOrFail($key_id);
+
+    // Update the key name
+    $key->key_name = $validatedData['key_name'];
+    $key->given = $validatedData['given'];
+
+    // Handle video upload if provided
+    if ($request->hasFile('video_url')) {
+        // Store the new video
+        $videoOnePath = $request->file('video_url')->move(public_path('videos'), $request->file('video_url')->getClientOriginalName());
+            $videoUrl = 'videos/' . $request->file('video_url')->getClientOriginalName();
+        $key->video_url = $videoUrl;
+    }
+
+    // Save the updated key
+    $key->save();
+
+    return back()->with('message', 'Feature updated successfully.');
+}
+
+
+
+    public function calculator_setting_view()
+    {
+        $calcSettings = Calc_Text::first();
+
+        return view('admin.calculator_setting', compact('calcSettings'));
+    }
+
+    public function update_calculator_settings(Request $request)
+{
+    // Validate the incoming request data
+    $validatedData = $request->validate([
+        'heading_one' => 'required|string|max:255',
+        'heading_two' => 'required|string|max:255',
+        'text_one'    => 'required|string|max:255',
+        'text_two'    => 'required|string|max:255',
+        'text_three'  => 'required|string|max:255',
+        'text_four'   => 'required|string|max:255',
+        'text_five'   => 'required|string|max:255',
+        'text_six'    => 'required|string|max:255',
+        'text_seven'  => 'required|string|max:255',
+        'text_eight'  => 'required|string|max:255',
+        'text_nine'   => 'required|string|max:255',
+    ]);
+
+    // Get the first record or create a new one
+    $calcSettings = Calc_Text::firstOrNew();
+
+    // Update the fields with the new data
+    $calcSettings->heading_one = $request->input('heading_one');
+    $calcSettings->heading_two = $request->input('heading_two');
+    $calcSettings->text_one    = $request->input('text_one');
+    $calcSettings->text_two    = $request->input('text_two');
+    $calcSettings->text_three  = $request->input('text_three');
+    $calcSettings->text_four   = $request->input('text_four');
+    $calcSettings->text_five   = $request->input('text_five');
+    $calcSettings->text_six    = $request->input('text_six');
+    $calcSettings->text_seven  = $request->input('text_seven');
+    $calcSettings->text_eight  = $request->input('text_eight');
+    $calcSettings->text_nine   = $request->input('text_nine');
+
+    // Save the updated settings
+    $calcSettings->save();
+
+    // Redirect back with a success message
+    return back()->with('message', 'Calculator settings updated successfully.');
+}
    
 
 
@@ -61,6 +243,8 @@ class HomePageController extends Controller
         // Pass the settings to the view
         return view('admin.text_setting', compact('textSettings','home_text2','circleTextSettings'));
     }
+
+    
 
     public function graphic_text_setting_view()
     {

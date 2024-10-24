@@ -16,14 +16,14 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="section-title-wrap text-center section-space--mb_40">
-                                    <h5 class="heading">How much can Smugglers save you?</h5>
+                                    <h5 class="heading">{{ $calcSettings->heading_one }}</h5>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
-                            <p>How many hours do you waste each week on manual prospecting, researching clients and manual copy-pasting?</p> 
+                            <p>{{ $calcSettings->text_one }}</p> 
 
                             <h5 class="hour_h5"><span class="hour_span">1</span> hours</h5>
                             <div class="range-item">
@@ -85,27 +85,27 @@
                             </ul>
                           </div>
 
-                            <p>How much is one hour of your time worth to you? 
+                            <p>{{ $calcSettings->text_two }} 
                                     <input type="number" value="50" min="3" max="10000" name="hourly_rate" id="hourlyRate"> / hr
                                 </p>   
                             </div>
                             <div class="col-md-6 col-md-6-roi">
-                                <p>ROI Calculator</p>
+                                <p>{{ $calcSettings->heading_two }}</p>
 
                                   <h5 class="hour_h5"><span>$</span><span id="roiAmount">0</span></h5>
 
-                                <p>is your Monthly ROI with Smugglers</p>
+                                <p>{{ $calcSettings->text_three }}</p>
                                 
                                  <p style="margin:0">
-                                    <span>The calculation:</span><br>
-                                    <span>Hours saved monthly</span><span style="float: right;" id="calcHours">0</span><br>
-                                    <span>Time value saved by Smugglers</span><span style="float: right;" id="timeValueSaved">$0</span><br>
-                                    <span>Smugglers monthly cost (yearly plan)</span><span style="float: right;">$10</span><br>
+                                    <span>{{ $calcSettings->text_four }}</span><br>
+                                    <span>{{ $calcSettings->text_five }}</span><span style="float: right;" id="calcHours">0</span><br>
+                                    <span>{{ $calcSettings->text_six }}</span><span style="float: right;" id="timeValueSaved">$0</span><br>
+                                    <span>{{ $calcSettings->text_seven }}</span><span style="float: right;">$10</span><br>
                                   </p>
 
                                 <hr style="margin: 0;">
 
-                                  <p><span>Total monthly ROI</span> <span style="float: right;" id="totalRoi">$0</span></p>
+                                  <p><span>{{ $calcSettings->text_eight }}</span> <span style="float: right;" id="totalRoi">$0</span></p>
                             </div>
                         </div>
 
@@ -140,8 +140,12 @@
                                 </div>
                             </div>
 
-                            <div class="container element_circle_main_mobile d-block d-md-none">
-                            <div class="row">
+                            <div class="container-fluid element_circle_main_mobile d-block d-md-none">
+                            <div class="row g-0" style="display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+    scroll-behavior: smooth;">
                                  @for ($i = 1; $i <= 10; $i++)
                                             @php
                                                 $circleField = 'cir' . $i;
@@ -149,7 +153,7 @@
                                                 $circleText = $circleTextSettings->$circleField;
                                                 $circleText2 = $circleTextSettings->$circleField2;
                                             @endphp
-                            <div class="col-md-6 main-circle-content">
+                            <div class="col-md-6 main-circle-content" style="margin-right: 5px;width:95%;">
                                   <h5>{{ $circleText }}</h5>
                                   <p>{{ $circleText2 }}</p>
                             </div>

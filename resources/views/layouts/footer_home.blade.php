@@ -1,3 +1,41 @@
+<!-- Modal -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <video id="modalVideo" width="100%" height="auto" controls>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function showVideoModal(element) {
+    var videoUrl = element.getAttribute('data-url');
+        if (videoUrl) {
+
+    // Set the video source in the modal
+    var videoElement = document.getElementById('modalVideo');
+    videoElement.src = videoUrl;
+
+    // Show the modal
+    var videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
+    videoModal.show();
+    
+    // When modal is hidden, stop the video
+    document.getElementById('videoModal').addEventListener('hidden.bs.modal', function () {
+        videoElement.pause();
+        videoElement.currentTime = 0;
+    });
+    }
+}
+
+</script>
 </div>
     <!--====================  scroll top ====================-->
     <a href="#" class="scroll-top" id="scroll-top">
@@ -36,15 +74,26 @@
                         <li class="">
                             <a href="{{ url('home') }}">Home</a></li>
                             <li class="">
+                            <a href="{{ url('pricing') }}">Pricing</a></li>
+                            <li class="">
+                            <a href="{{ url('about-us') }}">About Us</a></li>
+                            <li class="">
                             <a href="{{ route('login') }}">Log in</a></li>
                             <li class="">
                                                          <a href="{{ route('register') }}" class="ht-btn ht-btn-md btn-blue custom_header_btn">Try smugglers for free</a>
+                                                        </li>
+                                                        <li class="">
+                                                         <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue custom_header_btn click_all_learnmore">Learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
                                                         </li>
                                 </ul>
                     @else
                     <ul>
                         <li class="">
                         <a href="{{ url('home') }}">Home</a></li>
+                        <li class="">
+                            <a href="{{ url('pricing') }}">Pricing</a></li>
+                            <li class="">
+                            <a href="{{ url('about-us') }}">About Us</a></li>
                                                         <li class="">
                                                             @if(Auth::user()->roles->first()->name == 'admin')
                                                             <a href="{{ url('admin') }}">Goto Adminpanel</a>

@@ -23,4 +23,9 @@ class Plan extends Model
     {
         return 'slug';
     }
+
+    public function keys()
+    {
+    return $this->hasMany(PlanKey::class);
+    }
 }

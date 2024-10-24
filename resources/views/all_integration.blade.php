@@ -114,58 +114,7 @@
     </div>
 </div>
 
-                
 
-                
-
-                <!--===========  rev_redraw-wrapper  Start =============-->
-                <div class="rev_redraw-wrapper">
-                        <div class="rev_redraw-inner-box bg-gray-2 rev_redraw-space">
-                            <!-- start Circle Menu -->
-                            <div id="uc_ue_circle_menu_elementor_b433c4f" class="element_circle_main_window d-none d-md-block" data-show-tip="false">
-                                <div class="ue-ciclegraph">
-                                    <h5 class="heading gethead">{{ $circleTextSettings->heading_one }}</h5>
-                                    <p class="gettext">{{ $circleTextSettings->text }}</p>
-                                    <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue click_all_learnmore" style="background: #df9242;">learn more  <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
-                                    <div class="uc-items-wrapper">
-                                        @for ($i = 1; $i <= 10; $i++)
-                                            @php
-                                                $circleField = 'cir' . $i;
-                                                $circleField2 = 'text' . $i;
-                                                $circleText = $circleTextSettings->$circleField;
-                                                $circleText2 = $circleTextSettings->$circleField2;
-                                            @endphp
-                                            <a class="element_circle ue-circle elementor-repeater-item-{{ $i }} sl-{{ $i }}" title="{{ $circleText }}" href="javascript:void(0);" id="uc_ue_circle_menu_elementor_b433c4f_item{{ $i }}" data-head="{{ $circleText }}" data-text="{{ $circleText2 }}"
-                                             style="transform: rotate({{ 306 + ($i - 1) * 36 }}deg) translate(271px) rotate(-{{ 306 + ($i - 1) * 36 }}deg);">
-                                                <div class="ue-circle-content">
-                                                    <div class="ue-circle-title">{{ $circleText }}</div>
-                                                </div>
-                                            </a>
-                                        @endfor
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="container element_circle_main_mobile d-block d-md-none">
-                            <div class="row">
-                                 @for ($i = 1; $i <= 10; $i++)
-                                            @php
-                                                $circleField = 'cir' . $i;
-                                                $circleField2 = 'text' . $i;
-                                                $circleText = $circleTextSettings->$circleField;
-                                                $circleText2 = $circleTextSettings->$circleField2;
-                                            @endphp
-                            <div class="col-md-6 main-circle-content">
-                                  <h5>{{ $circleText }}</h5>
-                                  <p>{{ $circleText2 }}</p>
-                            </div>
-                            @endfor
-                            </div>
-                            </div>
-                            <!-- end Circle Menu -->
-                        </div>
-                    </div>
-                <!--===========  rev_redraw-wrapper  End =============-->
             </div>
         </div>
 

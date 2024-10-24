@@ -14,6 +14,7 @@ use App\Models\Home_Images;
 use App\Models\Graphic_Text;
 use App\Models\Home_Steps;
 use App\Models\Integrations;
+use App\Models\Calc_Text;
 use App\Models\Integrations_Cat;
 use App\Models\Testimonial;
 use Illuminate\Validation\Rule;
@@ -140,6 +141,7 @@ class HomeController extends Controller
 
         $testimonials = Testimonial::all();
         $graphic_text = Graphic_Text::first();
+        $calcSettings = Calc_Text::first();
 
 
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
@@ -162,10 +164,10 @@ class HomeController extends Controller
         
         $priceId = $subscription ? $subscription->items->data[0]->price->id : 'N/A';
 
-        return view('pricing', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps','integrations','priceId','testimonials','graphic_text'));
+        return view('pricing', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps','integrations','priceId','testimonials','graphic_text','calcSettings'));
         }
         else{
-            return view('pricing', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps','integrations','testimonials','graphic_text'));
+            return view('pricing', compact('plan_db','textSettings','home_text2','circleTextSettings','videoSettings','images','steps','integrations','testimonials','graphic_text','calcSettings'));
         }
     }
 

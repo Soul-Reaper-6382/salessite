@@ -111,7 +111,7 @@
                                                             <a href="{{ url('pricing') }}"><span>Pricing</span></a>
                                                         </li>
                                                         <li class="">
-                                                            <a href="{{ url('About-us') }}"><span>About Us</span></a>
+                                                            <a href="{{ url('about-us') }}"><span>About Us</span></a>
                                                         </li>
                                                         <li class="">
                                                             @if(Auth::user()->roles->first()->name == 'admin')

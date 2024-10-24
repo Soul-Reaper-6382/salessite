@@ -38,6 +38,20 @@
       </a>
     </li>
 
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url('/calculator_setting') }}">
+        <span class="menu-title">Calculator Setting</span>
+        <i class="mdi mdi-calculator menu-icon"></i>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url('/price_setting') }}">
+        <span class="menu-title">Pricing Setting</span>
+        <i class="mdi mdi-currency-usd menu-icon"></i>
+      </a>
+    </li>
+
 
     <!-- <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#user" aria-expanded="false" aria-controls="ui-basic">

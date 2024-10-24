@@ -101,7 +101,10 @@ display:none;
 .col-md-6-roi{
         margin-top: 25px;
 }
-	
+.scroll_right_side p {
+    font-size: 22px !important;
+    margin-bottom: 30px !important;
+}
 }
 
 

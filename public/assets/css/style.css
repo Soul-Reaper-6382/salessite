@@ -14784,6 +14784,20 @@ font-weight: 500;
     color: white!important;
 }
 
+@media only screen and (max-width: 767px) {
+.step:first-child{
+  clip-path:initial !important;
+}
+.step {
+  clip-path: initial !important;
+          font-size: 15px;
+        width: 20% !important;
+        padding: 5px;
+}
+.steps {
+    gap: 37px;
+  }
+}
 .content {
     /* display: none; */
 }
@@ -15089,15 +15103,17 @@ select{
 justify-content: center;
 display: flex;
 }
-.tabs_price{
+.tabs_price {
     background: #edf0f5;
-    padding: 3px 3px 4px;
-    border-radius: 3px;
-        display: flex;
+/*    padding: 3px 3px 4px;*/
+    border-radius: 100px;
+    display: flex;
     align-items: stretch;
     list-style: none;
+    border: 2px solid #ccc;
     float: right;
-    margin: 10px 10px 10px 0px;
+    margin: 10px 10px 30px 0px;
+    border-radius: 100px;
 }
 .tabs_price>li{
   margin: 0;
@@ -15110,13 +15126,14 @@ display: flex;
 .tab_price>label {
     display: block;
     margin-bottom: -1px;
-    padding: 10px 21px 8px;
+    padding: 10px 30px 8px;
     background: #edf0f5;
     color: #cdc3c3;
-    font-size: 21px;
+    font-size: 18px;
     font-weight: 600;
     letter-spacing: 1px;
     cursor: pointer;
+    border-radius: 100px;
     transition: all .3s;
 }
 
@@ -15282,6 +15299,21 @@ ul.account-details_all_btn li a:hover {
     position: relative;
     z-index: 99
   }
+  @media only screen and (max-width: 767px) {
+  .sec-6-row-bg {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+    scroll-behavior: smooth;
+  }
+  .price_main_column{
+    width: 95%;
+  }
+  .pat-design{
+    display: none;
+  }
+}
 
   .price-inner h3 {
     font-weight: 900;

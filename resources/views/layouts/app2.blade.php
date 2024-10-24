@@ -32,7 +32,7 @@
       <footer class="footer">
             <div class="container-fluid d-flex justify-content-between">
               <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">© 2024 Copyright:
-    <a class="text-dark" style="text-transform:uppercase;" href="{{ url('/admin') }}">Smuggler</a></span>
+    <a class="text-dark" style="text-transform:uppercase;" href="{{ url('/admin') }}">Smugglers</a></span>
             </div>
           </footer>
       </div>

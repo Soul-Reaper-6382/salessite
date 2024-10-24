@@ -42,7 +42,19 @@ Route::get('/admin_changepassword', [AdminController::class,'admin_changepasswor
 Route::post('/admin_update-password', [AdminController::class,'admin_update_password']);
 Route::get('/download-all-csv', [AdminController::class, 'downloadAllCsv'])->name('licenses.downloadAllCsv');
 
+Route::get('/price_setting', [HomePageController::class, 'price_setting_view'])->name('price_setting');
+Route::get('/edit_pricing/{id}/{duration}', [HomePageController::class, 'editPricing'])->name('edit_pricing');
+Route::put('/update_pricing/{id}', [HomePageController::class, 'updatePricing'])->name('update_pricing');
+// Plan key routes
+Route::post('/plan/{id}/add_key', [HomePageController::class, 'addKey'])->name('add_key');
+Route::delete('/plan/{id}/delete_key/{key_id}', [HomePageController::class, 'deleteKey'])->name('delete_key');
+Route::put('/plan/{id}/update_key/{key_id}', [HomePageController::class, 'updateKey'])->name('update_key');
+
+
+
 Route::get('/text_setting', [HomePageController::class, 'text_setting_view']);
+Route::get('/calculator_setting', [HomePageController::class, 'calculator_setting_view']);
+Route::post('/update_calculator_settings', [HomePageController::class, 'update_calculator_settings']);
 Route::get('/graphic_textsetting', [HomePageController::class, 'graphic_text_setting_view']);
 Route::get('/videos_setting', [HomePageController::class, 'videos_setting_view']);
 Route::get('/images_setting', [HomePageController::class, 'images_setting_view']);
