@@ -89,5 +89,13 @@
     CKEDITOR.replace('text_one');
     CKEDITOR.replace('text_two');
     CKEDITOR.replace('text_three');
+
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+            // Select all close buttons for CKEditor notifications
+            const closeButtons = document.querySelectorAll('.cke_notification_close');
+            closeButtons.forEach(button => button.click()); // Click each button to close notifications
+        }, 1000); // Adjust delay as needed to ensure notifications have rendered
+    });
 </script>
 @endsection
