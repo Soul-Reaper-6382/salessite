@@ -25,6 +25,14 @@
     </li>
 
     <li class="nav-item">
+      <a class="nav-link" href="{{ url('/about_setting') }}">
+        <span class="menu-title">About Us Setting</span>
+        <i class="mdi mdi-text menu-icon"></i>
+      </a>
+    </li>
+
+
+    <li class="nav-item">
       <a class="nav-link" href="{{ url('/integration_images') }}">
       <span class="menu-title">Integration Images</span>
         <i class="mdi mdi-image menu-icon"></i>

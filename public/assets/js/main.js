@@ -882,6 +882,10 @@
         loop: true,
         speed: 1000,
         spaceBetween : 50,
+        autoplay: {
+        delay: 3000, // Change this value to adjust autoplay delay (in milliseconds)
+        disableOnInteraction: false, // Allows autoplay to continue after user interactions
+        },
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',

@@ -15,6 +15,7 @@ use App\Models\Graphic_Text;
 use App\Models\Home_Images;
 use App\Models\Plan;
 use App\Models\Home_Steps;
+use App\Models\About_Us;
 use App\Models\Integrations;
 use App\Models\Calc_Text;
 use App\Models\PlanKey;
@@ -32,6 +33,48 @@ class HomePageController extends Controller
      public function __construct()
     {
         $this->middleware('auth');
+    }
+
+
+    
+    public function about_setting_view()
+    {
+        $about = About_Us::first();
+
+        return view('admin.about_setting', compact('about'));
+    }
+
+    public function update_about_settings(Request $request)
+    {
+        $request->validate([
+            'heading_one' => 'required|string|max:255',
+            'heading_two' => 'nullable|string|max:255',
+            'heading_three' => 'nullable|string|max:255',
+            'text_one' => 'required|string',
+            'text_two' => 'nullable|string',
+            'text_three' => 'nullable|string',
+            'image_one' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image_two' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $about = About_Us::first();
+
+        // Update the text fields
+        $about->update($request->only('heading_one', 'heading_two', 'heading_three', 'text_one', 'text_two', 'text_three'));
+
+        // Handle image uploads if provided
+        if ($request->hasFile('image_one')) {
+            $videoOnePath = $request->file('image_one')->move(public_path('images'), $request->file('image_one')->getClientOriginalName());
+            $about->image_one = 'images/' . $request->file('image_one')->getClientOriginalName();
+        }
+        if ($request->hasFile('image_two')) {
+            $videoOnePath = $request->file('image_two')->move(public_path('images'), $request->file('image_two')->getClientOriginalName());
+            $about->image_two = 'images/' . $request->file('image_two')->getClientOriginalName();
+        }
+        
+        $about->save();
+
+        return back()->with('message', 'About Us settings updated successfully');
     }
 
     public function price_setting_view()

@@ -11,9 +11,9 @@
             <div class="row">
                 <div class="col-6">
                     <div class="breadcrumb_box">
-                        <h2 class="breadcrumb-title">About Us</h2>
+                        <h2 class="breadcrumb-title">{{ $about->heading_one ?? '' }}</h2>
                         <!-- breadcrumb-list start -->
-                        <p>HubSpot’s company and culture are a lot like our product. They’re crafted, not cobbled, for a delightful experience.</p>
+                        {!! $about->text_one ?? '' !!}
                         <!-- breadcrumb-list end -->
                     </div>
                 </div>
@@ -30,16 +30,16 @@
                       <div class="col-lg-6 ">
                                                 <div class="tab-history-image">
                                                         <div class="">
-                                                            <img class="img-fluid" src="{{ url('images/aboutimg.png')}}" style=" border: 2px solid #dbe4ed;    border-radius: 4px;">
+                                                            <img class="img-fluid" src="{{ url($about->image_one) }}" style=" border: 2px solid #dbe4ed;    border-radius: 4px;">
                                                         </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 d-flex align-items-center aboutp">
                                                 <div class="tab-content-inner">
 <div class="col-lg-12" style="">
-<h6 class="section-title mb-20">Our Mission: Helping Millions of Organizations Grow Better</h6>
+<h6 class="section-title mb-20">{{ $about->heading_two ?? '' }}</h6>
 <div class="text mb-30">
-  <p>We believe not just in growing bigger, but in growing better. And growing better means aligning the success of your own business with the success of your customers. Win-win!</p>
+ {!! $about->text_two ?? '' !!}
 </div>
                                                 </div>
                                                 </div>
@@ -56,10 +56,9 @@
                                             <div class="col-lg-6 d-flex align-items-center aboutp">
                                                 <div class="tab-content-inner">
 <div class="col-lg-12" style="">
-<h6 class="section-title mb-20">Our Story</h6>
+<h6 class="section-title mb-20">{{ $about->heading_three ?? '' }}</h6>
 <div class="text mb-30">
-  <p>In 2004, fellow MIT graduate students Brian Halligan and Dharmesh Shah noticed a major shift in the way people shop and purchase products. Buyers didn’t want to be interrupted by ads, they wanted helpful information. In 2006, they founded HubSpot to help companies use that shift to grow better with inbound marketing.</p>
-  <p>Along the way, HubSpot expanded beyond marketing into a crafted, not cobbled suite of products that create the frictionless customer experience that buyers expect today. Expertly led by CEO Yamini Rangan, HubSpot uses its customer platform built on an AI-powered Smart CRM to help millions of scaling organizations grow better.</p>
+{!! $about->text_three ?? '' !!}
 </div>
                                                 </div>
                                                 </div>
@@ -68,7 +67,7 @@
                                             <div class="col-lg-6 ">
                                                 <div class="tab-history-image">
                                                         <div class="">
-                                                            <img class="img-fluid" src="{{ url('images/aboutimg2.png')}}" style=" border: 2px solid #dbe4ed;    border-radius: 4px;">
+                                                            <img class="img-fluid" src="{{ url($about->image_two) }}" style=" border: 2px solid #dbe4ed;    border-radius: 4px;">
                                                         </div>
                                                 </div>
                                             </div>

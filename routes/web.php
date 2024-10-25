@@ -50,6 +50,8 @@ Route::post('/plan/{id}/add_key', [HomePageController::class, 'addKey'])->name('
 Route::delete('/plan/{id}/delete_key/{key_id}', [HomePageController::class, 'deleteKey'])->name('delete_key');
 Route::put('/plan/{id}/update_key/{key_id}', [HomePageController::class, 'updateKey'])->name('update_key');
 
+Route::get('/about_setting', [HomePageController::class, 'about_setting_view'])->name('about_setting');
+Route::post('/update_about_settings', [HomePageController::class, 'update_about_settings'])->name('update_about_settings');
 
 
 Route::get('/text_setting', [HomePageController::class, 'text_setting_view']);

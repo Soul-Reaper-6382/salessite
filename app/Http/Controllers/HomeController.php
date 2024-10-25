@@ -13,6 +13,7 @@ use App\Models\Home_Videos;
 use App\Models\Home_Images;
 use App\Models\Graphic_Text;
 use App\Models\Home_Steps;
+use App\Models\About_Us;
 use App\Models\Integrations;
 use App\Models\Calc_Text;
 use App\Models\Integrations_Cat;
@@ -176,11 +177,13 @@ class HomeController extends Controller
         
 
         $testimonials = Testimonial::all();
+        $about = About_Us::first();
+
 
 
         
 
-        return view('aboutus', compact('testimonials'));
+        return view('aboutus', compact('testimonials','about'));
     }
 
     public function index()
