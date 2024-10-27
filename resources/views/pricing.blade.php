@@ -167,9 +167,9 @@
 
                 <!--===========  feature-icon-wrapper  Start =============-->
                 <div class="feature-icon-wrapper bg- section-space--pb_0">
-                    <div class="container-fluid">
+                    <div class="container-fluid p-0">
 
-                        <div class="row">
+                        <div class="row g-0">
                             <div class="col-lg-8 section-space--pt_0">
                                 <video class="elementor-video" src="{{ asset($videoSettings->video_two) }}" autoplay="" loop="" muted="muted" controlslist="nodownload"></video>
                             </div>
