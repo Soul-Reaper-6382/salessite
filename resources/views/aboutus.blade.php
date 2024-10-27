@@ -37,7 +37,7 @@
                                             <div class="col-lg-6 d-flex align-items-center aboutp">
                                                 <div class="tab-content-inner">
 <div class="col-lg-12" style="">
-<h6 class="section-title mb-20">{{ $about->heading_two ?? '' }}</h6>
+<h6 class="section-title mb-20 mt-20">{{ $about->heading_two ?? '' }}</h6>
 <div class="text mb-30">
  {!! $about->text_two ?? '' !!}
 </div>
