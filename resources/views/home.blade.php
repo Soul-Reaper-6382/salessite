@@ -157,6 +157,13 @@
 
                 <div id="afterpenel" class="feature-icon-wrappe section-space--ptb_60 infotechno-section-bg-01" style="background-color:#EBEBEB;">
     <div class="container">
+        <div class="row g-0">
+                            <div class="col-lg-12">
+                                <div class="section-title-wrap text-center section-space--mb_40">
+                                    <h3 class="heading">How easy it is to setup?</h3>
+                                </div>
+                            </div>
+                        </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="main-tabs">

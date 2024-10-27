@@ -261,10 +261,10 @@ h1 {
     font-size: 34px;
   }
   .homeh1 {
-    font-size: 16px !important;
+    font-size: 25px !important;
   }
   .homeh5 {
-    font-size: 14px !important;
+    font-size: 18px !important;
   }
 }
 
@@ -2513,7 +2513,7 @@ input[type=checkbox] {
   }
 }
 .header__logo > a img {
-  width: 90px;
+  width: 80px;
 }
 .header__logo .dark-logo {
   display: none;
@@ -2562,10 +2562,10 @@ input[type=checkbox] {
     -webkit-flex-basis: 50%;
         -ms-flex-preferred-size: 50%;
             flex-basis: 50%;
-    -webkit-box-pack: end;
-    -webkit-justify-content: end;
-        -ms-flex-pack: end;
-            justify-content: end;
+    -webkit-box-pack: start;
+    -webkit-justify-content: start;
+        -ms-flex-pack: start;
+            justify-content: start;
   }
 }
 .header.default-menu-style .header-midle-box {
@@ -14887,7 +14887,7 @@ footer p{
     flex-direction: column;
 }
 .price-wrap {
-    margin: 22px;
+    margin: 20px 10px 0px 10px;
 }
 .stp-con-inn{
     width: 100%;
@@ -15148,6 +15148,10 @@ display: flex;
     display: none;
 }
 
+.tab_price[data-name="Yearly"] label.active {
+    background: #2f3f58;
+}
+
 
 
 .dashboard_title_heading {
@@ -15309,6 +15313,7 @@ ul.account-details_all_btn li a:hover {
   }
   .price_main_column{
     width: 95%;
+    padding: 0px !important;
   }
   .pat-design{
     display: none;

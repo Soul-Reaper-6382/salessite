@@ -1,21 +1,22 @@
 @guest
     <div id="price" class="feature-icon-wrapper section-space--ptb_60">
-                    <div class="container-md">
+                    <div class="container-md p-0">
 
-                        <div class="row">
+                        <div class="row g-0">
                             <div class="col-lg-12">
                                 <div class="section-title-wrap text-center">
                                     <h3 class="heading">Pricing</h3>
                                     <div class="parent_tabs_price">
                                     <ul class="tabs_price" style="position:relative;">
                                     <span style="    position: absolute;
-    right: 15px;
+    right: 10px;
     top: 40px;
-    background: #f1b100;
+    background: #df9242;
     border-radius: 100px;
-    color: black;
+    color: white;
     padding: 2px 10px 2px 10px;
-    font-size: 12px;">save 40%+</span>
+    font-size: 14px;
+    font-weight: bold;">save 40%+</span>
                                     <li class="tab_price" data-name="monthly"><label class="active">Monthly</label></li>
                                     <li class="tab_price" data-name="Yearly"><label>Yearly</label></li>
                                     </ul>

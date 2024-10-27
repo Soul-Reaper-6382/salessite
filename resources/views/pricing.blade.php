@@ -167,7 +167,7 @@
 
                 <!--===========  feature-icon-wrapper  Start =============-->
                 <div class="feature-icon-wrapper bg- section-space--pb_0">
-                    <div class="container-fluid" style="padding-left: 0px;">
+                    <div class="container-fluid p-0">
 
                         <div class="row">
                             <div class="col-lg-8 section-space--pt_0">

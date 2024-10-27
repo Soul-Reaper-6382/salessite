@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -22,16 +22,19 @@
     // Set the video source in the modal
     var videoElement = document.getElementById('modalVideo');
     videoElement.src = videoUrl;
+    videoElement.autoplay = true;
+
 
     // Show the modal
     var videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
     videoModal.show();
+
     
     // When modal is hidden, stop the video
     document.getElementById('videoModal').addEventListener('hidden.bs.modal', function () {
         videoElement.pause();
         videoElement.currentTime = 0;
-    });
+    }, { once: true });
     }
 }
 

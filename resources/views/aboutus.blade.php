@@ -9,7 +9,7 @@
 <div class="breadcrumb-area">
         <div class="container">
             <div class="row">
-                <div class="col-6">
+                <div class="col-md-12 col-lg-6">
                     <div class="breadcrumb_box">
                         <h2 class="breadcrumb-title">{{ $about->heading_one ?? '' }}</h2>
                         <!-- breadcrumb-list start -->
@@ -24,7 +24,7 @@
         <div class="site-wrapper-reveal">
             <div class="bg-white">
 
-            <div class="section-space--ptb_60 ">
+            <div class="section-space--pt_30 ">
                   <div class="container">
                     <div class="row">
                       <div class="col-lg-6 ">
@@ -50,7 +50,7 @@
                   </div>                 
                   </div> 
 
-                  <div class="section-space--ptb_60 ">
+                  <div class="section-space--ptb_30 ">
                   <div class="container">
                     <div class="row">
                                             <div class="col-lg-6 d-flex align-items-center aboutp">
