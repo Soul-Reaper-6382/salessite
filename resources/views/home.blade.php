@@ -129,9 +129,7 @@
     height: 300px;
     z-index: 0;">
                     <div class="row align-items-center">
-                         <div class="col-lg-1 col-lg-1">
-                         </div>
-                         <div class="col-lg-4 col-lg-4 mb-20">
+                         <div class="col-lg-5 col-lg-5 mb-20">
                             <div class="contact-info-one">
                                 <h3 class="heading scroll_left_heading">{{ $graphic_text->heading }}</h3>
                                 <p class="scroll_left_p">{{ $graphic_text->text }}</p>
