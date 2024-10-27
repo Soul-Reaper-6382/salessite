@@ -90,11 +90,11 @@
                                 </p>   
                             </div>
                             <div class="col-md-6 col-md-6-roi">
-                                <p>{{ $calcSettings->heading_two }}</p>
+                                <p><b>{{ $calcSettings->heading_two }}</b></p>
 
-                                  <h5 class="hour_h5"><span>$</span><span id="roiAmount">0</span></h5>
+                                  <h5 class="hour_h5" style="margin: 25px 0px 0px 0px;"><span>$</span><span id="roiAmount">0</span></h5>
 
-                                <p>{{ $calcSettings->text_three }}</p>
+                                <p style="text-align: center;margin-bottom: 25px;"><b>{{ $calcSettings->text_three }}</b></p>
                                 
                                  <p style="margin:0">
                                     <span>{{ $calcSettings->text_four }}</span><br>
@@ -105,7 +105,7 @@
 
                                 <hr style="margin: 0;">
 
-                                  <p><span>{{ $calcSettings->text_eight }}</span> <span style="float: right;" id="totalRoi">$0</span></p>
+                                  <p><span><b>{{ $calcSettings->text_eight }}</b></span> <b style="float: right;" id="totalRoi">$0</b></p>
                             </div>
                         </div>
 
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
 
-                            <div class="container-fluid element_circle_main_mobile d-block d-md-none">
+                            <div class="container-fluid element_circle_main_mobile d-block d-md-none p-0">
                             <div class="row g-0" style="display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
