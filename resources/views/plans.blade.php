@@ -72,7 +72,11 @@
                     </ul>
                 </div>
 
-                <a href="javascript:void(0);" class="click_reg_a" data-id="{{ $plan->stripe_plan }}">Get Started</a>
+                <a href="javascript:void(0);" class="click_reg_a"
+                 @if($plan->name == 'Manage')
+                    style="background: #2f3f58; color: white; border: 1px solid #2f3f58;"
+                    @endif
+                data-id="{{ $plan->stripe_plan }}">Get Started</a>
                 <!-- <button class="learn-more">Learn More</button> -->
             </div>
         </div>

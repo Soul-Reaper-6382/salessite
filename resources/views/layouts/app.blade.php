@@ -1,4 +1,4 @@
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html data-wf-page="663e8406a99364ab1b17371a" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,6 +41,7 @@
   gtag('js', new Date());
   gtag('config', 'G-0N5EYJ2644');
 </script>
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/46911547.js"></script>
 </head>
 
 <body>

@@ -60,6 +60,13 @@
       </a>
     </li>
 
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url('/journey_setting') }}">
+        <span class="menu-title">Journey Setting</span>
+        <i class="mdi mdi-image menu-icon"></i>
+      </a>
+    </li>
+
 
     <!-- <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#user" aria-expanded="false" aria-controls="ui-basic">

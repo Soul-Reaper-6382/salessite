@@ -54,6 +54,12 @@ Route::get('/about_setting', [HomePageController::class, 'about_setting_view'])-
 Route::post('/update_about_settings', [HomePageController::class, 'update_about_settings'])->name('update_about_settings');
 
 
+Route::get('/journey_setting', [HomePageController::class, 'journey_setting_view'])->name('journey_setting_view');
+Route::post('/add_journey_settings', [HomePageController::class, 'journey_store'])->name('add_journey_settings');
+Route::get('/journey_setting/{id}/edit', [HomePageController::class, 'journey_edit'])->name('edit_journey');
+Route::put('/journey_setting/{id}', [HomePageController::class, 'journey_update'])->name('update_journey');
+Route::delete('/journey_setting/{id}', [HomePageController::class, 'journey_destroy'])->name('delete_journey');
+
 Route::get('/text_setting', [HomePageController::class, 'text_setting_view']);
 Route::get('/calculator_setting', [HomePageController::class, 'calculator_setting_view']);
 Route::post('/update_calculator_settings', [HomePageController::class, 'update_calculator_settings']);

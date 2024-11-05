@@ -16,6 +16,7 @@ use App\Models\Home_Steps;
 use App\Models\About_Us;
 use App\Models\Integrations;
 use App\Models\Calc_Text;
+use App\Models\Journey;
 use App\Models\Integrations_Cat;
 use App\Models\Testimonial;
 use Illuminate\Validation\Rule;
@@ -94,7 +95,7 @@ class HomeController extends Controller
     {
         $client = new Client();
       try {
-        $response = $client->get('https://api.smugglers-system.com/api/application/public/states');
+        $response = $client->get('https://api.smugglers-system.dev/api/application/public/states');
         
         if ($response->getStatusCode() !== 200) {
             throw new \Exception('Error response from API: ' . $response->getStatusCode());
@@ -178,12 +179,14 @@ class HomeController extends Controller
 
         $testimonials = Testimonial::all();
         $about = About_Us::first();
+        $journey = Journey::all();
+
 
 
 
         
 
-        return view('aboutus', compact('testimonials','about'));
+        return view('aboutus', compact('testimonials','about','journey'));
     }
 
     public function index()

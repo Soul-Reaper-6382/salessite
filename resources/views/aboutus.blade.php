@@ -6,6 +6,7 @@
     font-size: 15px;
   }
 </style>
+      <link href="{{ asset('assets/css/hiw.min.css') }}" rel="stylesheet" type="text/css"/>
 <div class="breadcrumb-area">
         <div class="container">
             <div class="row">
@@ -119,112 +120,95 @@
 
 
 <!--===========  panel slider  start =============-->
+<main id="main">
+  <div data-w-id="122f97d3-501b-db74-4f56-f322d0d3b3ec" class="home_track">      
 
-                <section id="panels" class="d-none d-md-block" style="position:relative;display: none !important;">
+    <div class="home_camera">
+      <div class="eyebrow u-text-center workflow">How it works</div>
+      <div class="wrap__sticky sticky">
+        <div class="container">
+          <div class="stepper-wrap">
+              @foreach($journey as $index => $journeys)
+                  <div class="step-block {{ $index === 0 ? 'active' : '' }}">
+                      <a id="slink{{ $index + 1 }}" data-scroll="{{ 900 + ($index * 1400) }}" href="#" class="tab_menu-btn btn cc-secondary cc-small w-inline-block">
+                          <div>{{ $journeys->heading }}</div> <!-- Fetching the heading from the journey -->
+                      </a>
+                      <div class="step-block__progress-bar">
+                          <div class="step-block__progress-bar-inner progress-bar__{{ $index + 1 }}"></div>
+                      </div>
+                  </div>
+              @endforeach
+          </div>
+      </div>
 
-  <div class="page">
+      </div>
+      <div class="home_frame">
+        @foreach($journey as $index => $journeys)
+    <div id="workflow-{{ $index + 1 }}" class="home_item {{ $index === 0 ? 'first' : '' }}">
+        <div class="home_item-content_wrap">
+            <div class="col col-lg-5">
+                <div>
+                    <div class="txt-chip cc-color-blueberry-400">
+                        <div class="text-small">{{ $journeys['label'] }}</div>
+                    </div>
+                    <h2 class="h3 u-mt-1">{{ $journeys['heading'] }}</h2>
+                    <p class="u-mt-1 u-mb-1">{!! $journeys['text'] !!}</p>
+                    <a animaton-style="default" href="{{ $journeys['link'] }}" class="btn w-inline-block">
+                        <div>{{ $journeys['button'] }}</div>
+                        <div class="btn_icon-track u-position-relative overflow-hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 20 20" fill="none" class="btn-icon">
+                                <path d="M2.49951 9.99986C2.49951 10.1656 2.56536 10.3246 2.68257 10.4418C2.79978 10.559 2.95875 10.6249 3.12451 10.6249H15.3659L10.8073 15.1827C10.7493 15.2407 10.7032 15.3097 10.6718 15.3855C10.6403 15.4614 10.6242 15.5427 10.6242 15.6249C10.6242 15.707 10.6403 15.7883 10.6718 15.8642C10.7032 15.94 10.7493 16.009 10.8073 16.067C10.8654 16.1251 10.9343 16.1712 11.0102 16.2026C11.0861 16.234 11.1674 16.2502 11.2495 16.2502C11.3316 16.2502 11.4129 16.234 11.4888 16.2026C11.5647 16.1712 11.6336 16.1251 11.6917 16.067L17.3167 10.442C17.3748 10.384 17.4209 10.3151 17.4524 10.2392C17.4838 10.1633 17.5 10.082 17.5 9.99986C17.5 9.91772 17.4838 9.8364 17.4524 9.76052C17.4209 9.68465 17.3748 9.61572 17.3167 9.55767L11.6917 3.93267C11.5744 3.8154 11.4154 3.74951 11.2495 3.74951C11.0837 3.74951 10.9246 3.8154 10.8073 3.93267C10.69 4.04995 10.6242 4.20901 10.6242 4.37486C10.6242 4.54071 10.69 4.69977 10.8073 4.81705L15.3659 9.37486H3.12451C2.95875 9.37486 2.79978 9.44071 2.68257 9.55792C2.56536 9.67513 2.49951 9.8341 2.49951 9.99986Z" fill="currentColor"></path>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 20 20" fill="none" class="btn-icon u-position-absolute">
+                                <path d="M2.49951 9.99986C2.49951 10.1656 2.56536 10.3246 2.68257 10.4418C2.79978 10.559 2.95875 10.6249 3.12451 10.6249H15.3659L10.8073 15.1827C10.7493 15.2407 10.7032 15.3097 10.6718 15.3855C10.6403 15.4614 10.6242 15.5427 10.6242 15.6249C10.6242 15.707 10.6403 15.7883 10.6718 15.8642C10.7032 15.94 10.7493 16.009 10.8073 16.067C10.8654 16.1251 10.9343 16.1712 11.0102 16.2026C11.0861 16.234 11.1674 16.2502 11.2495 16.2502C11.3316 16.2502 11.4129 16.234 11.4888 16.2026C11.5647 16.1712 11.6336 16.1251 11.6917 16.067L17.3167 10.442C17.3748 10.384 17.4209 10.3151 17.4524 10.2392C17.4838 10.1633 17.5 10.082 17.5 9.99986C17.5 9.91772 17.4838 9.8364 17.4524 9.76052C17.4209 9.68465 17.3748 9.61572 17.3167 9.55767L11.6917 3.93267C11.5744 3.8154 11.4154 3.74951 11.2495 3.74951C11.0837 3.74951 10.9246 3.8154 10.8073 3.93267C10.69 4.04995 10.6242 4.20901 10.6242 4.37486C10.6242 4.54071 10.69 4.69977 10.8073 4.81705L15.3659 9.37486H3.12451C2.95875 9.37486 2.79978 9.44071 2.68257 9.55792C2.56536 9.67513 2.49951 9.8341 2.49951 9.99986Z" fill="currentColor"></path>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            @if ($index === 0)
+           <div class="col col-lg-6">
+            @else
+           <div class="col col-lg-8">
+            @endif
+    <div class="u-product_container u-z-index-1 cc-dropshadow">
+        <div class="clay_table w-embed">
+ @if (in_array(pathinfo($journeys->path, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif', 'PNG']))
+                <img src="{{ url($journeys['path']) }}" style="max-width: 100%; margin-bottom: -12px; width: 100%;">
+@elseif (in_array(pathinfo($journeys->path, PATHINFO_EXTENSION), ['mp4', 'avi', 'mov','webm']))
+            <video src="{{ $journeys['path'] }}" autoplay playsinline loop muted data-video="true" preload="none" style="max-width: 100%; margin-bottom: -12px;"></video>
+            @endif
+        </div>
+    </div>
+</div>
 
-    <div class="sc-slide-wrapper" id="scSlideWrapper">
-        <header>
-    <div class="sc-top-nav nav-bar">
-      <div class="container">
-        <ul class="sc-top-nav-list">
-          <li class="active"><a href="#scHeroSection" class="sc-slide-nav">panel 1</a></li>
-          <li><a href="#scSaleSection" class="sc-slide-nav">panel 2</a></li>
-          <li><a href="#scWhySection" class="sc-slide-nav">panel 3</a></li>
-          <li><a href="#scEstimateSection" class="sc-slide-nav">panel 4</a></li>
-        </ul>
+        
+        <!-- Additional Images Based on Index -->
+        @if ($index === 0)
+        </div>
+        @elseif ($index === 1)
+        </div>
+            <img src="https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6682e609ac0a7e61371cbefc_Workflow-A.webp" loading="lazy" sizes="(max-width: 991px) 100vw, 853.046875px" srcset="https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6682e609ac0a7e61371cbefc_Workflow-A-p-500.png 500w, https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6682e609ac0a7e61371cbefc_Workflow-A-p-800.png 800w, https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6682e609ac0a7e61371cbefc_Workflow-A-p-1080.webp 1080w, https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6682e609ac0a7e61371cbefc_Workflow-A.webp 1600w" alt="" class="workflow-cord enrichment"/>
+        @elseif ($index === 2)
+        </div>
+            <img src="https://cdn.prod.website-files.com/61477f2c24a826836f969afe/667978c50534d2aa5f991fe9_workflow-3.webp" loading="lazy" sizes="(max-width: 991px) 100vw, 1030.03125px" srcset="https://cdn.prod.website-files.com/61477f2c24a826836f969afe/667978c50534d2aa5f991fe9_workflow-3-p-500.webp 500w, https://cdn.prod.website-files.com/61477f2c24a826836f969afe/667978c50534d2aa5f991fe9_workflow-3-p-800.webp 800w, https://cdn.prod.website-files.com/61477f2c24a826836f969afe/667978c50534d2aa5f991fe9_workflow-3-p-1080.webp 1080w, https://cdn.prod.website-files.com/61477f2c24a826836f969afe/667978c50534d2aa5f991fe9_workflow-3-p-1600.webp 1600w, https://cdn.prod.website-files.com/61477f2c24a826836f969afe/667978c50534d2aa5f991fe9_workflow-3.webp 1882w" alt="" class="workflow-cord ai"/>
+        @elseif ($index === 3)
+            <img src="https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6702a2502521f332b89bc0ae_WORKFLOW-C.avif" loading="lazy" sizes="(max-width: 991px) 100vw, 685.78125px" srcset="https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6702a2502521f332b89bc0ae_WORKFLOW-C-p-500.png 500w, https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6702a2502521f332b89bc0ae_WORKFLOW-C-p-800.avif 800w, https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6702a2502521f332b89bc0ae_WORKFLOW-C.avif 2000w" alt="" class="workflow-cord last"/>
+            <img src="https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6702a2beec61540cbd3adc55_WORKFLOW-D.avif" loading="lazy" sizes="(max-width: 991px) 100vw, 910.03125px" srcset="https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6702a2beec61540cbd3adc55_WORKFLOW-D-p-500.png 500w, https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6702a2beec61540cbd3adc55_WORKFLOW-D-p-800.avif 800w, https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6702a2beec61540cbd3adc55_WORKFLOW-D-p-1080.avif 1080w, https://cdn.prod.website-files.com/61477f2c24a826836f969afe/6702a2beec61540cbd3adc55_WORKFLOW-D.avif 4000w" alt="" class="workflow-cord msg"/>
+            </div>
+        @endif
+    </div>
+@endforeach
+
+      
       </div>
     </div>
-  </header>
-      <section class="sc-slide-section gradient-green" id="scHeroSection">
-        <div class="container position-relative">
-          <div class="row">
-            <div class="col-sm-12">
-              <h1>panel 1</h1>
-            </div>
-          </div>
-        </div>
-
-      </section>
-      <section class="sc-slide-section gradient-blue" id="scSaleSection">
-        <div class="container position-relative">
-          <div class="row">
-            <div class="col-sm-12">
-              <h1>panel 2</h1>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="sc-slide-section gradient-orange" id="scWhySection">
-        <div class="container position-relative">
-          <div class="row">
-            <div class="col-sm-12">
-              <h1>panel 3</h1>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="sc-slide-section gradient-green" id="scEstimateSection">
-        <div class="container position-relative">
-          <div class="d-flex">
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-            <div class="fix-w">
-              dynamic card
-            </div>
-          </div>
-        </div>
-
-      </section>
-    </div>
-
-    <div class="sc-page-nav">
-      <span class="sc-page-nav-prev">
-
-      </span>
-      <span class="sc-page-nav-next">
-        <a href="#scSaleSection" class="sc-page-nav-item">
-          <i class="fa-solid fa-circle-chevron-right"></i>
-        </a>
-      </span>
-    </div>
+  
   </div>
+</main>
 
-                </section>
+<!--===========  panel slider End =============-->
 
-                <!--===========  panel slider End =============-->
 
                 
             </div>
@@ -256,124 +240,11 @@
 
 
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ asset('assets/js/hiw.js') }}" type="text/javascript"></script> 
 @include('layouts.lead_form')
 @include('layouts.footer_home')
 
-    <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
-    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/gsap@3/dist/ScrollToPlugin.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-
-
-<script>
-    gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
-
-    let slidesContainer = document.querySelector("#scSlideWrapper"),
-      tween;
-
-    const slides = gsap.utils.toArray("#scSlideWrapper .sc-slide-section");
-    tween = gsap.to(slides, {
-      // xPercent: -100 * (slides.length - 1),
-      x: () => -1 * (slidesContainer.scrollWidth - innerWidth),
-      ease: "none",
-      scrollTrigger: {
-        trigger: "#scSlideWrapper",
-        pin: true,
-        start: "top top",
-        scrub: 1,
-        // snap: {
-        //     snapTo: 1 / (slides.length - 1),
-        //     inertia: false,
-        //     duration: {
-        //         min: 0.1,
-        //         max: 0.1,
-        //     },
-        // },
-        end: () => "+=" + (slidesContainer.scrollWidth - innerWidth),
-        onUpdate: (self) => {
-          const slideIndex = Math.round(self.progress * (slides.length - 1));
-          const slideId = slides[slideIndex].id;
-          updateActiveNav(slideId);
-          updatePrevNext(slideId);
-        }
-      }
-    });
-
-    document.querySelectorAll(".sc-slide-nav").forEach((link) => {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
-        scrollToTarget(e.target.getAttribute("href"));
-      });
-    });
-
-    jQuery(document).on("click", ".sc-page-nav-item", function (e) {
-      e.preventDefault();
-      scrollToTarget(e.target.parentNode.getAttribute("href"));
-    });
-
-    function scrollToTarget(href) {
-      let targetEle = document.querySelector(href),
-        y = targetEle;
-      if (targetEle && slidesContainer.isSameNode(targetEle.parentElement)) {
-        let totalScroll = tween.scrollTrigger.end - tween.scrollTrigger.start,
-          totalMovement = slidesContainer.scrollWidth - innerWidth;
-        y = Math.round(
-          tween.scrollTrigger.start +
-            (targetEle.offsetLeft / totalMovement) * totalScroll
-        );
-      }
-      gsap.to(window, {
-        scrollTo: {
-          y: y,
-          autoKill: false
-        },
-        duration: 1
-      });
-    }
-
-    function updateActiveNav(slideId) {
-      jQuery(".sc-top-nav-list li").removeClass("active");
-      jQuery(`a[href="#${slideId}"]`).parent().addClass("active");
-    }
-
-    function updatePrevNext(slideId) {
-      let links = {
-        scHeroSection: {
-          next: "#scSaleSection"
-        },
-        scSaleSection: {
-          prev: "#scHeroSection",
-          next: "#scWhySection"
-        },
-        scWhySection: {
-          prev: "#scSaleSection",
-          next: "#scEstimateSection"
-        },
-        scEstimateSection: {
-          prev: "#scWhySection"
-        }
-      };
-
-      jQuery(".sc-page-nav-prev").html("");
-      jQuery(".sc-page-nav-next").html("");
-
-      if (links[slideId].hasOwnProperty("prev")) {
-        jQuery(".sc-page-nav-prev").html(`
-                        <a href="${links[slideId]["prev"]}" class="sc-page-nav-item">
-                            <i class="fa-solid fa-circle-chevron-left"></i>
-                        </a>`);
-      }
-
-      if (links[slideId].hasOwnProperty("next")) {
-        jQuery(".sc-page-nav-next").html(`
-                        <a href="${links[slideId]["next"]}" class="sc-page-nav-item">
-                            <i class="fa-solid fa-circle-chevron-right"></i>
-                        </a>`);
-      }
-    }
-
-  </script>
 
 <script type="text/javascript">
 $(document).on('click','#lead_form_next',function(){

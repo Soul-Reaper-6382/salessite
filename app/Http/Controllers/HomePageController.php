@@ -19,6 +19,7 @@ use App\Models\About_Us;
 use App\Models\Integrations;
 use App\Models\Calc_Text;
 use App\Models\PlanKey;
+use App\Models\Journey;
 use App\Models\Integrations_Cat;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
@@ -36,6 +37,85 @@ class HomePageController extends Controller
     }
 
 
+    
+    public function journey_setting_view()
+    {
+        $journey = Journey::all();
+
+        return view('admin.journey_setting', compact('journey'));
+    }
+
+    public function journey_store(Request $request)
+    {
+        $request->validate([
+            'path' => 'required|file|mimes:jpg,jpeg,png,gif,mp4,avi,mov,webm',
+            'heading' => 'required|string|max:255',
+            'label' => 'required|string|max:255',
+            'text' => 'nullable|string',
+            'button' => 'nullable|string',
+            'link' => 'nullable|url',
+        ]);
+
+        $filePath = null;
+        if ($request->hasFile('path')) {
+            $Path = $request->file('path')->move(public_path('images'), $request->file('path')->getClientOriginalName());
+            $filePath = 'images/' . $request->file('path')->getClientOriginalName();
+        }
+
+        Journey::create([
+            'path' => $filePath,
+            'heading' => $request->heading,
+            'label' => $request->label,
+            'text' => $request->text,
+            'button' => $request->button,
+            'link' => $request->link,
+        ]);
+
+        return back()->with('message', 'Journey added successfully.');
+    }
+
+     public function journey_edit($id)
+    {
+        $journey = Journey::findOrFail($id);
+        return view('admin.edit_journey', compact('journey'));
+    }
+
+     public function journey_update(Request $request, $id)
+    {
+        $journey = Journey::findOrFail($id);
+
+        $request->validate([
+            'path' => 'nullable|file|mimes:jpg,jpeg,png,gif,mp4,avi,mov,webm',
+            'heading' => 'required|string|max:255',
+            'label' => 'required|string|max:255',
+            'text' => 'nullable|string',
+            'button' => 'nullable|string',
+            'link' => 'nullable|url',
+        ]);
+
+        if ($request->hasFile('path')) {
+            $Path = $request->file('path')->move(public_path('images'), $request->file('path')->getClientOriginalName());
+            $journey->path = 'images/' . $request->file('path')->getClientOriginalName();
+        }
+
+        $journey->update([
+            'heading' => $request->heading,
+            'label' => $request->label,
+            'text' => $request->text,
+            'button' => $request->button,
+            'link' => $request->link,
+        ]);
+
+        return back()->with('message', 'Journey updated successfully.');
+    }
+
+     public function journey_destroy($id)
+    {
+        $journey = Journey::findOrFail($id);
+        $journey->delete();
+
+        return back()->with('message', 'Journey deleted successfully.');
+    }
     
     public function about_setting_view()
     {
