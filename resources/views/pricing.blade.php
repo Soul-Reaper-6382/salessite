@@ -28,6 +28,12 @@ p.pcls{
     font-size: 16px;
     font-weight: 400;
 }
+
+@media only screen and (max-width: 767px) {
+.calc_tabs p{
+    margin-bottom: 10px;
+}
+}
 </style>
     <div id="main-wrapper">
         <div class="site-wrapper-reveal">
