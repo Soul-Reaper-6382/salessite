@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -23,6 +23,8 @@
     var videoElement = document.getElementById('modalVideo');
     videoElement.src = videoUrl;
     videoElement.autoplay = true;
+    videoElement.loop = true;
+    videoElement.controls = false;
 
 
     // Show the modal

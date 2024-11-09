@@ -129,7 +129,7 @@
                         <div class="col-md-12 text-center text-md-start">
                             <p class="copyright-ptext" style="text-align: center;
     color: white;
-    font-size: 20px;">Copyright © 2024 Smugglers</p>
+    font-size: 19px;">Copyright © 2024 Smugglers</p>
                         </div>
                     </div>
                 </div>

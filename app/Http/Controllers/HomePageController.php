@@ -300,34 +300,47 @@ public function updateKey(Request $request, $id, $key_id)
 {
     // Validate the incoming request data
     $validatedData = $request->validate([
-        'heading_one' => 'required|string|max:255',
-        'heading_two' => 'required|string|max:255',
-        'text_one'    => 'required|string|max:255',
-        'text_two'    => 'required|string|max:255',
-        'text_three'  => 'required|string|max:255',
-        'text_four'   => 'required|string|max:255',
-        'text_five'   => 'required|string|max:255',
-        'text_six'    => 'required|string|max:255',
-        'text_seven'  => 'required|string|max:255',
-        'text_eight'  => 'required|string|max:255',
-        'text_nine'   => 'required|string|max:255',
+        'heading_one'        => 'required|string|max:255',
+        'heading_tab'        => 'nullable|string|max:255',
+        'heading_tab_two'    => 'nullable|string|max:255',
+        'heading_tab_three'  => 'nullable|string|max:255',
+        'heading_two'        => 'nullable|string|max:255',
+        'heading_three'      => 'nullable|string|max:255',
+        'heading_four'       => 'nullable|string|max:255',
+        'text_one'           => 'nullable|string|max:255',
+        'text_two'           => 'nullable|string|max:255',
+        'text_three'         => 'nullable|string|max:255',
+        'text_four'          => 'nullable|string|max:255',
+        'text_five'          => 'nullable|string|max:255',
+        'text_six'           => 'nullable|string|max:255',
+        'text_seven'         => 'nullable|string|max:255',
+        'text_eight'         => 'nullable|string|max:255',
+        'text_nine'          => 'nullable|string|max:255',
+        'text_ten'           => 'nullable|string|max:255',
+        'text_eleven'        => 'nullable|string|max:255',
+        'text_twelve'        => 'nullable|string|max:255',
+        'text_thirteen'      => 'nullable|string|max:255',
+        'text_fourteen'      => 'nullable|string|max:255',
+        'text_fifteen'       => 'nullable|string|max:255',
+        'text_sixteen'       => 'nullable|string|max:255',
+        'text_seventeen'     => 'nullable|string|max:255',
+        'text_eighteen'      => 'nullable|string|max:255',
+        'text_nineteen'      => 'nullable|string|max:255',
+        'text_twenty'        => 'nullable|string|max:255',
+        'text_twenty_one'    => 'nullable|string|max:255',
+        'text_twenty_two'    => 'nullable|string|max:255',
+        'text_twenty_three'  => 'nullable|string|max:255',
+        'text_twenty_four'   => 'nullable|string|max:255',
+        'text_twenty_five'   => 'nullable|string|max:255',
+        'text_twenty_six'    => 'nullable|string|max:255',
+        'text_twenty_seven'  => 'nullable|string|max:255',
     ]);
 
     // Get the first record or create a new one
     $calcSettings = Calc_Text::firstOrNew();
 
-    // Update the fields with the new data
-    $calcSettings->heading_one = $request->input('heading_one');
-    $calcSettings->heading_two = $request->input('heading_two');
-    $calcSettings->text_one    = $request->input('text_one');
-    $calcSettings->text_two    = $request->input('text_two');
-    $calcSettings->text_three  = $request->input('text_three');
-    $calcSettings->text_four   = $request->input('text_four');
-    $calcSettings->text_five   = $request->input('text_five');
-    $calcSettings->text_six    = $request->input('text_six');
-    $calcSettings->text_seven  = $request->input('text_seven');
-    $calcSettings->text_eight  = $request->input('text_eight');
-    $calcSettings->text_nine   = $request->input('text_nine');
+    // Update all fields with the new data
+    $calcSettings->fill($validatedData);
 
     // Save the updated settings
     $calcSettings->save();
@@ -335,6 +348,7 @@ public function updateKey(Request $request, $id, $key_id)
     // Redirect back with a success message
     return back()->with('message', 'Calculator settings updated successfully.');
 }
+
    
 
 

@@ -1,6 +1,34 @@
 @extends('layouts.app')
 @section('title', 'Pricing - Smugglers')
 @section('content')
+<style type="text/css">
+    .calc_tabs{
+        margin-bottom: 20px;
+    }
+    .calc_tabs p {
+    background: #f1ecec59;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #c7bebe;
+}
+.calc_tabs p:hover{
+background: hsl(45.18deg 100% 50%);
+color: black;
+}
+.calc_tabs p.active{
+background: hsl(45.18deg 100% 50%);
+color: black;
+}
+p.pcls{
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+}
+</style>
     <div id="main-wrapper">
         <div class="site-wrapper-reveal">
             <div class="bg-white">
@@ -8,22 +36,36 @@
                                      @include('plans')
 
 
-                <div class="feature-icon-wrapper section-space--pt_60 section_pricing-calculator" style="display:">
-                    <div class="container" style="border-radius: 10px;
-    border: 1px solid #ccc;
-    padding: 20px 20px 50px 20px;">
-
+                <div class="feature-icon-wrapper section-space--ptb_60 section_pricing-calculator" style="display:">
+                    <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="section-title-wrap text-center section-space--mb_40">
+                                <div class="section-title-wrap text-center section-space--mb_20">
                                     <h5 class="heading">{{ $calcSettings->heading_one }}</h5>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="container" style="border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 20px 20px 20px 20px;">
 
+                         <div class="row calc_tabs">
+                            <div class="col-lg-4">
+                                <p class="active" data-id="1">{{ $calcSettings->heading_tab ?? '' }}</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <p data-id="2">{{ $calcSettings->heading_tab_two ?? '' }}</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <p data-id="3">{{ $calcSettings->heading_tab_three ?? '' }}</p>
+                            </div>
+                        </div>
+
+                        <div class="calc_tab_visi" data-id="1">
                         <div class="row">
                             <div class="col-md-6">
-                            <p>{{ $calcSettings->text_one }}</p> 
+                            <p class="pcls">{{ $calcSettings->text_one }}</p> 
 
                             <h5 class="hour_h5"><span class="hour_span">1</span> hours</h5>
                             <div class="range-item">
@@ -100,7 +142,7 @@
                                     <span>{{ $calcSettings->text_four }}</span><br>
                                     <span>{{ $calcSettings->text_five }}</span><span style="float: right;" id="calcHours">0</span><br>
                                     <span>{{ $calcSettings->text_six }}</span><span style="float: right;" id="timeValueSaved">$0</span><br>
-                                    <span>{{ $calcSettings->text_seven }}</span><span style="float: right;">$10</span><br>
+                                    <span>{{ $calcSettings->text_seven }}</span><span style="float: right;">$49</span><br>
                                   </p>
 
                                 <hr style="margin: 0;">
@@ -108,13 +150,205 @@
                                   <p><span><b>{{ $calcSettings->text_eight }}</b></span> <b style="float: right;" id="totalRoi">$0</b></p>
                             </div>
                         </div>
+                        </div>
+                        
+                        <div class="calc_tab_visi" data-id="2" style="display:none;">
+                            <div class="row">
+                            <div class="col-md-6">
+                            <p class="pcls">{{ $calcSettings->text_ten }}</p> 
 
+                            <h5 class="hour_h5"><span class="hour_span">1</span> hours</h5>
+                            <div class="range-item">
+                            <div class="range-input d-flex position-relative">
+                              <input type="range" min="0" max="19" class="form-range" name="dataShared" id="hoursSaved2" value="0" />
+                              <div class="range-line">
+                                <span class="active-line"></span>
+                              </div>
+                              <div class="dot-line">
+                                <span class="active-dot"></span>
+                              </div>
+                            </div>
+                            <ul class="list-inline list-unstyled">
+                              <li class="list-inline-item">
+                                <span>1h</span>
+                              </li>
+                               <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <span>10h</span>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <span>20h</span>
+                              </li>
+                            </ul>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-6 text-center">
+                            <p>{{ $calcSettings->text_eighteen }} 
+                                    <input type="number" value="50" min="3" max="10000" name="hourly_rate" id="monthlyRate"> / mo
+                                </p>
+                                </div>
+                            <div class="col-md-6 text-center">   
+                            <p>{{ $calcSettings->text_eleven }} 
+                                    <input type="number" value="50" min="3" max="10000" name="hourly_rate" id="netprofit"> %
+                                </p>  
+                                </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 col-md-6-roi">
+                                <p><b>{{ $calcSettings->heading_three }}</b></p>
+
+                                  <h5 class="hour_h5" style="margin: 25px 0px 0px 0px;"><span>$</span><span id="roiAmount2">0</span></h5>
+
+                                <p style="text-align: center;margin-bottom: 25px;"><b>{{ $calcSettings->text_tweleve }}</b></p>
+                                
+                                 <p style="margin:0">
+                                    <span>{{ $calcSettings->text_thirteen }}</span><br>
+                                    <span>{{ $calcSettings->text_fourteen }}</span><span style="float: right;" id="calcHours2">0</span><br>
+                                    <span>{{ $calcSettings->text_fifteen }}</span><span style="float: right;" id="timeValueSaved2">$0</span><br>
+                                    <span>{{ $calcSettings->text_sixteen }}</span><span style="float: right;">$49</span><br>
+                                  </p>
+
+                                <hr style="margin: 0;">
+
+                                  <p><span><b>{{ $calcSettings->text_seventeen }}</b></span> <b style="float: right;" id="totalRoi2">$0</b></p>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="calc_tab_visi" data-id="3" style="display:none;">
+                            <div class="row">
+                            <div class="col-md-6">
+                            <p class="pcls">{{ $calcSettings->text_nineteen }}</p> 
+
+                            <h5 class="hour_h5"><span class="hour_span">1</span> hours</h5>
+                            <div class="range-item">
+                            <div class="range-input d-flex position-relative">
+                              <input type="range" min="0" max="19" class="form-range" name="dataShared" id="hoursSaved3" value="0" />
+                              <div class="range-line">
+                                <span class="active-line"></span>
+                              </div>
+                              <div class="dot-line">
+                                <span class="active-dot"></span>
+                              </div>
+                            </div>
+                            <ul class="list-inline list-unstyled">
+                              <li class="list-inline-item">
+                                <span>1h</span>
+                              </li>
+                               <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <span>10h</span>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <span>20h</span>
+                              </li>
+                            </ul>
+                          </div>
+   
+                            </div>
+                            <div class="col-md-6 col-md-6-roi">
+                                <p><b>{{ $calcSettings->heading_four }}</b></p>
+
+                                  <h5 class="hour_h5" style="margin: 25px 0px 0px 0px;"><span>$</span><span id="roiAmount3">0</span></h5>
+
+                                <p style="text-align: center;margin-bottom: 25px;"><b>{{ $calcSettings->text_twenty_one }}</b></p>
+                                
+                                 <p style="margin:0">
+                                    <span>{{ $calcSettings->text_twenty_two }}</span><br>
+                                    <span>{{ $calcSettings->text_twenty_three }}</span><span style="float: right;" id="calcHours3">0</span><br>
+                                    <span>{{ $calcSettings->text_twenty_four }}</span><span style="float: right;" id="timeValueSaved3">$0</span><br>
+                                    <span>{{ $calcSettings->text_twenty_five }}</span><span style="float: right;">$49</span><br>
+                                  </p>
+
+                                <hr style="margin: 0;">
+
+                                  <p><span><b>{{ $calcSettings->text_twenty_six }}</b></span> <b style="float: right;" id="totalRoi3">$0</b></p>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="btn-2inn mt-5">
+                              <a href="{{ route('register') }}" class="ht-btn ht-btn-md btn-blue">Get Started </a>
+                              <a href="javascript:void(0);" class="ht-btn ht-btn-md btn-blue click_all_learnmore" style="background: #df9242;">learn more <i class="ml-1 button-icon fas fa-arrow-right"></i></a>
+                              </div>
                 </div>
             </div>
 
             <!--===========  rev_redraw-wrapper  Start =============-->
-                <div class="rev_redraw-wrapper">
-                        <div class="rev_redraw-inner-box bg-gray-2 rev_redraw-space">
+                <div class="rev_redraw-wrapper section-space--ptb_60">
+                        <div class="rev_redraw-inner-box section-space--ptb_60">
                             <!-- start Circle Menu -->
                             <div id="uc_ue_circle_menu_elementor_b433c4f" class="element_circle_main_window d-none d-md-block" data-show-tip="false">
                                 <div class="ue-ciclegraph">
@@ -166,7 +400,7 @@
                 <!--===========  rev_redraw-wrapper  End =============-->
 
                 <!--===========  feature-icon-wrapper  Start =============-->
-                <div class="feature-icon-wrapper bg- section-space--pb_0">
+                <div class="feature-icon-wrapper bg- section-space--pt_60">
                     <div class="container-fluid p-0">
 
                         <div class="row g-0">
@@ -205,7 +439,7 @@
                         <div class="col-md-12 text-center text-md-start">
                             <p class="copyright-ptext" style="text-align: center;
     color: white;
-    font-size: 20px;">Copyright © 2024 Smugglers</p>
+    font-size: 19px;">Copyright © 2024 Smugglers</p>
                         </div>
                     </div>
                 </div>
@@ -257,6 +491,13 @@
 
 
 <script type="text/javascript">
+    $(document).on('click','.calc_tabs p',function(){
+        var id = $(this).attr('data-id');
+        $('.calc_tabs p').removeClass('active')
+        $(this).addClass('active')
+        $('.calc_tab_visi').hide();
+        $('.calc_tab_visi[data-id="'+id+'"]').show();
+        })
 $(document).on('click','#lead_form_next',function(){
     const firstName = document.getElementById("first_name");
     const lastName = document.getElementById("last_name");
@@ -603,6 +844,55 @@ document.getElementById("hourlyRate").addEventListener("input", updateROI);
 // Initial call to populate fields with default values
 updateROI();
 
+
+function updateROI2() {
+  const hoursSaved = parseInt(parseInt(document.getElementById("hoursSaved2").value) + parseInt(1)) * 4;
+  const hourlyRate = 50;
+  const bardeenCost = 10;
+
+  // Calculate time value saved
+  const timeValueSaved = hoursSaved * hourlyRate;
+
+  // Calculate total ROI
+  const totalRoi = timeValueSaved - bardeenCost;
+
+  // Update display elements
+  document.getElementById("calcHours2").textContent = hoursSaved;
+  document.getElementById("timeValueSaved2").textContent = `$${timeValueSaved.toFixed(2)}`;
+  document.getElementById("totalRoi2").textContent = `$${totalRoi.toFixed(2)}`;
+  document.getElementById("roiAmount2").textContent = totalRoi.toFixed(2);
+}
+
+// Attach event listeners to inputs
+document.getElementById("hoursSaved2").addEventListener("input", updateROI2);
+document.getElementById("monthlyRate").addEventListener("input", updateROI2);
+document.getElementById("netprofit").addEventListener("input", updateROI2);
+// Initial call to populate fields with default values
+updateROI2();
+
+function updateROI3() {
+  const hoursSaved = parseInt(parseInt(document.getElementById("hoursSaved3").value) + parseInt(1)) * 4;
+  const hourlyRate = 50;
+  const bardeenCost = 10;
+
+  // Calculate time value saved
+  const timeValueSaved = hoursSaved * hourlyRate;
+
+  // Calculate total ROI
+  const totalRoi = timeValueSaved - bardeenCost;
+
+  // Update display elements
+  document.getElementById("calcHours3").textContent = hoursSaved;
+  document.getElementById("timeValueSaved3").textContent = `$${timeValueSaved.toFixed(2)}`;
+  document.getElementById("totalRoi3").textContent = `$${totalRoi.toFixed(2)}`;
+  document.getElementById("roiAmount3").textContent = totalRoi.toFixed(2);
+}
+
+// Attach event listeners to inputs
+document.getElementById("hoursSaved3").addEventListener("input", updateROI3);
+// Initial call to populate fields with default values
+updateROI3();
+
         // Range Input
 function SliderFun(ele) {
   for (let i = 0; i < ele.length; i++) {
@@ -610,6 +900,7 @@ function SliderFun(ele) {
 
     const values = element.value;
     const dataValue = element.getAttribute("max");
+    const calcTabVisi = element.closest('.calc_tab_visi');
     const fullValue = Math.round((values * 100) / dataValue);
     element.nextSibling.parentNode.querySelector(".active-line").style.width =
       fullValue + "%";
@@ -617,7 +908,7 @@ function SliderFun(ele) {
       element.nextSibling.parentNode.querySelector(".active-dot").style.left =
         fullValue + "%";
     }
-    document.querySelector('.hour_span').textContent = parseInt(values) + parseInt(1);
+    calcTabVisi.querySelector('.hour_span').textContent = parseInt(values) + parseInt(1);
     // if (values % 3 === 0) {
     console.log("The value is an integer." + values);
     console.log("values", values / 3);

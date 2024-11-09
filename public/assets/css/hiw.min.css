@@ -12820,13 +12820,13 @@ to {
     width: 100%;
     max-width: none;
     height: 100%}
-.logo {
+/*.logo {
     object-fit: contain;
     max-width: 100px;
     max-height: 44px;
     margin-bottom: auto;
     margin-left: auto;
-}
+}*/
 .logo.cc-height-short {
     max-height: 25px;
 }
@@ -17764,11 +17764,11 @@ h4 {
 .arrow-absolute.left {
     top: 471px;
 }
-.logo {
+/*.logo {
     object-position: 0% 50%;
     margin-top: 0;
     margin-left: 0;
-}
+}*/
 .banner-wrapper {
     display: flex;
 }
@@ -20102,11 +20102,11 @@ h4, .heading-medium {
 .arrow-absolute {
     display: none;
 }
-.logo {
+/*.logo {
     padding-top: 8px;
     position: absolute;
     inset: 0% 0% auto auto;
-}
+}*/
 .logo.cc-height-short {
     max-height: 40px;
 }
