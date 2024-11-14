@@ -35,7 +35,8 @@
                 @if($plan->name == 'Manage')
                     <p style="    position: absolute;
     top: 0;
-    right: 10px;
+        left: 0;
+    right: 0;
     font-size: 15px;
     color: black;
     text-transform: uppercase;
