@@ -45,18 +45,22 @@ color: black;
                         </div>
 
                         <div class="row calc_tabs">
-                            <div class="col-lg-4">
-                                <p class="active" data-id="1">{{ $calcSettings->heading_tab ?? '' }}</p>
+                            <div class="col-lg-3">
+                                <p class="active" data-id="2">{{ $calcSettings->heading_tab_two ?? '' }}</p>
                             </div>
-                            <div class="col-lg-4">
-                                <p data-id="2">{{ $calcSettings->heading_tab_two ?? '' }}</p>
+                             <div class="col-lg-3">
+                                <p data-id="4">{{ $calcSettings->heading_tab_four ?? '' }}</p>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
+                                <p class="" data-id="1">{{ $calcSettings->heading_tab ?? '' }}</p>
+                            </div>
+                            <div class="col-lg-3">
                                 <p data-id="3">{{ $calcSettings->heading_tab_three ?? '' }}</p>
                             </div>
+
                         </div>
 
-                        <div class="calc_tab_visi" data-id="1">
+                        <div class="calc_tab_visi" data-id="1" style="display:none;">
                         <div class="form-group">
                             <label for="text_one" class="form-label">Tab Heading</label>
                             <input name="heading_tab" type="text" required class="form-control" id="heading_tab" placeholder="Text" value="{{ $calcSettings->heading_tab ?? '' }}">
@@ -115,7 +119,7 @@ color: black;
 
 
 
-                      <div class="calc_tab_visi" data-id="2" style="display: none;">
+                      <div class="calc_tab_visi" data-id="2" style="display:;">
                     <div class="form-group">
                         <label for="heading_tab_two" class="form-label">Tab Heading</label>
                         <input name="heading_tab_two" type="text" required class="form-control" id="heading_tab_two" placeholder="Text" value="{{ $calcSettings->heading_tab_two ?? '' }}">
@@ -235,6 +239,67 @@ color: black;
                         <label for="text_twenty_seven" class="form-label">Text</label>
                         <input name="text_twenty_seven" type="text" class="form-control" id="text_twenty_seven" placeholder="Text" value="{{ $calcSettings->text_twenty_seven ?? '' }}">
                     </div>
+                      </div>
+
+
+                      <div class="calc_tab_visi" data-id="4" style="display: none;">
+                        <div class="form-group">
+                            <label for="text_one" class="form-label">Tab Heading</label>
+                            <input name="heading_tab_three" type="text" required class="form-control" id="heading_tab_three" placeholder="Text" value="{{ $calcSettings->heading_tab_four ?? '' }}">
+                        </div>
+
+                        <div class="form-group">
+                        <label for="text_twenty_eight" class="form-label">Text</label>
+                        <input name="text_twenty_eight" type="text" required class="form-control" id="text_twenty_eight" placeholder="Text" value="{{ $calcSettings->text_twenty_eight ?? '' }}">
+                    </div>
+
+                    <div class="form-group" style="display:;">
+                        <label for="text_thirty_six" class="form-label">Text</label>
+                        <input name="text_thirty_six" type="text" class="form-control" id="text_thirty_six" placeholder="Text" value="{{ $calcSettings->text_thirty_six ?? '' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="text_twenty_nine" class="form-label">Text</label>
+                        <input name="text_twenty_nine" type="text" class="form-control" id="text_twenty_nine" placeholder="Text" value="{{ $calcSettings->text_twenty_nine ?? '' }}">
+                    </div>
+
+
+                        <div class="form-group">
+                            <label for="heading_five" class="form-label">Heading</label>
+                            <input name="heading_five" type="text" required class="form-control" id="heading_five" placeholder="Heading" value="{{ $calcSettings->heading_five ?? '' }}">
+                        </div>
+
+                         <div class="form-group">
+                        <label for="text_thirty" class="form-label">Text</label>
+                        <input name="text_thirty" type="text" required class="form-control" id="text_thirty" placeholder="Text" value="{{ $calcSettings->text_thirty ?? '' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="text_thirty_one" class="form-label">Text</label>
+                        <input name="text_thirty_one" type="text" required class="form-control" id="text_thirty_one" placeholder="Text" value="{{ $calcSettings->text_thirty_one ?? '' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="text_thirty_two" class="form-label">Text</label>
+                        <input name="text_thirty_two" type="text" required class="form-control" id="text_thirty_two" placeholder="Text" value="{{ $calcSettings->text_thirty_two ?? '' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="text_thirty_three" class="form-label">Text</label>
+                        <input name="text_thirty_three" type="text" required class="form-control" id="text_thirty_three" placeholder="Text" value="{{ $calcSettings->text_thirty_three ?? '' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="text_thirty_four" class="form-label">Text</label>
+                        <input name="text_thirty_four" type="text" required class="form-control" id="text_thirty_four" placeholder="Text" value="{{ $calcSettings->text_thirty_four ?? '' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="text_thirty_five" class="form-label">Text</label>
+                        <input name="text_thirty_five" type="text" required class="form-control" id="text_thirty_five" placeholder="Text" value="{{ $calcSettings->text_thirty_five ?? '' }}">
+                    </div>
+
+                    
                       </div>
 
                         <button type="submit" class="btn btn-gradient-primary me-2">Update</button>

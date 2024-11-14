@@ -57,18 +57,22 @@ p.pcls{
     padding: 20px 20px 20px 20px;">
 
                          <div class="row calc_tabs">
-                            <div class="col-lg-4">
-                                <p class="active" data-id="1">{{ $calcSettings->heading_tab ?? '' }}</p>
+                            <div class="col-lg-3">
+                                <p class="active" data-id="2">{{ $calcSettings->heading_tab_two ?? '' }}</p>
                             </div>
-                            <div class="col-lg-4">
-                                <p data-id="2">{{ $calcSettings->heading_tab_two ?? '' }}</p>
+                             <div class="col-lg-3">
+                                <p data-id="4">{{ $calcSettings->heading_tab_four ?? '' }}</p>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
+                                <p class="" data-id="1">{{ $calcSettings->heading_tab ?? '' }}</p>
+                            </div>
+                            <div class="col-lg-3">
                                 <p data-id="3">{{ $calcSettings->heading_tab_three ?? '' }}</p>
                             </div>
+
                         </div>
 
-                        <div class="calc_tab_visi" data-id="1">
+                        <div class="calc_tab_visi" data-id="1" style="display:none;">
                         <div class="row">
                             <div class="col-md-6">
                             <p class="pcls">{{ $calcSettings->text_one }}</p> 
@@ -158,15 +162,15 @@ p.pcls{
                         </div>
                         </div>
                         
-                        <div class="calc_tab_visi" data-id="2" style="display:none;">
+                        <div class="calc_tab_visi" data-id="2" style="display:;">
                             <div class="row">
                             <div class="col-md-6">
                             <p class="pcls">{{ $calcSettings->text_ten }}</p> 
 
-                            <h5 class="hour_h5"><span class="hour_span">1</span> hours</h5>
+                            <h5 class="hour_h5"><span class="hour_span">No Risk</span></h5>
                             <div class="range-item">
                             <div class="range-input d-flex position-relative">
-                              <input type="range" min="0" max="19" class="form-range" name="dataShared" id="hoursSaved2" value="0" />
+                              <input type="range" min="0" max="5" class="form-range" name="dataShared" id="hoursSaved2" value="0" />
                               <div class="range-line">
                                 <span class="active-line"></span>
                               </div>
@@ -176,49 +180,45 @@ p.pcls{
                             </div>
                             <ul class="list-inline list-unstyled">
                               <li class="list-inline-item">
-                                <span>1h</span>
+                                <span>No Risk</span>
                               </li>
                                <li class="list-inline-item">
                                 <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
+                                <p class="large"></p>
+                              </li>
+                               <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <span>Low-Medium Risk</span>
+                              </li>
+                               <li class="list-inline-item">
                                 <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
                                 <p class="large"></p>
                               </li>
-                              <li class="list-inline-item">
+                               <li class="list-inline-item">
                                 <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
+                                <span>Medium Risk</span>
+                              </li>
+                               <li class="list-inline-item">
                                 <p class="small"></p>
                               </li>
+
                               <li class="list-inline-item">
                                 <p class="large"></p>
                               </li>
-                              <li class="list-inline-item">
-                                <span>10h</span>
-                              </li>
-                              <li class="list-inline-item">
+
+                               <li class="list-inline-item">
                                 <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="large"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="large"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <span>20h</span>
+                                <span>High Risk</span>
                               </li>
                             </ul>
                           </div>
@@ -226,12 +226,12 @@ p.pcls{
                           <div class="row">
                             <div class="col-md-6 text-center">
                             <p>{{ $calcSettings->text_eighteen }} 
-                                    <input type="number" value="50" min="3" max="10000" name="hourly_rate" id="monthlyRate"> / mo
+                                    <input type="number" value="1000" min="0" max="100000" name="hourly_rate" id="monthlyRate"> / mo
                                 </p>
                                 </div>
                             <div class="col-md-6 text-center">   
                             <p>{{ $calcSettings->text_eleven }} 
-                                    <input type="number" value="50" min="3" max="10000" name="hourly_rate" id="netprofit"> %
+                                    <input type="number" value="5" min="0" max="100" name="hourly_rate" id="netprofit"> %
                                 </p>  
                                 </div>
                                 </div>
@@ -242,7 +242,7 @@ p.pcls{
 
                                   <h5 class="hour_h5" style="margin: 25px 0px 0px 0px;"><span>$</span><span id="roiAmount2">0</span></h5>
 
-                                <p style="text-align: center;margin-bottom: 25px;"><b>{{ $calcSettings->text_tweleve }}</b></p>
+                                <p style="text-align: center;margin-bottom: 25px;"><b>{{ $calcSettings->text_twelve }}</b></p>
                                 
                                  <p style="margin:0">
                                     <span>{{ $calcSettings->text_thirteen }}</span><br>
@@ -258,12 +258,107 @@ p.pcls{
                         </div>
                         </div>
 
+
+                        <div class="calc_tab_visi" data-id="4" style="display:none;">
+                            <div class="row">
+                            <div class="col-md-6">
+                            <p class="pcls">{{ $calcSettings->text_twenty_eight }}</p> 
+
+                            <h5 class="hour_h5"><span class="hour_span">No Discounts</span></h5>
+                            <div class="range-item">
+                            <div class="range-input d-flex position-relative">
+                              <input type="range" min="0" max="3" class="form-range" name="dataShared" id="hoursSaved4" value="0" />
+                              <div class="range-line">
+                                <span class="active-line"></span>
+                              </div>
+                              <div class="dot-line">
+                                <span class="active-dot"></span>
+                              </div>
+                            </div>
+                            <ul class="list-inline list-unstyled">
+                              <li class="list-inline-item">
+                                <span>No Discounts</span>
+                              </li>
+                               <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <span>3-10 Discounts</span>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <span>10+ Discounts</span>
+                              </li>
+                            </ul>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-6 text-center">
+                            <p>{{ $calcSettings->text_thirty_six }} 
+                                    <input type="number" value="1000" min="0" max="100000" name="hourly_rate" id="pexpense"> / mo
+                                </p>
+                                </div>
+                            <div class="col-md-6 text-center">   
+                            <p>{{ $calcSettings->text_twenty_nine }} 
+                                    <input type="number" value="500" min="0" max="100000" name="hourly_rate" id="npexpense"> %
+                                </p>  
+                                </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 col-md-6-roi">
+                                <p><b>{{ $calcSettings->heading_five }}</b></p>
+
+                                  <h5 class="hour_h5" style="margin: 25px 0px 0px 0px;"><span>$</span><span id="roiAmount4">0</span></h5>
+
+                                <p style="text-align: center;margin-bottom: 25px;"><b>{{ $calcSettings->text_thirty }}</b></p>
+                                
+                                 <p style="margin:0">
+                                    <span>{{ $calcSettings->text_thirty_one }}</span><br>
+                                    <span>{{ $calcSettings->text_thirty_two }}</span><span style="float: right;" id="calcHours4">0</span><br>
+                                    <span>{{ $calcSettings->text_thirty_three }}</span><span style="float: right;" id="timeValueSaved4">$0</span><br>
+                                    <span>{{ $calcSettings->text_thirty_four }}</span><span style="float: right;">$49</span><br>
+                                  </p>
+
+                                <hr style="margin: 0;">
+
+                                  <p><span><b>{{ $calcSettings->text_thirty_five }}</b></span> <b style="float: right;" id="totalRoi4">$0</b></p>
+                            </div>
+                        </div>
+                        </div>
+
                         <div class="calc_tab_visi" data-id="3" style="display:none;">
                             <div class="row">
                             <div class="col-md-6">
                             <p class="pcls">{{ $calcSettings->text_nineteen }}</p> 
 
-                            <h5 class="hour_h5"><span class="hour_span">1</span> hours</h5>
+                            <h5 class="hour_h5"><span class="hour_span">1</span> times</h5>
                             <div class="range-item">
                             <div class="range-input d-flex position-relative">
                               <input type="range" min="0" max="19" class="form-range" name="dataShared" id="hoursSaved3" value="0" />
@@ -276,7 +371,7 @@ p.pcls{
                             </div>
                             <ul class="list-inline list-unstyled">
                               <li class="list-inline-item">
-                                <span>1h</span>
+                                <span>1t</span>
                               </li>
                                <li class="list-inline-item">
                                 <p class="small"></p>
@@ -297,7 +392,7 @@ p.pcls{
                                 <p class="large"></p>
                               </li>
                               <li class="list-inline-item">
-                                <span>10h</span>
+                                <span>10t</span>
                               </li>
                               <li class="list-inline-item">
                                 <p class="small"></p>
@@ -318,7 +413,7 @@ p.pcls{
                                 <p class="large"></p>
                               </li>
                               <li class="list-inline-item">
-                                <span>20h</span>
+                                <span>20t</span>
                               </li>
                             </ul>
                           </div>
@@ -852,52 +947,173 @@ updateROI();
 
 
 function updateROI2() {
-  const hoursSaved = parseInt(parseInt(document.getElementById("hoursSaved2").value) + parseInt(1)) * 4;
-  const hourlyRate = 50;
-  const bardeenCost = 10;
+  const revenueInput = parseFloat(document.getElementById("monthlyRate").value);
+  const netProfitRate = parseFloat(document.getElementById("netprofit").value) / 100;
+  const smugglersCost = 49; // Smugglers’ Monthly Cost
 
-  // Calculate time value saved
-  const timeValueSaved = hoursSaved * hourlyRate;
+  // Retrieve slider position to determine risk level and growth/discount rates
+  const riskLevel = parseInt(document.getElementById("hoursSaved2").value);
+  let monthlyGrowthRate, riskDiscountRate, riskLabel;
 
-  // Calculate total ROI
-  const totalRoi = timeValueSaved - bardeenCost;
+  // Determine growth and discount rates based on risk level
+  switch (riskLevel) {
+    case 0:
+      monthlyGrowthRate = 0.002; // 0.2%
+      riskDiscountRate = 0.001;   // 0.1%
+      riskLabel = "No Risk";
+      break;
+    case 1:
+      monthlyGrowthRate = 0.004; // 0.4%
+      riskDiscountRate = 0.002;   // 0.2%
+      riskLabel = "Low Risk";
+      break;
+    case 2:
+      monthlyGrowthRate = 0.007; // 0.7%
+      riskDiscountRate = 0.003;   // 0.3%
+      riskLabel = "Low-Medium Risk";
+      break;
+    case 3:
+      monthlyGrowthRate = 0.008; // 0.8%
+      riskDiscountRate = 0.004;   // 0.4%
+      riskLabel = "Medium Risk";
+      break;
+    case 4:
+      monthlyGrowthRate = 0.009; // 0.9%
+      riskDiscountRate = 0.005;   // 0.5%
+      riskLabel = "High-Medium Risk";
+      break;
+    case 5:
+      monthlyGrowthRate = 0.010; // 1.0%
+      riskDiscountRate = 0.006;   // 0.6%
+      riskLabel = "High Risk";
+      break;
+    default:
+      monthlyGrowthRate = 0.010;
+      riskDiscountRate = 0.006;
+      riskLabel = "High Risk";
+  }
+
+  // Update risk label text
+  const calcTabVisiParent = document.querySelector('.calc_tab_visi[data-id="2"]');
+  calcTabVisiParent.querySelector('.hour_span').textContent = riskLabel;
+
+  // Calculate Effective Growth Rate for annual compounding
+  const effectiveGrowthRate = Math.pow(1 + monthlyGrowthRate, 12) - 1;
+
+  // Projected Revenue Increase
+  const projectedRevenueIncrease = revenueInput * (1 + effectiveGrowthRate) * netProfitRate;
+
+  // Apply risk discount to revenue increase
+  const discountedRevenueIncrease = projectedRevenueIncrease * (1 - riskDiscountRate);
+
+  // Monthly Savings Calculation
+  const monthlySavings = discountedRevenueIncrease - smugglersCost;
 
   // Update display elements
-  document.getElementById("calcHours2").textContent = hoursSaved;
-  document.getElementById("timeValueSaved2").textContent = `$${timeValueSaved.toFixed(2)}`;
-  document.getElementById("totalRoi2").textContent = `$${totalRoi.toFixed(2)}`;
-  document.getElementById("roiAmount2").textContent = totalRoi.toFixed(2);
+  document.getElementById("calcHours2").textContent = `${(effectiveGrowthRate * 100).toFixed(2)}%`; // Display growth %
+  document.getElementById("timeValueSaved2").textContent = `$${discountedRevenueIncrease.toFixed(2)}`;
+  document.getElementById("totalRoi2").textContent = `$${monthlySavings.toFixed(2)}`;
+  document.getElementById("roiAmount2").textContent = monthlySavings.toFixed(2);
 }
 
 // Attach event listeners to inputs
 document.getElementById("hoursSaved2").addEventListener("input", updateROI2);
 document.getElementById("monthlyRate").addEventListener("input", updateROI2);
 document.getElementById("netprofit").addEventListener("input", updateROI2);
+
 // Initial call to populate fields with default values
 updateROI2();
 
+
 function updateROI3() {
-  const hoursSaved = parseInt(parseInt(document.getElementById("hoursSaved3").value) + parseInt(1)) * 4;
-  const hourlyRate = 50;
-  const bardeenCost = 10;
+  // Retrieve user inputs
+  const mistakesAvoided = parseInt(document.getElementById("hoursSaved3").value) + 1;  // Mistakes avoided from slider input
+  // const averageEmployeeCost = parseFloat(document.getElementById("avgEmployeeCost3").value) || 0;  // Average employee monthly cost input
+  const averageEmployeeCost = 0;  // Average employee monthly cost input
 
-  // Calculate time value saved
-  const timeValueSaved = hoursSaved * hourlyRate;
+  const costPerMistake = 100;  // Constant
+  const smugglersCost = 49;    // Constant
 
+  // Calculate components
+  const mistakesCostSaved = mistakesAvoided * costPerMistake;  // Mistakes Avoided × Cost per Mistake
+  const teamEfficiencyGains = averageEmployeeCost * 0.07;      // Team Efficiency Gains = Avg Employee Cost * 7%
+  
   // Calculate total ROI
-  const totalRoi = timeValueSaved - bardeenCost;
+  const totalRoi = (mistakesCostSaved + teamEfficiencyGains) - smugglersCost;
 
   // Update display elements
-  document.getElementById("calcHours3").textContent = hoursSaved;
-  document.getElementById("timeValueSaved3").textContent = `$${timeValueSaved.toFixed(2)}`;
+  document.getElementById("calcHours3").textContent = mistakesAvoided;
+  document.getElementById("timeValueSaved3").textContent = `$${(mistakesCostSaved + teamEfficiencyGains).toFixed(2)}`;
   document.getElementById("totalRoi3").textContent = `$${totalRoi.toFixed(2)}`;
   document.getElementById("roiAmount3").textContent = totalRoi.toFixed(2);
 }
 
 // Attach event listeners to inputs
 document.getElementById("hoursSaved3").addEventListener("input", updateROI3);
+// document.getElementById("avgEmployeeCost3").addEventListener("input", updateROI3);
+
 // Initial call to populate fields with default values
 updateROI3();
+
+
+function updateROI4() {
+  // Retrieve inputs
+  const productCosts = parseFloat(document.getElementById("pexpense").value);
+  const nonProductCosts = parseFloat(document.getElementById("npexpense").value);
+  const smugglersCost = 49;
+
+  // Retrieve slider value to determine discount rate
+  const discountLevel = parseInt(document.getElementById("hoursSaved4").value);
+  let discountRate;
+
+  // Define discount rate based on slider position
+  switch (discountLevel) {
+    case 0:
+      discountRate = 0.07; // No Discounts
+      riskLabel = 'No Discounts';
+      break;
+    case 1:
+      discountRate = 0.05; // 2-3 Discounts
+      riskLabel = '2-3 Discounts';
+      break;
+    case 2:
+      discountRate = 0.03; // 3-10 Discounts
+      riskLabel = '3-10 Discounts';
+      break;
+    case 3:
+      discountRate = 0.01; // 10+ Discounts
+      riskLabel = '10+ Discounts';
+      break;
+    default:
+      discountRate = 0.07;
+  }
+
+// Update risk label text
+  const calcTabVisiParent = document.querySelector('.calc_tab_visi[data-id="4"]');
+  calcTabVisiParent.querySelector('.hour_span').textContent = riskLabel;
+  // Calculate components
+  const operationalCostSavings = nonProductCosts * 0.04;
+  const shrinkageReduction = productCosts * 0.03;
+  const supplierDiscounts = productCosts * discountRate;
+
+  // Calculate total monthly savings
+  const monthlySavings = operationalCostSavings + shrinkageReduction + supplierDiscounts - smugglersCost;
+
+  // Update display elements
+  document.getElementById("calcHours4").textContent = (operationalCostSavings + shrinkageReduction + supplierDiscounts).toFixed(2);
+  document.getElementById("timeValueSaved4").textContent = `$${(operationalCostSavings + shrinkageReduction).toFixed(2)}`;
+  document.getElementById("totalRoi4").textContent = `$${monthlySavings.toFixed(2)}`;
+  document.getElementById("roiAmount4").textContent = monthlySavings.toFixed(2);
+}
+
+// Attach event listeners
+document.getElementById("hoursSaved4").addEventListener("input", updateROI4);
+document.getElementById("pexpense").addEventListener("input", updateROI4);
+document.getElementById("npexpense").addEventListener("input", updateROI4);
+
+// Initial call
+updateROI4();
+
 
         // Range Input
 function SliderFun(ele) {
@@ -907,6 +1123,7 @@ function SliderFun(ele) {
     const values = element.value;
     const dataValue = element.getAttribute("max");
     const calcTabVisi = element.closest('.calc_tab_visi');
+    const calcTabVisiDataId = element.closest('.calc_tab_visi').getAttribute('data-id');
     const fullValue = Math.round((values * 100) / dataValue);
     element.nextSibling.parentNode.querySelector(".active-line").style.width =
       fullValue + "%";
@@ -914,7 +1131,18 @@ function SliderFun(ele) {
       element.nextSibling.parentNode.querySelector(".active-dot").style.left =
         fullValue + "%";
     }
+    if(calcTabVisiDataId == 2){
+
+    }
+    else if(calcTabVisiDataId == 4){
+
+    }
+     else if(calcTabVisiDataId == 3){
     calcTabVisi.querySelector('.hour_span').textContent = parseInt(values) + parseInt(1);
+    }
+    else{
+    calcTabVisi.querySelector('.hour_span').textContent = parseInt(values) + parseInt(1);
+    }
     // if (values % 3 === 0) {
     console.log("The value is an integer." + values);
     console.log("values", values / 3);

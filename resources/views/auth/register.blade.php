@@ -24,7 +24,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12 col-sm-12 col-lg-8" style="">
             <div class="card">
-                <div class="card-header cardheader">{{ __("Let's Get You Started!") }}</div>
+                <div class="card-header cardheader">{{ __("We can't wait for you to join Smugglers!") }}</div>
 
                 <div class="card-body">
                     <p class="text-center mt-2">Already have an account? <a class="btn-link" href="{{ route('login') }}">{{ __('Log in here') }}</a></p>

@@ -5,8 +5,8 @@
     @csrf
      <div class="row mb-3">
         <div class="col-md-12 text-center">
-            <h5 class="heading">Join Our Project</h5>
-            <p class="">We are excited to share the latest news about our ongoing project. Stay tuned for more updates, and don't miss out on what's coming next!</p>
+            <h5 class="heading" style="font-size: 20px;">We're excited that you're interested in Smugglers!</h5>
+            <p>Get early access to exciting updates, exclusive offers, and a sneak peek at what’s coming next! Join us on our journey to make life simpler and more fulfilling for our Partners - just like you!</p>
         </div>
      </div>
      <div id="lead_form_one">

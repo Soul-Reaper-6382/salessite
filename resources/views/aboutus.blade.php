@@ -176,7 +176,7 @@
  @if (in_array(pathinfo($journeys->path, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif', 'PNG']))
                 <img src="{{ url($journeys['path']) }}" style="max-width: 100%; margin-bottom: -12px; width: 100%;">
 @elseif (in_array(pathinfo($journeys->path, PATHINFO_EXTENSION), ['mp4', 'avi', 'mov','webm']))
-            <video src="{{ $journeys['path'] }}" autoplay playsinline loop muted data-video="true" preload="none" style="max-width: 100%; margin-bottom: -12px;"></video>
+            <video src="{{ $journeys['path'] }}" autoplay playsinline loop muted data-video="true" preload="none" style="max-width: 100%;"></video>
             @endif
         </div>
     </div>

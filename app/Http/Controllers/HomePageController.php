@@ -334,6 +334,15 @@ public function updateKey(Request $request, $id, $key_id)
         'text_twenty_five'   => 'nullable|string|max:255',
         'text_twenty_six'    => 'nullable|string|max:255',
         'text_twenty_seven'  => 'nullable|string|max:255',
+        'text_twenty_eight'  => 'nullable|string|max:255',
+        'text_twenty_nine'   => 'nullable|string|max:255',
+        'text_thirty'        => 'nullable|string|max:255',
+        'text_thirty_one'    => 'nullable|string|max:255',
+        'text_thirty_two'    => 'nullable|string|max:255',
+        'text_thirty_three'  => 'nullable|string|max:255',
+        'text_thirty_four'   => 'nullable|string|max:255',
+        'text_thirty_five'   => 'nullable|string|max:255',
+        'text_thirty_six'    => 'nullable|string|max:255',
     ]);
 
     // Get the first record or create a new one

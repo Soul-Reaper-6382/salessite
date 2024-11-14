@@ -29,7 +29,19 @@
 @foreach($plan_db as $plan)
     <div class="col-md-3 price_main_column" data-dur="{{ $plan->duration }}">
         <div class="price-wrap">
-            <div class="price-inner">
+            <div class="price-inner" @if($plan->name == 'Manage')
+                    style="background: radial-gradient(circle at 10% 20%, rgb(255, 229, 168) 0%, rgb(251, 174, 222) 100.7%);position:relative;"
+                    @endif>
+                @if($plan->name == 'Manage')
+                    <p style="    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 15px;
+    color: black;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: monospace;">🔥Recomended</p>
+                    @endif
                 <h3>{{ $plan->name }}</h3>
                 <div class="price-list-num">
                     @php
@@ -73,9 +85,6 @@
                 </div>
 
                 <a href="javascript:void(0);" class="click_reg_a"
-                 @if($plan->name == 'Manage')
-                    style="background: #2f3f58; color: white; border: 1px solid #2f3f58;"
-                    @endif
                 data-id="{{ $plan->stripe_plan }}">Get Started</a>
                 <!-- <button class="learn-more">Learn More</button> -->
             </div>
