@@ -923,7 +923,7 @@ function fetch_state_func(){
 function updateROI() {
   const hoursSaved = parseInt(parseInt(document.getElementById("hoursSaved").value) + parseInt(1)) * 4;
   const hourlyRate = parseFloat(document.getElementById("hourlyRate").value);
-  const bardeenCost = 10;
+  const bardeenCost = 49;
 
   // Calculate time value saved
   const timeValueSaved = hoursSaved * hourlyRate;

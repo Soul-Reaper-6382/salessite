@@ -12,8 +12,8 @@ class Calc_Text extends Model
     protected $table = 'calc_text';
 
     protected $fillable = [
-        'heading_one', 'heading_tab', 'heading_tab_two', 'heading_tab_three', 
-        'heading_two', 'heading_three', 'heading_four',
+        'heading_one', 'heading_tab', 'heading_tab_two', 'heading_tab_three','heading_tab_four', 
+        'heading_two', 'heading_three', 'heading_four','heading_five',
         'text_one', 'text_two', 'text_three', 'text_four', 'text_five', 'text_six', 
         'text_seven', 'text_eight', 'text_nine', 'text_ten', 'text_eleven', 
         'text_twelve', 'text_thirteen', 'text_fourteen', 'text_fifteen', 

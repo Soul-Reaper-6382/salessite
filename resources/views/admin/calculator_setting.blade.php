@@ -245,7 +245,7 @@ color: black;
                       <div class="calc_tab_visi" data-id="4" style="display: none;">
                         <div class="form-group">
                             <label for="text_one" class="form-label">Tab Heading</label>
-                            <input name="heading_tab_three" type="text" required class="form-control" id="heading_tab_three" placeholder="Text" value="{{ $calcSettings->heading_tab_four ?? '' }}">
+                            <input name="heading_tab_four" type="text" required class="form-control" id="heading_tab_four" placeholder="Text" value="{{ $calcSettings->heading_tab_four ?? '' }}">
                         </div>
 
                         <div class="form-group">

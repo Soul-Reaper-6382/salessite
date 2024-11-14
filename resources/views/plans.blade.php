@@ -30,7 +30,7 @@
     <div class="col-md-3 price_main_column" data-dur="{{ $plan->duration }}">
         <div class="price-wrap">
             <div class="price-inner" @if($plan->name == 'Manage')
-                    style="background: radial-gradient(circle at 10% 20%, rgb(255, 229, 168) 0%, rgb(251, 174, 222) 100.7%);position:relative;"
+                    style="background: radial-gradient(circle at 10% 20%, rgb(255, 229, 168) 0%, rgb(149 174 213 / 97%) 130.7%);position:relative;"
                     @endif>
                 @if($plan->name == 'Manage')
                     <p style="    position: absolute;

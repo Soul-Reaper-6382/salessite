@@ -326,9 +326,6 @@ public function updateKey(Request $request, $id, $key_id)
 }
 
 
-   
-
-
     public function updateImageOrder(Request $request)
     {
 
