@@ -34,6 +34,22 @@ p.pcls{
     margin-bottom: 10px;
 }
 }
+.input-container {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 8px;
+    transform: translateX(-50%);
+    top: -4px;
+    margin-top: 5px;
+    font-size: 15px;
+    color: #333;
+}
+
 </style>
     <div id="main-wrapper">
         <div class="site-wrapper-reveal">
@@ -182,40 +198,17 @@ p.pcls{
                               <li class="list-inline-item">
                                 <span>No Risk</span>
                               </li>
-                               <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
                               <li class="list-inline-item">
-                                <p class="large"></p>
-                              </li>
-                               <li class="list-inline-item">
-                                <p class="small"></p>
+                                <span>Low Risk</span>
                               </li>
                               <li class="list-inline-item">
                                 <span>Low-Medium Risk</span>
                               </li>
-                               <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="large"></p>
-                              </li>
-                               <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
                               <li class="list-inline-item">
                                 <span>Medium Risk</span>
                               </li>
-                               <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
-
                               <li class="list-inline-item">
-                                <p class="large"></p>
-                              </li>
-
-                               <li class="list-inline-item">
-                                <p class="small"></p>
+                                <span>High-Medium Risk</span>
                               </li>
                               <li class="list-inline-item">
                                 <span>High Risk</span>
@@ -225,14 +218,19 @@ p.pcls{
 
                           <div class="row">
                             <div class="col-md-6 text-center">
-                            <p>{{ $calcSettings->text_eighteen }} 
-                                    <input type="number" value="1000" min="0" max="100000" name="hourly_rate" id="monthlyRate"> / mo
-                                </p>
+                            <p class="m-0">{{ $calcSettings->text_eighteen }} </p>
+                             <div class="input-container">
+                              <input type="number" value="1000" min="0" max="100000" name="hourly_rate" id="monthlyRate" style="    padding: 0px 0px 0px 15px;"> / mo
+                                  <span class="currency-symbol">$</span>
+                              </div>
                                 </div>
+
+
                             <div class="col-md-6 text-center">   
-                            <p>{{ $calcSettings->text_eleven }} 
+                            <p class="m-0">{{ $calcSettings->text_eleven }} </p>
+                            <div class="input-container">
                                     <input type="number" value="5" min="0" max="100" name="hourly_rate" id="netprofit"> %
-                                </p>  
+                                </div>
                                 </div>
                                 </div>
 
@@ -279,38 +277,11 @@ p.pcls{
                               <li class="list-inline-item">
                                 <span>No Discounts</span>
                               </li>
-                               <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
                               <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="large"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="small"></p>
+                                <span>2-3 Discounts</span>
                               </li>
                               <li class="list-inline-item">
                                 <span>3-10 Discounts</span>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="large"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="small"></p>
-                              </li>
-                              <li class="list-inline-item">
-                                <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
                                 <span>10+ Discounts</span>
@@ -319,17 +290,22 @@ p.pcls{
                           </div>
 
                           <div class="row">
-                            <div class="col-md-6 text-center">
-                            <p>{{ $calcSettings->text_thirty_six }} 
-                                    <input type="number" value="1000" min="0" max="100000" name="hourly_rate" id="pexpense"> / mo
-                                </p>
-                                </div>
-                            <div class="col-md-6 text-center">   
-                            <p>{{ $calcSettings->text_twenty_nine }} 
-                                    <input type="number" value="500" min="0" max="100000" name="hourly_rate" id="npexpense"> %
-                                </p>  
-                                </div>
-                                </div>
+                          <div class="col-md-6 text-center">
+                              <p class="m-0">{{ $calcSettings->text_thirty_six }}</p>
+                              <div class="input-container">
+                                  <input type="number" value="1000" min="0" max="100000" name="hourly_rate" id="pexpense" style="    padding: 0px 0px 0px 15px;"> / mo
+                                  <span class="currency-symbol">$</span>
+                              </div>
+                          </div>
+                          <div class="col-md-6 text-center">
+                              <p class="m-0">{{ $calcSettings->text_twenty_nine }}</p>
+                              <div class="input-container">
+                                  <input type="number" value="500" min="0" max="100000" name="hourly_rate" id="npexpense" style="    padding: 0px 0px 0px 15px;"> / mo
+                                  <span class="currency-symbol">$</span>
+                              </div>
+                          </div>
+                      </div>
+
 
                             </div>
                             <div class="col-md-6 col-md-6-roi">
