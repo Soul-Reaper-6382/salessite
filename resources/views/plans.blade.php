@@ -1,4 +1,69 @@
 @guest
+<style>
+    .box {
+  position: relative;
+  max-width: 600px;
+  width: 90%;
+  height: 400px;
+  background: #fff;
+  box-shadow: 0 0 15px rgba(0,0,0,.1);
+}
+
+/* common */
+.ribbon {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: absolute;
+}
+.ribbon::before,
+.ribbon::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+  border: 5px solid #2980b9;
+}
+.ribbon span {
+  position: absolute;
+  display: block;
+  width: 250px;
+  padding: 5px 0;
+  background-color: #2f3f58;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  color: #fff;
+  /* font: 700 18px/1 'Lato', sans-serif; */
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* top right*/
+.ribbon-top-right {
+  top: -10px;
+  right: -10px;
+}
+.ribbon-top-right::before,
+.ribbon-top-right::after {
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+.ribbon-top-right::before {
+  top: 0;
+  left: 0;
+}
+.ribbon-top-right::after {
+  bottom: 0;
+  right: 0;
+}
+.ribbon-top-right span {
+  left: -25px;
+  top: 30px;
+  transform: rotate(45deg);
+}
+</style>
     <div id="price" class="feature-icon-wrapper section-space--ptb_60">
                     <div class="container-md p-0">
 
@@ -33,14 +98,7 @@
                     style="background:radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #c3e0ff 100.7%);position:relative;"
                     @endif>
                 @if($plan->name == 'Manage')
-                    <p style="    position: absolute;
-    top: 0;
-        left: 0;
-    right: 0;
-    font-size: 17px;
-    color: black;
-    text-transform: uppercase;
-    font-weight: 700;">🔥Recomended</p>
+     <div class="ribbon ribbon-top-right"><span>Recomended</span></div>
                     @endif
                 <h3>{{ $plan->name }}</h3>
                 <div class="price-list-num">
