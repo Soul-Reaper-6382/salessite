@@ -296,67 +296,35 @@ public function updateKey(Request $request, $id, $key_id)
         return view('admin.calculator_setting', compact('calcSettings'));
     }
 
-    public function update_calculator_settings(Request $request)
+   public function update_calculator_settings(Request $request)
 {
-    // Validate the incoming request data
-    $validatedData = $request->validate([
-        'heading_one'        => 'required|string|max:255',
-        'heading_tab'        => 'nullable|string|max:255',
-        'heading_tab_two'    => 'nullable|string|max:255',
-        'heading_tab_three'  => 'nullable|string|max:255',
-        'heading_two'        => 'nullable|string|max:255',
-        'heading_three'      => 'nullable|string|max:255',
-        'heading_four'       => 'nullable|string|max:255',
-        'text_one'           => 'nullable|string|max:255',
-        'text_two'           => 'nullable|string|max:255',
-        'text_three'         => 'nullable|string|max:255',
-        'text_four'          => 'nullable|string|max:255',
-        'text_five'          => 'nullable|string|max:255',
-        'text_six'           => 'nullable|string|max:255',
-        'text_seven'         => 'nullable|string|max:255',
-        'text_eight'         => 'nullable|string|max:255',
-        'text_nine'          => 'nullable|string|max:255',
-        'text_ten'           => 'nullable|string|max:255',
-        'text_eleven'        => 'nullable|string|max:255',
-        'text_twelve'        => 'nullable|string|max:255',
-        'text_thirteen'      => 'nullable|string|max:255',
-        'text_fourteen'      => 'nullable|string|max:255',
-        'text_fifteen'       => 'nullable|string|max:255',
-        'text_sixteen'       => 'nullable|string|max:255',
-        'text_seventeen'     => 'nullable|string|max:255',
-        'text_eighteen'      => 'nullable|string|max:255',
-        'text_nineteen'      => 'nullable|string|max:255',
-        'text_twenty'        => 'nullable|string|max:255',
-        'text_twenty_one'    => 'nullable|string|max:255',
-        'text_twenty_two'    => 'nullable|string|max:255',
-        'text_twenty_three'  => 'nullable|string|max:255',
-        'text_twenty_four'   => 'nullable|string|max:255',
-        'text_twenty_five'   => 'nullable|string|max:255',
-        'text_twenty_six'    => 'nullable|string|max:255',
-        'text_twenty_seven'  => 'nullable|string|max:255',
-        'text_twenty_eight'  => 'nullable|string|max:255',
-        'text_twenty_nine'   => 'nullable|string|max:255',
-        'text_thirty'        => 'nullable|string|max:255',
-        'text_thirty_one'    => 'nullable|string|max:255',
-        'text_thirty_two'    => 'nullable|string|max:255',
-        'text_thirty_three'  => 'nullable|string|max:255',
-        'text_thirty_four'   => 'nullable|string|max:255',
-        'text_thirty_five'   => 'nullable|string|max:255',
-        'text_thirty_six'    => 'nullable|string|max:255',
-    ]);
+    // Define the allowed fields
+    $fields = [
+        'heading_one', 'heading_tab', 'heading_tab_two', 'heading_tab_three', 'heading_tab_four',
+        'heading_two', 'heading_three', 'heading_four', 'heading_five',
+        'text_one', 'text_two', 'text_three', 'text_four', 'text_five', 'text_six',
+        'text_seven', 'text_eight', 'text_nine', 'text_ten', 'text_eleven', 'text_twelve',
+        'text_thirteen', 'text_fourteen', 'text_fifteen', 'text_sixteen', 'text_seventeen', 
+        'text_eighteen', 'text_nineteen', 'text_twenty', 'text_twenty_one', 'text_twenty_two',
+        'text_twenty_three', 'text_twenty_four', 'text_twenty_five', 'text_twenty_six',
+        'text_twenty_seven', 'text_twenty_eight', 'text_twenty_nine', 'text_thirty',
+        'text_thirty_one', 'text_thirty_two', 'text_thirty_three', 'text_thirty_four',
+        'text_thirty_five', 'text_thirty_six'
+    ];
 
-    // Get the first record or create a new one
+    // Filter the incoming request data to include only allowed fields
+    $data = $request->only($fields);
+
+    // Get or create the first record in Calc_Text
     $calcSettings = Calc_Text::firstOrNew();
 
-    // Update all fields with the new data
-    $calcSettings->fill($validatedData);
-
-    // Save the updated settings
-    $calcSettings->save();
+    // Fill in the filtered data and save
+    $calcSettings->fill($data)->save();
 
     // Redirect back with a success message
     return back()->with('message', 'Calculator settings updated successfully.');
 }
+
 
    
 
