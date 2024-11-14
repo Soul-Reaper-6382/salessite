@@ -1101,7 +1101,8 @@ function updateROI4() {
 
   // Update display elements
   document.getElementById("calcHours4").textContent = (operationalCostSavings + shrinkageReduction + supplierDiscounts).toFixed(2);
-  document.getElementById("timeValueSaved4").textContent = `$${(operationalCostSavings + shrinkageReduction).toFixed(2)}`;
+  // document.getElementById("timeValueSaved4").textContent = `$${(operationalCostSavings + shrinkageReduction).toFixed(2)}`;
+  document.getElementById("timeValueSaved4").textContent = `$${supplierDiscounts.toFixed(2)}`;
   document.getElementById("totalRoi4").textContent = `$${monthlySavings.toFixed(2)}`;
   document.getElementById("roiAmount4").textContent = monthlySavings.toFixed(2);
 }

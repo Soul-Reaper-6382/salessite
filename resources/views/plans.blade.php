@@ -30,18 +30,17 @@
     <div class="col-md-3 price_main_column" data-dur="{{ $plan->duration }}">
         <div class="price-wrap">
             <div class="price-inner" @if($plan->name == 'Manage')
-                    style="background: radial-gradient(circle at 10% 20%, rgb(255, 229, 168) 0%, rgb(149 174 213 / 97%) 130.7%);position:relative;"
+                    style="background:radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #c3e0ff 100.7%);position:relative;"
                     @endif>
                 @if($plan->name == 'Manage')
                     <p style="    position: absolute;
     top: 0;
         left: 0;
     right: 0;
-    font-size: 15px;
+    font-size: 17px;
     color: black;
     text-transform: uppercase;
-    font-weight: 700;
-    font-family: monospace;">🔥Recomended</p>
+    font-weight: 700;">🔥Recomended</p>
                     @endif
                 <h3>{{ $plan->name }}</h3>
                 <div class="price-list-num">
