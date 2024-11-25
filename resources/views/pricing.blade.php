@@ -908,10 +908,10 @@ function updateROI() {
   const totalRoi = timeValueSaved - bardeenCost;
 
   // Update display elements
-  document.getElementById("calcHours").textContent = hoursSaved;
-  document.getElementById("timeValueSaved").textContent = `$${timeValueSaved.toFixed(2)}`;
-  document.getElementById("totalRoi").textContent = `$${totalRoi.toFixed(2)}`;
-  document.getElementById("roiAmount").textContent = totalRoi.toFixed(2);
+  document.getElementById("calcHours").textContent = formatWithCommas(hoursSaved);
+  document.getElementById("timeValueSaved").textContent = `$${formatWithCommas(timeValueSaved.toFixed(2))}`;
+  document.getElementById("totalRoi").textContent = `$${formatWithCommas(totalRoi.toFixed(2))}`;
+  document.getElementById("roiAmount").textContent = formatWithCommas(totalRoi.toFixed(2));
 }
 
 // Attach event listeners to inputs
@@ -986,10 +986,11 @@ function updateROI2() {
   const monthlySavings = discountedRevenueIncrease - smugglersCost;
 
   // Update display elements
-  document.getElementById("calcHours2").textContent = `${(effectiveGrowthRate * 100).toFixed(2)}%`; // Display growth %
-  document.getElementById("timeValueSaved2").textContent = `$${discountedRevenueIncrease.toFixed(2)}`;
-  document.getElementById("totalRoi2").textContent = `$${monthlySavings.toFixed(2)}`;
-  document.getElementById("roiAmount2").textContent = monthlySavings.toFixed(2);
+  // document.getElementById("calcHours2").textContent = `${formatWithCommas((effectiveGrowthRate * 100).toFixed(2))}%`; // Display growth %
+  document.getElementById("calcHours2").textContent = `${formatWithCommas(effectiveGrowthRate.toFixed(2))}`; // Display growth %
+  document.getElementById("timeValueSaved2").textContent = `$${formatWithCommas(discountedRevenueIncrease.toFixed(2))}`;
+  document.getElementById("totalRoi2").textContent = `$${formatWithCommas(monthlySavings.toFixed(2))}`;
+  document.getElementById("roiAmount2").textContent = formatWithCommas(monthlySavings.toFixed(2));
 }
 
 // Attach event listeners to inputs
@@ -1018,10 +1019,10 @@ function updateROI3() {
   const totalRoi = (mistakesCostSaved + teamEfficiencyGains) - smugglersCost;
 
   // Update display elements
-  document.getElementById("calcHours3").textContent = mistakesAvoided;
-  document.getElementById("timeValueSaved3").textContent = `$${(mistakesCostSaved + teamEfficiencyGains).toFixed(2)}`;
-  document.getElementById("totalRoi3").textContent = `$${totalRoi.toFixed(2)}`;
-  document.getElementById("roiAmount3").textContent = totalRoi.toFixed(2);
+  document.getElementById("calcHours3").textContent = formatWithCommas(mistakesAvoided);
+  document.getElementById("timeValueSaved3").textContent = `$${formatWithCommas((mistakesCostSaved + teamEfficiencyGains).toFixed(2))}`;
+  document.getElementById("totalRoi3").textContent = `$${formatWithCommas(totalRoi.toFixed(2))}`;
+  document.getElementById("roiAmount3").textContent = formatWithCommas(totalRoi.toFixed(2));
 }
 
 // Attach event listeners to inputs
@@ -1076,11 +1077,11 @@ function updateROI4() {
   const monthlySavings = operationalCostSavings + shrinkageReduction + supplierDiscounts - smugglersCost;
 
   // Update display elements
-  document.getElementById("calcHours4").textContent = (operationalCostSavings + shrinkageReduction + supplierDiscounts).toFixed(2);
+  document.getElementById("calcHours4").textContent = `$${formatWithCommas((operationalCostSavings + shrinkageReduction).toFixed(2))}`;
   // document.getElementById("timeValueSaved4").textContent = `$${(operationalCostSavings + shrinkageReduction).toFixed(2)}`;
-  document.getElementById("timeValueSaved4").textContent = `$${supplierDiscounts.toFixed(2)}`;
-  document.getElementById("totalRoi4").textContent = `$${monthlySavings.toFixed(2)}`;
-  document.getElementById("roiAmount4").textContent = monthlySavings.toFixed(2);
+  document.getElementById("timeValueSaved4").textContent = `$${formatWithCommas(supplierDiscounts.toFixed(2))}`;
+  document.getElementById("totalRoi4").textContent = `$${formatWithCommas(monthlySavings.toFixed(2))}`;
+  document.getElementById("roiAmount4").textContent = formatWithCommas(monthlySavings.toFixed(2));
 }
 
 // Attach event listeners
@@ -1091,6 +1092,9 @@ document.getElementById("npexpense").addEventListener("input", updateROI4);
 // Initial call
 updateROI4();
 
+function formatWithCommas(number) {
+  return new Intl.NumberFormat().format(number);
+}
 
         // Range Input
 function SliderFun(ele) {

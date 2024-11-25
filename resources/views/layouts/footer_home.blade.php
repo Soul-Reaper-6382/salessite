@@ -58,7 +58,7 @@
                         <div class="col-md-6 col-8">
                             <!-- logo -->
                             <div class="logo">
-                                <a href="index.html">
+                                <a href="{{ url('home') }}">
                                     <img src="logo.png" class="img-fluid" alt="Smuggler" style="max-width: 90px;">
                                 </a>
                             </div>
