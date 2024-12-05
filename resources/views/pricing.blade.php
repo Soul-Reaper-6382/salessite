@@ -987,7 +987,7 @@ function updateROI2() {
 
   // Update display elements
   // document.getElementById("calcHours2").textContent = `${formatWithCommas((effectiveGrowthRate * 100).toFixed(2))}%`; // Display growth %
-  document.getElementById("calcHours2").textContent = `${formatWithCommas(effectiveGrowthRate.toFixed(2))}`; // Display growth %
+  document.getElementById("calcHours2").textContent = `$${formatWithCommas(projectedRevenueIncrease.toFixed(2))}`; // Display growth %
   document.getElementById("timeValueSaved2").textContent = `$${formatWithCommas(discountedRevenueIncrease.toFixed(2))}`;
   document.getElementById("totalRoi2").textContent = `$${formatWithCommas(monthlySavings.toFixed(2))}`;
   document.getElementById("roiAmount2").textContent = formatWithCommas(monthlySavings.toFixed(2));
