@@ -5,6 +5,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\UserDetail;
 use App\Models\Plan;
 use App\Models\Home_Text;
 use App\Models\Home_Text2;
@@ -41,6 +42,40 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
+    public function upd_licnum(Request $request){
+        $validator = Validator::make($request->all(), [
+            'license_number' => 'required|string|max:255',
+            'source_object_id' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $license_number_get = $request->license_number;
+        $source_object_id_get = $request->source_object_id;
+
+        // Check if the source_object_id exists in the users table
+        $user = User::where('source_object_id', $source_object_id_get)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found.'], 404);
+        }
+
+        // Update the UserDetail table with the new license number
+        $userDetail = UserDetail::where('user_id', $user->id)->first();
+
+        if ($userDetail) {
+            $userDetail->lic_no = $license_number_get;
+            $userDetail->save();
+
+            return response()->json(['message' => 'License number updated successfully.'], 200);
+        } else {
+            return response()->json(['message' => 'User detail not found.'], 404);
+        }
+
+
+    }
 
     public function stateget_change_home(Request $request)
     {
@@ -95,7 +130,11 @@ class HomeController extends Controller
     {
         $client = new Client();
       try {
-        $response = $client->get('https://api.smugglers-system.dev/api/application/public/states');
+         $response = $client->get('https://api.smugglers-system.com/api/application/public/states', [
+            'headers' => [
+                'Authorization' => 'Token f65d76a173f603a97091a4be7aad79f9881a859d',
+            ],
+        ]);
         
         if ($response->getStatusCode() !== 200) {
             throw new \Exception('Error response from API: ' . $response->getStatusCode());

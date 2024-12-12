@@ -28,6 +28,7 @@ class User extends Authenticatable
         'stripe_id',
         'plan_id',
         'password_apo',
+        'source_object_id',
     ];
 
     /**
