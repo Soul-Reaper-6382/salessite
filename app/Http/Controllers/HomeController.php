@@ -23,7 +23,7 @@ use App\Models\Testimonial;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
-
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
