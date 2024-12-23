@@ -496,7 +496,11 @@ class DashboardController extends Controller
     {
         $client = new Client();
       try {
-        $response = $client->get('https://api.smugglers-system.com/api/application/public/states');
+        $response = $client->get('https://api.smugglers-system.dev/api/application/public/states', [
+            'headers' => [
+                'Authorization' => 'Token f65d76a173f603a97091a4be7aad79f9881a859d',
+            ],
+        ]);
         
         if ($response->getStatusCode() !== 200) {
             throw new \Exception('Error response from API: ' . $response->getStatusCode());
@@ -597,44 +601,60 @@ class DashboardController extends Controller
                 'subscription_plan' => $formatted_plan_name,
                 'subscription_end_date' => $end_date,
                 'is_trial' => $is_trial,
+                'source_object_id' => $user->source_object_id,
             ];
 
             // dd($data);
 
+             // Prepare data for the second API call
+              $secondData = [
+                    'license_number' => $request->License_old,
+                    'store_county' => $request->store_county,
+                    'store_state' => $request->state_old,
+                    'subscription_plan' => $formatted_plan_name,
+                    'subscription_end_date' => $end_date,
+                    'is_trial' => $is_trial,
+                    'source_object_id' => $user->source_object_id,
+                ];
+  
+            // dd($secondData);
+
             try {
-                $response = $client->post('https://api.smugglers-system.com/api/store/public/onboarding/', [
+                // First API call
+                $response = $client->post('https://api.smugglers-system.dev/api/store/public/onboarding/', [
                     'json' => $data,
+                    'headers' => [
+                        'Authorization' => 'Token f65d76a173f603a97091a4be7aad79f9881a859d',
+                    ],
                 ]);
 
                 $responseBody = json_decode($response->getBody()->getContents(), true);
 
-                // Handle API response if needed
-                // dd($responseBody);
+                // Second API call
+                $secondResponse = $client->post('https://api.smugglers-system.dev/api/store/private/store-subscription-plans/', [
+                    'json' => $secondData,
+                    'headers' => [
+                        'Authorization' => 'Token f65d76a173f603a97091a4be7aad79f9881a859d',
+                    ],
+                ]);
+
+                $secondResponseBody = json_decode($secondResponse->getBody()->getContents(), true);
 
             } catch (\GuzzleHttp\Exception\ClientException $e) {
-                // Handle 4xx errors
                 $errorResponse = $e->getResponse();
                 $errorBody = $errorResponse ? json_decode($errorResponse->getBody()->getContents(), true) : [];
-                 if (isset($errorBody['message']['errors'])) {
-                    // Extract validation errors
+                if (isset($errorBody['message']['errors'])) {
                     $validationErrors = '';
                     foreach ($errorBody['message']['errors'] as $error) {
                         $detail = $error['detail'];
                         $validationErrors .= ', ' . $detail;
                     }
-
-                    // Remove the leading comma and space
                     $validationErrors = ltrim($validationErrors, ', ');
-
-                    // Redirect back with input and errors
                     return redirect()->back()->with('error', $validationErrors)->withInput();
                 }
-
-                // If there are no validation errors, return a generic error message
                 return redirect()->back()->with('error', 'An error occurred. Please try again.');
-
             } catch (\Exception $e) {
-                // Handle other errors
+                // dd($e);
                 return redirect()->back()->with('error', 'Error submitting store info: ' . $e->getMessage());
             }
 

@@ -58,11 +58,7 @@
                     <div class="detail-item">
                         <span class="detail-title">License Number:</span>
                         <span class="detail-value name"> 
-                            @php
-                        $licNo = Auth::user()->userDetail->lic_no;
-                        $maskedLicNo = substr($licNo, 0, 4) . str_repeat('*', strlen($licNo) - 8) . substr($licNo, -4);
-                             @endphp
-                        {{ $licNo }}
+                        {{ Auth::user()->userDetail->lic_no }}
                         </span>
                     </div>
                     <div class="detail-item">
