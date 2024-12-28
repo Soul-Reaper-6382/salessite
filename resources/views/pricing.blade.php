@@ -50,6 +50,10 @@ p.pcls{
     color: #333;
 }
 
+.numberInput{
+  text-align: center;
+}
+
 </style>
     <div id="main-wrapper">
         <div class="site-wrapper-reveal">
@@ -220,7 +224,7 @@ p.pcls{
                             <div class="col-md-6 text-center">
                             <p class="m-0">{{ $calcSettings->text_eighteen }} </p>
                              <div class="input-container">
-                              <input type="number" value="1000" min="0" max="100000" name="hourly_rate" id="monthlyRate" style="    padding: 0px 0px 0px 15px;"> / mo
+                              <input type="text" class="numberInput" value="1,000" min="0" max="100000" name="hourly_rate" id="monthlyRate" style="    padding: 0px 0px 0px 15px;"> / mo
                                   <span class="currency-symbol">$</span>
                               </div>
                                 </div>
@@ -229,23 +233,23 @@ p.pcls{
                             <div class="col-md-6 text-center">   
                             <p class="m-0">{{ $calcSettings->text_eleven }} </p>
                             <div class="input-container">
-                                    <input type="number" value="5" min="0" max="100" name="hourly_rate" id="netprofit"> %
+                                    <input type="text" class="numberInput" value="5" min="0" max="100" name="hourly_rate" id="netprofit"> %
                                 </div>
                                 </div>
                                 </div>
 
                             </div>
                             <div class="col-md-6 col-md-6-roi">
-                                <p><b>{{ $calcSettings->heading_three }}</b></p>
+                                <h5 class="text-center">{{ $calcSettings->heading_three }}</h5>
 
                                   <h5 class="hour_h5" style="margin: 25px 0px 0px 0px;"><span>$</span><span id="roiAmount2">0</span></h5>
 
-                                <p style="text-align: center;margin-bottom: 25px;"><b>{{ $calcSettings->text_twelve }}</b></p>
+                                <p style="text-align: center;margin-bottom: 25px;"><b>{!! $calcSettings->text_twelve !!}</b></p>
                                 
                                  <p style="margin:0">
                                     <span>{{ $calcSettings->text_thirteen }}</span><br>
                                     <span>{{ $calcSettings->text_fourteen }}</span><span style="float: right;" id="calcHours2">0</span><br>
-                                    <span>{{ $calcSettings->text_fifteen }}</span><span style="float: right;" id="timeValueSaved2">$0</span><br>
+                                    <span><b>{{ $calcSettings->text_fifteen }}</b></span><span style="float: right;" id="timeValueSaved2">$0</span><br>
                                     <span>{{ $calcSettings->text_sixteen }}</span><span style="float: right;">$49</span><br>
                                   </p>
 
@@ -293,14 +297,14 @@ p.pcls{
                           <div class="col-md-6 text-center">
                               <p class="m-0">{{ $calcSettings->text_thirty_six }}</p>
                               <div class="input-container">
-                                  <input type="number" value="1000" min="0" max="100000" name="hourly_rate" id="pexpense" style="    padding: 0px 0px 0px 15px;"> / mo
+                                  <input type="text" class="numberInput" value="1,000" min="0" max="100000" name="hourly_rate" id="pexpense" style="    padding: 0px 0px 0px 15px;"> / mo
                                   <span class="currency-symbol">$</span>
                               </div>
                           </div>
                           <div class="col-md-6 text-center">
                               <p class="m-0">{{ $calcSettings->text_twenty_nine }}</p>
                               <div class="input-container">
-                                  <input type="number" value="500" min="0" max="100000" name="hourly_rate" id="npexpense" style="    padding: 0px 0px 0px 15px;"> / mo
+                                  <input type="text" class="numberInput" value="500" min="0" max="100000" name="hourly_rate" id="npexpense" style="    padding: 0px 0px 0px 15px;"> / mo
                                   <span class="currency-symbol">$</span>
                               </div>
                           </div>
@@ -309,16 +313,16 @@ p.pcls{
 
                             </div>
                             <div class="col-md-6 col-md-6-roi">
-                                <p><b>{{ $calcSettings->heading_five }}</b></p>
+                                <h5 class="text-center">{{ $calcSettings->heading_five }}</h5>
 
                                   <h5 class="hour_h5" style="margin: 25px 0px 0px 0px;"><span>$</span><span id="roiAmount4">0</span></h5>
 
-                                <p style="text-align: center;margin-bottom: 25px;"><b>{{ $calcSettings->text_thirty }}</b></p>
+                                <p style="text-align: center;margin-bottom: 25px;"><b>{!! $calcSettings->text_thirty !!}</b></p>
                                 
                                  <p style="margin:0">
                                     <span>{{ $calcSettings->text_thirty_one }}</span><br>
                                     <span>{{ $calcSettings->text_thirty_two }}</span><span style="float: right;" id="calcHours4">0</span><br>
-                                    <span>{{ $calcSettings->text_thirty_three }}</span><span style="float: right;" id="timeValueSaved4">$0</span><br>
+                                    <span><b>{{ $calcSettings->text_thirty_three }}</b></span><span style="float: right;" id="timeValueSaved4">$0</span><br>
                                     <span>{{ $calcSettings->text_thirty_four }}</span><span style="float: right;">$49</span><br>
                                   </p>
 
@@ -923,8 +927,8 @@ updateROI();
 
 
 function updateROI2() {
-  const revenueInput = parseFloat(document.getElementById("monthlyRate").value);
-  const netProfitRate = parseFloat(document.getElementById("netprofit").value) / 100;
+  const revenueInput = parseFloat(document.getElementById("monthlyRate").value.replace(/,/g, ""));
+  const netProfitRate = parseFloat(document.getElementById("netprofit").value.replace(/,/g, "")) / 100;
   const smugglersCost = 49; // Smugglers’ Monthly Cost
 
   // Retrieve slider position to determine risk level and growth/discount rates
@@ -1035,8 +1039,8 @@ updateROI3();
 
 function updateROI4() {
   // Retrieve inputs
-  const productCosts = parseFloat(document.getElementById("pexpense").value);
-  const nonProductCosts = parseFloat(document.getElementById("npexpense").value);
+  const productCosts = parseFloat(document.getElementById("pexpense").value.replace(/,/g, ""));
+  const nonProductCosts = parseFloat(document.getElementById("npexpense").value.replace(/,/g, ""));
   const smugglersCost = 49;
 
   // Retrieve slider value to determine discount rate
@@ -1099,30 +1103,47 @@ function formatWithCommas(number) {
         // Range Input
 function SliderFun(ele) {
   for (let i = 0; i < ele.length; i++) {
-    const element = ele[i];
+    let element = ele[i];
 
-    const values = element.value;
-    const dataValue = element.getAttribute("max");
-    const calcTabVisi = element.closest('.calc_tab_visi');
+    let values = element.value;
+    let dataValue = element.getAttribute("max");
+    let calcTabVisi = element.closest('.calc_tab_visi');
     const calcTabVisiDataId = element.closest('.calc_tab_visi').getAttribute('data-id');
-    const fullValue = Math.round((values * 100) / dataValue);
-    element.nextSibling.parentNode.querySelector(".active-line").style.width =
-      fullValue + "%";
-    if (element.nextSibling.parentNode.querySelector(".active-dot")) {
-      element.nextSibling.parentNode.querySelector(".active-dot").style.left =
-        fullValue + "%";
+    let fullValue = Math.round((values * 100) / dataValue);
+    let fullValue_get = '';
+    if(calcTabVisiDataId == 1){
+    fullValue_get = parseInt(fullValue)
+    calcTabVisi.querySelector('.hour_span').textContent = parseInt(values) + parseInt(1);
     }
-    if(calcTabVisiDataId == 2){
-
+    else if(calcTabVisiDataId == 2){
+    if(values == 0){
+    fullValue_get = parseInt(fullValue)
+    }
+    if(values >= 1){
+      fullValue_get = parseInt(fullValue) - parseInt(6)
+    }
+    if(values >= 4){
+      fullValue_get = parseInt(fullValue)
+    }
+    }
+    else if(calcTabVisiDataId == 3){
+    fullValue_get = parseInt(fullValue)
+    calcTabVisi.querySelector('.hour_span').textContent = parseInt(values) + parseInt(1);
     }
     else if(calcTabVisiDataId == 4){
-
+    fullValue_get = parseInt(fullValue)
+    if(values >= 3){
+      fullValue_get = parseInt(fullValue) - parseInt(4)
     }
-     else if(calcTabVisiDataId == 3){
-    calcTabVisi.querySelector('.hour_span').textContent = parseInt(values) + parseInt(1);
     }
     else{
     calcTabVisi.querySelector('.hour_span').textContent = parseInt(values) + parseInt(1);
+    }
+    element.nextSibling.parentNode.querySelector(".active-line").style.width =
+      fullValue_get + "%";
+    if (element.nextSibling.parentNode.querySelector(".active-dot")) {
+      element.nextSibling.parentNode.querySelector(".active-dot").style.left =
+        fullValue_get + "%";
     }
     // if (values % 3 === 0) {
     console.log("The value is an integer." + values);
@@ -1180,7 +1201,23 @@ $(document).on('click','.element_circle',function(){
 });
 </script>
 
+<script>
+     // Select all inputs with the class 'numberInput'
+    const numberInputs = document.querySelectorAll('.numberInput');
 
+    numberInputs.forEach(input => {
+        input.addEventListener('input', () => {
+            // Remove non-numeric characters
+            let value = input.value.replace(/[^0-9]/g, '');
+
+            // Format the number with commas
+            value = new Intl.NumberFormat('en-US').format(value);
+
+            // Set the formatted value back to the input
+            input.value = value;
+        });
+    });
+</script>
 
 </html>
 @endsection
