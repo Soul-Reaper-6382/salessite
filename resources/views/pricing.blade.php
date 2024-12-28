@@ -158,7 +158,7 @@ p.pcls{
                           </div>
 
                             <p>{{ $calcSettings->text_two }} 
-                                    <input type="number" value="50" min="3" max="10000" name="hourly_rate" id="hourlyRate"> / hr
+                                    <input type="text" class="numberInput" value="50" min="3" max="10000" name="hourly_rate" id="hourlyRate"> / hr
                                 </p>   
                             </div>
                             <div class="col-md-6 col-md-6-roi">
@@ -902,7 +902,7 @@ function fetch_state_func(){
 
 function updateROI() {
   const hoursSaved = parseInt(parseInt(document.getElementById("hoursSaved").value) + parseInt(1)) * 4;
-  const hourlyRate = parseFloat(document.getElementById("hourlyRate").value);
+  const hourlyRate = parseFloat(document.getElementById("hourlyRate").value.replace(/,/g, ""));
   const bardeenCost = 49;
 
   // Calculate time value saved
