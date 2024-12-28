@@ -170,9 +170,9 @@ p.pcls{
                                 
                                  <p style="margin:0">
                                     <span>{{ $calcSettings->text_four }}</span><br>
-                                    <span>{{ $calcSettings->text_five }}</span><span style="float: right;" id="calcHours">0</span><br>
-                                    <span>{{ $calcSettings->text_six }}</span><span style="float: right;" id="timeValueSaved">$0</span><br>
-                                    <span>{{ $calcSettings->text_seven }}</span><span style="float: right;">$49</span><br>
+                                    <span>{{ $calcSettings->text_five }}</span><span><b style="float: right;" id="calcHours">0</b></span><br>
+                                    <span><b>{{ $calcSettings->text_six }}</b></span><span><b style="float: right;" id="timeValueSaved">$0</b></span><br>
+                                    <span>{{ $calcSettings->text_seven }}</span><span><b style="float: right;">$49</b></span><br>
                                   </p>
 
                                 <hr style="margin: 0;">
@@ -248,9 +248,9 @@ p.pcls{
                                 
                                  <p style="margin:0">
                                     <span>{{ $calcSettings->text_thirteen }}</span><br>
-                                    <span>{{ $calcSettings->text_fourteen }}</span><span style="float: right;" id="calcHours2">0</span><br>
-                                    <span><b>{{ $calcSettings->text_fifteen }}</b></span><span style="float: right;" id="timeValueSaved2">$0</span><br>
-                                    <span>{{ $calcSettings->text_sixteen }}</span><span style="float: right;">$49</span><br>
+                                    <span>{{ $calcSettings->text_fourteen }}</span><span><b style="float: right;" id="calcHours2">0</b></span><br>
+                                    <span><b>{{ $calcSettings->text_fifteen }}</b></span><span><b style="float: right;" id="timeValueSaved2">$0</b></span><br>
+                                    <span>{{ $calcSettings->text_sixteen }}</span><span><b style="float: right;">$49</b></span><br>
                                   </p>
 
                                 <hr style="margin: 0;">
@@ -321,9 +321,9 @@ p.pcls{
                                 
                                  <p style="margin:0">
                                     <span>{{ $calcSettings->text_thirty_one }}</span><br>
-                                    <span>{{ $calcSettings->text_thirty_two }}</span><span style="float: right;" id="calcHours4">0</span><br>
-                                    <span><b>{{ $calcSettings->text_thirty_three }}</b></span><span style="float: right;" id="timeValueSaved4">$0</span><br>
-                                    <span>{{ $calcSettings->text_thirty_four }}</span><span style="float: right;">$49</span><br>
+                                    <span>{{ $calcSettings->text_thirty_two }}</span><span><b style="float: right;" id="calcHours4">0</b></span><br>
+                                    <span><b>{{ $calcSettings->text_thirty_three }}</b></span><span><b style="float: right;" id="timeValueSaved4">$0</b></span><br>
+                                    <span>{{ $calcSettings->text_thirty_four }}</span><span><b style="float: right;">$49</b></span><br>
                                   </p>
 
                                 <hr style="margin: 0;">
@@ -408,9 +408,9 @@ p.pcls{
                                 
                                  <p style="margin:0">
                                     <span>{{ $calcSettings->text_twenty_two }}</span><br>
-                                    <span>{{ $calcSettings->text_twenty_three }}</span><span style="float: right;" id="calcHours3">0</span><br>
-                                    <span>{{ $calcSettings->text_twenty_four }}</span><span style="float: right;" id="timeValueSaved3">$0</span><br>
-                                    <span>{{ $calcSettings->text_twenty_five }}</span><span style="float: right;">$49</span><br>
+                                    <span>{{ $calcSettings->text_twenty_three }}</span><span><b style="float: right;" id="calcHours3">0</b></span><br>
+                                    <span><b>{{ $calcSettings->text_twenty_four }}</b></span><span><b style="float: right;" id="timeValueSaved3">$0</b></span><br>
+                                    <span>{{ $calcSettings->text_twenty_five }}</span><span><b style="float: right;">$49</b></span><br>
                                   </p>
 
                                 <hr style="margin: 0;">
