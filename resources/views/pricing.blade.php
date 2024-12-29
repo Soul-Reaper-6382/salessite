@@ -926,6 +926,86 @@ document.getElementById("hourlyRate").addEventListener("input", updateROI);
 updateROI();
 
 
+// function updateROI2() {
+//   const revenueInput = parseFloat(document.getElementById("monthlyRate").value.replace(/,/g, ""));
+//   const netProfitRate = parseFloat(document.getElementById("netprofit").value.replace(/,/g, "")) / 100;
+//   const smugglersCost = 49; // Smugglers’ Monthly Cost
+
+//   // Retrieve slider position to determine risk level and growth/discount rates
+//   const riskLevel = parseInt(document.getElementById("hoursSaved2").value);
+//   let monthlyGrowthRate, riskDiscountRate, riskLabel;
+
+//   // Determine growth and discount rates based on risk level
+//   switch (riskLevel) {
+//     case 0:
+//       monthlyGrowthRate = 0.002; // 0.2%
+//       riskDiscountRate = 0.001;   // 0.1%
+//       riskLabel = "No Risk";
+//       break;
+//     case 1:
+//       monthlyGrowthRate = 0.004; // 0.4%
+//       riskDiscountRate = 0.002;   // 0.2%
+//       riskLabel = "Low Risk";
+//       break;
+//     case 2:
+//       monthlyGrowthRate = 0.007; // 0.7%
+//       riskDiscountRate = 0.003;   // 0.3%
+//       riskLabel = "Low-Medium Risk";
+//       break;
+//     case 3:
+//       monthlyGrowthRate = 0.008; // 0.8%
+//       riskDiscountRate = 0.004;   // 0.4%
+//       riskLabel = "Medium Risk";
+//       break;
+//     case 4:
+//       monthlyGrowthRate = 0.009; // 0.9%
+//       riskDiscountRate = 0.005;   // 0.5%
+//       riskLabel = "High-Medium Risk";
+//       break;
+//     case 5:
+//       monthlyGrowthRate = 0.010; // 1.0%
+//       riskDiscountRate = 0.006;   // 0.6%
+//       riskLabel = "High Risk";
+//       break;
+//     default:
+//       monthlyGrowthRate = 0.010;
+//       riskDiscountRate = 0.006;
+//       riskLabel = "High Risk";
+//   }
+
+//   // Update risk label text
+//   const calcTabVisiParent = document.querySelector('.calc_tab_visi[data-id="2"]');
+//   calcTabVisiParent.querySelector('.hour_span').textContent = riskLabel;
+
+//   // Calculate Effective Growth Rate for annual compounding
+//   const effectiveGrowthRate = Math.pow(1 + monthlyGrowthRate, 12) - 1;
+
+//   // Projected Revenue Increase
+//   const projectedRevenueIncrease = revenueInput * (1 + effectiveGrowthRate) * netProfitRate;
+
+//   // Apply risk discount to revenue increase
+//   const discountedRevenueIncrease = projectedRevenueIncrease * (1 - riskDiscountRate);
+
+//   // Monthly Savings Calculation
+//   const monthlySavings = discountedRevenueIncrease - smugglersCost;
+
+//   // Update display elements
+//   // document.getElementById("calcHours2").textContent = `${formatWithCommas((effectiveGrowthRate * 100).toFixed(2))}%`; // Display growth %
+//   document.getElementById("calcHours2").textContent = `$${formatWithCommas(projectedRevenueIncrease.toFixed(2))}`; // Display growth %
+//   document.getElementById("timeValueSaved2").textContent = `$${formatWithCommas(discountedRevenueIncrease.toFixed(2))}`;
+//   document.getElementById("totalRoi2").textContent = `$${formatWithCommas(monthlySavings.toFixed(2))}`;
+//   document.getElementById("roiAmount2").textContent = formatWithCommas(monthlySavings.toFixed(2));
+// }
+
+// // Attach event listeners to inputs
+// document.getElementById("hoursSaved2").addEventListener("input", updateROI2);
+// document.getElementById("monthlyRate").addEventListener("input", updateROI2);
+// document.getElementById("netprofit").addEventListener("input", updateROI2);
+
+// // Initial call to populate fields with default values
+// updateROI2();
+
+
 function updateROI2() {
   const revenueInput = parseFloat(document.getElementById("monthlyRate").value.replace(/,/g, ""));
   const netProfitRate = parseFloat(document.getElementById("netprofit").value.replace(/,/g, "")) / 100;
@@ -933,68 +1013,65 @@ function updateROI2() {
 
   // Retrieve slider position to determine risk level and growth/discount rates
   const riskLevel = parseInt(document.getElementById("hoursSaved2").value);
-  let monthlyGrowthRate, riskDiscountRate, riskLabel;
+  let riskMultiplier, C8, C9, riskLabel;
 
   // Determine growth and discount rates based on risk level
   switch (riskLevel) {
     case 0:
-      monthlyGrowthRate = 0.002; // 0.2%
-      riskDiscountRate = 0.001;   // 0.1%
+      riskMultiplier = 1.002429;
+      C8 = 1.04917;
+      C9 = 0.999;
       riskLabel = "No Risk";
       break;
     case 1:
-      monthlyGrowthRate = 0.004; // 0.4%
-      riskDiscountRate = 0.002;   // 0.2%
+      riskMultiplier = 1.004917;
+      C8 = 1.07466;
+      C9 = 0.998;
       riskLabel = "Low Risk";
       break;
     case 2:
-      monthlyGrowthRate = 0.007; // 0.7%
-      riskDiscountRate = 0.003;   // 0.3%
+      riskMultiplier = 1.007466;
+      C8 = 1.10076;
+      C9 = 0.997;
       riskLabel = "Low-Medium Risk";
       break;
     case 3:
-      monthlyGrowthRate = 0.008; // 0.8%
-      riskDiscountRate = 0.004;   // 0.4%
+      riskMultiplier = 1.010076;
+      C8 = 1.1275;
+      C9 = 0.996;
       riskLabel = "Medium Risk";
       break;
     case 4:
-      monthlyGrowthRate = 0.009; // 0.9%
-      riskDiscountRate = 0.005;   // 0.5%
+      riskMultiplier = 1.012750;
+      C8 = 1.15488;
+      C9 = 0.995;
       riskLabel = "High-Medium Risk";
       break;
     case 5:
-      monthlyGrowthRate = 0.010; // 1.0%
-      riskDiscountRate = 0.006;   // 0.6%
+      riskMultiplier = 1.015488;
+      C8 = 1.18488;
+      C9 = 0.994;
       riskLabel = "High Risk";
       break;
     default:
-      monthlyGrowthRate = 0.010;
-      riskDiscountRate = 0.006;
-      riskLabel = "High Risk";
+      riskMultiplier = 1.002429;
+      C8 = 1.04917;
+      C9 = 0.999;
+      riskLabel = "No Risk";
   }
 
   // Update risk label text
   const calcTabVisiParent = document.querySelector('.calc_tab_visi[data-id="2"]');
   calcTabVisiParent.querySelector('.hour_span').textContent = riskLabel;
 
-  // Calculate Effective Growth Rate for annual compounding
-  const effectiveGrowthRate = Math.pow(1 + monthlyGrowthRate, 12) - 1;
-
-  // Projected Revenue Increase
-  const projectedRevenueIncrease = revenueInput * (1 + effectiveGrowthRate) * netProfitRate;
-
-  // Apply risk discount to revenue increase
-  const discountedRevenueIncrease = projectedRevenueIncrease * (1 - riskDiscountRate);
-
-  // Monthly Savings Calculation
-  const monthlySavings = discountedRevenueIncrease - smugglersCost;
-
-  // Update display elements
-  // document.getElementById("calcHours2").textContent = `${formatWithCommas((effectiveGrowthRate * 100).toFixed(2))}%`; // Display growth %
-  document.getElementById("calcHours2").textContent = `$${formatWithCommas(projectedRevenueIncrease.toFixed(2))}`; // Display growth %
-  document.getElementById("timeValueSaved2").textContent = `$${formatWithCommas(discountedRevenueIncrease.toFixed(2))}`;
-  document.getElementById("totalRoi2").textContent = `$${formatWithCommas(monthlySavings.toFixed(2))}`;
-  document.getElementById("roiAmount2").textContent = formatWithCommas(monthlySavings.toFixed(2));
+  const var_EC = revenueInput * (C8 - 1);
+  const var_IP = var_EC * netProfitRate;
+  const var_DF = revenueInput * (1 - C9);
+  const var_TMR = Math.abs(parseFloat(var_IP) - parseFloat(var_DF) - parseFloat(smugglersCost));
+  document.getElementById("roiAmount2").textContent = formatWithCommas(var_EC.toFixed(2));
+  document.getElementById("calcHours2").textContent = `$${formatWithCommas(var_IP.toFixed(2))}`;
+  document.getElementById("timeValueSaved2").textContent = `$${formatWithCommas(var_DF.toFixed(2))}`;
+  document.getElementById("totalRoi2").textContent = `$${formatWithCommas(var_TMR.toFixed(2))}`;
 }
 
 // Attach event listeners to inputs
