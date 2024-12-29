@@ -1122,47 +1122,54 @@ function updateROI4() {
 
   // Retrieve slider value to determine discount rate
   const discountLevel = parseInt(document.getElementById("hoursSaved4").value);
-  let discountRate;
+  let D6, D7, D8, riskLabel;
 
   // Define discount rate based on slider position
   switch (discountLevel) {
     case 0:
-      discountRate = 0.07; // No Discounts
+      D6 = 0.95;
+      D7 = 0.975;
+      D8 = 0.999;
       riskLabel = 'No Discounts';
       break;
     case 1:
-      discountRate = 0.05; // 2-3 Discounts
+      D6 = 0.96;
+      D7 = 0.98;
+      D8 = 0.98;
       riskLabel = '2-3 Discounts';
       break;
     case 2:
-      discountRate = 0.03; // 3-10 Discounts
+      D6 = 0.965;
+      D7 = 0.985;
+      D8 = 0.97;
       riskLabel = '3-10 Discounts';
       break;
     case 3:
-      discountRate = 0.01; // 10+ Discounts
+      D6 = 0.97;
+      D7 = 0.99;
+      D8 = 0.975;
       riskLabel = '10+ Discounts';
       break;
     default:
-      discountRate = 0.07;
+      D6 = 0.95;
+      D7 = 0.975;
+      D8 = 0.999;
+      riskLabel = 'No Discounts';
   }
 
 // Update risk label text
   const calcTabVisiParent = document.querySelector('.calc_tab_visi[data-id="4"]');
   calcTabVisiParent.querySelector('.hour_span').textContent = riskLabel;
-  // Calculate components
-  const operationalCostSavings = nonProductCosts * 0.04;
-  const shrinkageReduction = productCosts * 0.03;
-  const supplierDiscounts = productCosts * discountRate;
+  
+  const var_EC = productCosts * (1 - D6) + nonProductCosts * (1 - D7);
+  const var_IP = var_EC * 0.985;
+  const var_DF = productCosts * (1 - D8);
+  const var_TMR = Math.abs(parseFloat(var_IP) - parseFloat(var_DF));
 
-  // Calculate total monthly savings
-  const monthlySavings = operationalCostSavings + shrinkageReduction + supplierDiscounts - smugglersCost;
-
-  // Update display elements
-  document.getElementById("calcHours4").textContent = `$${formatWithCommas((operationalCostSavings + shrinkageReduction).toFixed(2))}`;
-  // document.getElementById("timeValueSaved4").textContent = `$${(operationalCostSavings + shrinkageReduction).toFixed(2)}`;
-  document.getElementById("timeValueSaved4").textContent = `$${formatWithCommas(supplierDiscounts.toFixed(2))}`;
-  document.getElementById("totalRoi4").textContent = `$${formatWithCommas(monthlySavings.toFixed(2))}`;
-  document.getElementById("roiAmount4").textContent = formatWithCommas(monthlySavings.toFixed(2));
+  document.getElementById("calcHours4").textContent = `$${formatWithCommas((var_IP).toFixed(2))}`;
+  document.getElementById("timeValueSaved4").textContent = `$${formatWithCommas(var_DF.toFixed(2))}`;
+  document.getElementById("totalRoi4").textContent = `$${formatWithCommas(var_TMR.toFixed(2))}`;
+  document.getElementById("roiAmount4").textContent = formatWithCommas(var_EC.toFixed(2));
 }
 
 // Attach event listeners
