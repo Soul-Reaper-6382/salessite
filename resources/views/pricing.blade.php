@@ -119,7 +119,13 @@ p.pcls{
                                 <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
                                 <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
                                 <p class="small"></p>
@@ -140,7 +146,16 @@ p.pcls{
                                 <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
                                 <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
                                 <p class="small"></p>
@@ -157,16 +172,22 @@ p.pcls{
                             </ul>
                           </div>
 
-                            <p>{{ $calcSettings->text_two }} 
-                                    <input type="text" class="numberInput" value="50" min="3" max="10000" name="hourly_rate" id="hourlyRate"> / hr
-                                </p>   
+                          <div class="row">
+                            <div class="col-md-12 text-center">
+                            <p class="m-0">{{ $calcSettings->text_two }} </p>
+                             <div class="input-container">
+                              <input type="text" class="numberInput" value="50" min="0" max="100000" name="hourly_rate" id="hourlyRate" style="    padding: 0px 0px 0px 15px;"> / hr
+                                  <span class="currency-symbol">$</span>
+                              </div>
+                                </div>
+                                </div>  
                             </div>
                             <div class="col-md-6 col-md-6-roi">
-                                <p><b>{{ $calcSettings->heading_two }}</b></p>
+                                <h5 class="text-center">{{ $calcSettings->heading_two }}</h5>
 
                                   <h5 class="hour_h5" style="margin: 25px 0px 0px 0px;"><span>$</span><span id="roiAmount">0</span></h5>
 
-                                <p style="text-align: center;margin-bottom: 25px;"><b>{{ $calcSettings->text_three }}</b></p>
+                                <p style="text-align: center;margin-bottom: 25px;"><b>{!! $calcSettings->text_three !!}</b></p>
                                 
                                  <p style="margin:0">
                                     <span>{{ $calcSettings->text_four }}</span><br>
@@ -360,7 +381,13 @@ p.pcls{
                                 <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
                                 <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
                                 <p class="small"></p>
@@ -381,7 +408,16 @@ p.pcls{
                                 <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
                                 <p class="large"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="small"></p>
                               </li>
                               <li class="list-inline-item">
                                 <p class="small"></p>
@@ -400,11 +436,11 @@ p.pcls{
    
                             </div>
                             <div class="col-md-6 col-md-6-roi">
-                                <p><b>{{ $calcSettings->heading_four }}</b></p>
+                                <h5 class="text-center">{{ $calcSettings->heading_four }}</h5>
 
                                   <h5 class="hour_h5" style="margin: 25px 0px 0px 0px;"><span>$</span><span id="roiAmount3">0</span></h5>
 
-                                <p style="text-align: center;margin-bottom: 25px;"><b>{{ $calcSettings->text_twenty_one }}</b></p>
+                                <p style="text-align: center;margin-bottom: 25px;"><b>{!! $calcSettings->text_twenty_one !!}</b></p>
                                 
                                  <p style="margin:0">
                                     <span>{{ $calcSettings->text_twenty_two }}</span><br>
@@ -901,7 +937,7 @@ function fetch_state_func(){
     
 
 function updateROI() {
-  const hoursSaved = parseInt(parseInt(document.getElementById("hoursSaved").value) + parseInt(1)) * 4;
+  const hoursSaved = parseInt(parseInt(document.getElementById("hoursSaved").value) + parseInt(1));
   const hourlyRate = parseFloat(document.getElementById("hourlyRate").value.replace(/,/g, ""));
   const bardeenCost = 49;
 
@@ -1197,6 +1233,30 @@ function SliderFun(ele) {
     let fullValue_get = '';
     if(calcTabVisiDataId == 1){
     fullValue_get = parseInt(fullValue)
+    if(values >= 1){
+      fullValue_get = parseInt(fullValue) + parseInt(1)
+    }
+    if(values >= 4){
+      fullValue_get = parseInt(fullValue)
+    }
+    if(values >= 6){
+      fullValue_get = parseInt(fullValue) - parseInt(3)
+    }
+    if(values >= 9){
+      fullValue_get = parseInt(fullValue)
+    }
+    if(values >= 10){
+      fullValue_get = parseInt(fullValue) + parseInt(1)
+    }
+    if(values >= 13){
+      fullValue_get = parseInt(fullValue)
+    }
+    if(values >= 15){
+      fullValue_get = parseInt(fullValue) - parseInt(3)
+    }
+    if(values >= 19){
+      fullValue_get = parseInt(fullValue)
+    }
     calcTabVisi.querySelector('.hour_span').textContent = parseInt(values) + parseInt(1);
     }
     else if(calcTabVisiDataId == 2){
@@ -1212,12 +1272,36 @@ function SliderFun(ele) {
     }
     else if(calcTabVisiDataId == 3){
     fullValue_get = parseInt(fullValue)
+    if(values >= 1){
+      fullValue_get = parseInt(fullValue) + parseInt(1)
+    }
+    if(values >= 4){
+      fullValue_get = parseInt(fullValue)
+    }
+    if(values >= 6){
+      fullValue_get = parseInt(fullValue) - parseInt(3)
+    }
+    if(values >= 9){
+      fullValue_get = parseInt(fullValue)
+    }
+    if(values >= 10){
+      fullValue_get = parseInt(fullValue) + parseInt(1)
+    }
+    if(values >= 13){
+      fullValue_get = parseInt(fullValue)
+    }
+    if(values >= 15){
+      fullValue_get = parseInt(fullValue) - parseInt(3)
+    }
+    if(values >= 19){
+      fullValue_get = parseInt(fullValue)
+    }
     calcTabVisi.querySelector('.hour_span').textContent = parseInt(values) + parseInt(1);
     }
     else if(calcTabVisiDataId == 4){
     fullValue_get = parseInt(fullValue)
     if(values >= 3){
-      fullValue_get = parseInt(fullValue) - parseInt(4)
+      fullValue_get = parseInt(fullValue) - parseInt(2)
     }
     }
     else{
