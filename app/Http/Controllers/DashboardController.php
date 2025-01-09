@@ -118,7 +118,11 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        $plan = Plan::find($user->plan_id);
+        $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
+
+        $plan = Plan::where('id',$user->plan_id)
+                     ->select('id', 'name', 'slug', $stripePlanColumn . ' as stripe_plan', 'price', 'description', 'duration', 'plan')
+                     ->first();
 
          $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
@@ -137,6 +141,7 @@ class DashboardController extends Controller
           'items' => [
             ['price' => $plan->stripe_plan],
           ],
+           'proration_behavior' => 'create_prorations', // Optional: handle proration if needed
         ]);
    // user db
         $user_stripe_id = $subscription->customer;
@@ -179,10 +184,11 @@ class DashboardController extends Controller
          $formatted_plan_name = strtolower($plan_name);
 
               $secondData = [
-                    'subscription_plan' => $formatted_plan_name,
+                   'subscription_plan' => $formatted_plan_name,
                     'trial_expiry_date' => $end_date,
                     'is_trial' => $is_trial,
                     'source_object_id' => $user->source_object_id,
+                    'billing_frequency' => $plan->duration,
                 ];
 
 
@@ -477,6 +483,8 @@ class DashboardController extends Controller
             }
 
             $client = new Client();
+            $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
+        $apiToken = env('API_Smugglers_Authorization');
        
          $end_date = null;
          $is_trial = false;
@@ -491,15 +499,16 @@ class DashboardController extends Controller
                     'trial_expiry_date' => $end_date,
                     'is_trial' => $is_trial,
                     'source_object_id' => $user->source_object_id,
+                    'billing_frequency' => $newPlan->duration,
                 ];
 
 
             try {
                 // Second API call
-                $secondResponse = $client->post('https://api.smugglers-system.dev/api/store/private/store-subscription-plans/', [
+                $secondResponse = $client->post($apiUrlStoreSubscriptionPlans, [
                     'json' => $secondData,
                     'headers' => [
-                        'Authorization' => 'Token f65d76a173f603a97091a4be7aad79f9881a859d',
+                        'Authorization' => $apiToken,
                     ],
                 ]);
 
@@ -713,7 +722,7 @@ class DashboardController extends Controller
               $secondData = [
                     'subscription_plan' => $formatted_plan_name,
                     'trial_expiry_date' => $end_date,
-                    // 'is_trial' => $is_trial,
+                    'is_trial' => $is_trial,
                     'source_object_id' => $user->source_object_id,
                     'billing_frequency' => $plan->duration,
                 ];
