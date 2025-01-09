@@ -10,7 +10,7 @@
                 @include('trialtext')
                 @else
                 <div class="account-details mt-3 mb-3">
-                    @include('plan_change_dash')
+                    @include('plan_change_dash_trailing')
                 </div>
                 @endif
             </section>
@@ -67,39 +67,50 @@
         });
 
     $(document).ready(function() {
-    $('.click_change_plan_upd').on('click', function() {
+    
+        $('.click_change_plan_upd').on('click', function () {
     var planId = $(this).data('id');
-    var planName = $(this).closest('.price_main_column').find('h3').text().trim(); // Get and trim the plan name
+    var planName = $(this).closest('.price_main_column').find('h3').text().trim();
 
     // Show a confirmation dialog
-    var confirmMessage = `Are you sure you want to change your plan to ${planName}? This action will ${planId ? 'upgrade' : 'downgrade'} your current plan.`;
-    var confirmed = confirm(confirmMessage);
-
-    if (confirmed) {
-        // Proceed with the AJAX request if confirmed
-        $.ajax({
-            url: '{{ route("change_plan") }}',
-            type: 'POST',
-            data: {
-                plan_id: planId,
-                _token: '{{ csrf_token() }}' // Include CSRF token for security
-            },
-            success: function(response) {
-                console.log(response)
-                // Optionally, you can reload the page or update the UI
-                location.reload();
-            },
-            error: function(xhr) {
-                alert('An error occurred: ' + xhr.responseJSON.error);
-            }
-        });
-    } else {
-        // User canceled the action
+    var confirmMessage = `Are you sure you want to change your plan to ${planName}?`;
+    if (!confirm(confirmMessage)) {
         console.log('Plan change canceled.');
+        return;
     }
-});
 
-});
+    // Proceed with the AJAX request
+    $.ajax({
+        url: '{{ route("change_plan_trailing") }}',
+        type: 'POST',
+        data: {
+            plan_id: planId,
+            _token: '{{ csrf_token() }}'
+        },
+        success: function (response) {
+            if (response.success) {
+                alert(response.message);
+                location.reload(); // Reload the page to reflect the changes
+            } else {
+                alert(response.error || 'Failed to update plan.');
+                location.reload();
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr)
+            var errorMessage = 'An error occurred.';
+            if (xhr.responseJSON && xhr.responseJSON.error) {
+                errorMessage = xhr.responseJSON.error;
+            } else if (xhr.responseJSON && xhr.responseJSON.errors) {
+                errorMessage = xhr.responseJSON.errors.join('\n');
+            }
+            // alert(errorMessage);
+            location.reload();
+        }
+    });
+    });
+
+    });
 </script>
 
 @endsection

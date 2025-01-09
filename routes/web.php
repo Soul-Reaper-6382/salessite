@@ -7,6 +7,9 @@ use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegisterStoreController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ChangePlanTrailController;
+use App\Http\Controllers\UpdateMakePaymentController;
+use App\Http\Controllers\ActiveChangePlanController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\Auth\RegisterController;
 use GuzzleHttp\Exception\RequestException;
@@ -214,21 +217,22 @@ Route::get('/card_details', [DashboardController::class,'card_details']);
 Route::get('/billing_history', [DashboardController::class,'billing_history_view']);
 Route::get('/payment_method', [DashboardController::class,'payment_method_view']);
 Route::get('/monthly_yearly', [DashboardController::class,'monthly_yearly_view']);
-Route::get('/change_plan', [DashboardController::class,'change_plan_view']);
 Route::get('/starting_plan', [DashboardController::class,'starting_plan_view']);
 Route::post('/starting_plan_set', [DashboardController::class,'starting_plan_set'])->name('starting_plan_set');
 Route::get('/change_password', [DashboardController::class, 'changepassword']);
 Route::get('/add_a_card', [DashboardController::class, 'make_payment']);
 Route::post('/update-password', [DashboardController::class, 'updatePassword']);
-Route::post('/change-plan', [DashboardController::class, 'changePlan'])->name('change_plan');
+Route::post('/change-plan-trailing', [ChangePlanTrailController::class, 'changePlanTrailing'])->name('change_plan_trailing');
 
 Route::post('/submit_checkstore_license', [DashboardController::class,'submit_checkstore_license']);
 Route::post('/stateget_change', [DashboardController::class,'stateget_change']);
 Route::post('/submit_store_info', [DashboardController::class,'submit_store_info']);
-Route::post('/update_make_payment', [DashboardController::class,'update_make_payment']);
+Route::post('/update_make_payment', [UpdateMakePaymentController::class,'update_make_payment']);
 Route::post('/update_card_detail', [DashboardController::class,'update_card_detail']);
 Route::post('/statefetch_func', [DashboardController::class,'statefetch_func']);
 
+Route::get('/change_plan', [DashboardController::class,'change_plan_view']);
+Route::post('/change-plan', [ActiveChangePlanController::class, 'changePlan'])->name('change_plan');
 
 });
 Route::get('/register/{token}', [RegisterController::class, 'showRegistrationForm'])->name('register');

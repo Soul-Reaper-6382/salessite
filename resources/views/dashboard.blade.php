@@ -43,9 +43,9 @@
                         <span class="detail-value subscription-status">Trial</span>
                         @else
                         <span class="detail-value current-plan">{{ $planName }} / {{ $billingInterval }} 
-                            <!-- <a href="{{ url('change_plan') }}" style="font-size: 11px;
+                            <a href="{{ url('change_plan') }}" style="font-size: 11px;
     color: blue;
-    text-decoration: underline;">Change Plan</a> -->
+    text-decoration: underline;">Change Plan</a>
 </span>
                         @endif
                     </div>

@@ -77,10 +77,12 @@
                 _token: '{{ csrf_token() }}' // Include CSRF token for security
             },
             success: function(response) {
+                alert(response);
                 // Optionally, you can reload the page or update the UI
                 location.href = 'add_a_card';
             },
             error: function(xhr) {
+                console.log(xhr)
                 alert('An error occurred: ' + xhr.responseJSON.error);
             }
         });

@@ -89,33 +89,55 @@
 
                         <div class="row sec-6-row-bg sec-price">
 @php
-    // Define plan hierarchy (adjust as needed)
-    $planHierarchy = [
-        1 => 1,
-        2 => 2,
-        3 => 3,
-        4 => 4,
-        5 => 5,
-        6 => 6,
-        7 => 7,
-        8 => 8
-    ];
-    $currentPlanLevel = $planHierarchy[$planId] ?? 0; 
-
+$filteredPlans = []; // Initialize an empty array
 @endphp
+
 @foreach($plan_db as $plan)
-  @php
-        // Get the plan level based on the plan id
-        $planLevel = $planHierarchy[$plan->id] ?? 0;
-        
-        // Determine if this plan is available for upgrade (disable if lower level than current plan)
-        $disable = $planLevel == $currentPlanLevel ? 'dis_cls' :
-                    ($planLevel > $currentPlanLevel ? '' : 'down_cls');
-        // Determine button text based on whether the plan is higher or lower level
-                $actionText = $planLevel == $currentPlanLevel ? 'Selected' : 
-                              ($planLevel > $currentPlanLevel ? 'Upgrade Plan' : 'Downgrade Plan');
-                $actionClass = $planLevel <= $currentPlanLevel ? '' : 'click_change_plan_upd'; // For upgradeable plans
+    @if($plan->stripe_plan != $priceId)
+        @if($plan_duration == $plan->duration)
+            @php $filteredPlans[] = $plan->name; @endphp
+        @endif
+    @else
+        @if($plan_duration == $plan->duration)
+            @php $filteredPlans[] = $plan->name; @endphp
+        @endif
+         @php
+        // Exit the loop, ensuring no further additions are made
+        break;
+        @endphp
+    @endif
+@endforeach
+
+@if($plan_duration == 'monthly')
+    @php
+    $uniquePlans = array_unique($filteredPlans);
     @endphp
+@else
+    @php
+    $uniquePlans = array_unique($filteredPlans);
+    @endphp
+@endif
+
+@foreach($plan_db as $plan)
+   @if($plan->stripe_plan == $priceId)
+        @php
+            $disable = 'dis_cls';
+            $actionText = 'Selected';
+            $actionClass = '';
+        @endphp
+    @elseif(in_array($plan->name, $uniquePlans))
+        @php
+            $disable = 'down_cls';
+            $actionText = 'Unavailable';
+            $actionClass = '';
+        @endphp
+    @else
+        @php
+            $disable = '';
+            $actionText = 'Upgrade Plan';
+            $actionClass = 'click_change_plan_upd';
+        @endphp
+    @endif
       <div class="col-md-3 price_main_column {{ $disable }}" data-dur="{{ $plan->duration }}">
         <div class="price-wrap">
           <div class="price-inner" style="position:relative;">

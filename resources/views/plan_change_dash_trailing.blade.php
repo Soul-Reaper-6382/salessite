@@ -64,11 +64,10 @@
 }
 </style>
     <div class="feature-icon-wrapper ">
-                    <div class="container-md">
-                       <div class="row">
+                    <div class="container">
+                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="section-title-wrap text-center">
-                                    <!-- <h3 class="heading">Pricing</h3> -->
                                     <div class="parent_tabs_price">
                                     <ul class="tabs_price" style="position:relative;">
                                         <span style="    position: absolute;
@@ -90,19 +89,21 @@
 
                         <div class="row sec-6-row-bg sec-price">
 @foreach($plan_db as $plan)
-@if(Auth()->user()->plan_id == $plan->id)
-     @php
+
+    @if($plan->stripe_plan == $priceId)
+        @php
             $disable = 'dis_cls';
             $actionText = 'Selected';
             $actionClass = '';
-    @endphp
-@else
-    @php
+        @endphp
+    @else
+        @php
             $disable = '';
             $actionText = 'Select Plan';
-            $actionClass = 'click_change_plan';
-    @endphp
-@endif
+            $actionClass = 'click_change_plan_upd';
+        @endphp
+    @endif
+        
       <div class="col-md-3 price_main_column {{ $disable }}" data-dur="{{ $plan->duration }}">
         <div class="price-wrap">
           <div class="price-inner" style="position:relative;">
@@ -139,15 +140,14 @@
             @endforeach
                     </ul>
                 </div>
-           <a href="javascript:void(0);" class="{{ $actionClass }}" data-id="{{ $plan->id }}" >{{ $actionText }}</a>
-
+            <a href="javascript:void(0);" class="{{ $actionClass }}" data-id="{{ $plan->stripe_plan }}" >{{ $actionText }}</a>
             <!-- <button class="learn-more">Learn More</button> -->
           </div>
         </div>
       </div>
 @endforeach
     </div>
-    <div class="row pat-design">
+     <div class="row pat-design">
       <img src="{{ asset('pat.png') }}" alt="">
     </div>
                     </div>
