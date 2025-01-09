@@ -117,6 +117,8 @@
                                                         <li class="">
                                                             @if(Auth::user()->roles->first()->name == 'admin')
                                                             <a href="{{ url('admin') }}"><span>Goto Adminpanel</span></a>
+                                                            @elseif(Auth::user()->roles->first()->name == 'csr')
+                                                            <a href="{{ url('csr_panel') }}"><span>Goto CSR Panel</span></a>
                                                             @else
                                                             <a href="{{ url('dashboard') }}"><span>Account</span></a>
                                                             @endif

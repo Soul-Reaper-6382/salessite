@@ -85,8 +85,9 @@
                 _token: '{{ csrf_token() }}' // Include CSRF token for security
             },
             success: function(response) {
+                console.log(response)
                 // Optionally, you can reload the page or update the UI
-                location.reload();
+                // location.reload();
             },
             error: function(xhr) {
                 alert('An error occurred: ' + xhr.responseJSON.error);

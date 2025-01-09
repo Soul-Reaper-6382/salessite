@@ -1,3 +1,4 @@
+@guest
 <style>
     .box {
   position: relative;
@@ -63,14 +64,16 @@
   transform: rotate(45deg);
 }
 </style>
-    <div class="feature-icon-wrapper ">
-                    <div class="container">
-                         <div class="row">
+    <div id="price" class="feature-icon-wrapper section-space--ptb_60">
+                    <div class="container-md p-0">
+
+                        <div class="row g-0">
                             <div class="col-lg-12">
                                 <div class="section-title-wrap text-center">
+                                    <h3 class="heading">Pricing</h3>
                                     <div class="parent_tabs_price">
                                     <ul class="tabs_price" style="position:relative;">
-                                        <span style="    position: absolute;
+                                    <span style="    position: absolute;
     right: 10px;
     top: 40px;
     background: #df9242;
@@ -87,44 +90,18 @@
                             </div>
                         </div>
 
-                        <div class="row sec-6-row-bg sec-price">
-@php
-    // Define plan hierarchy (adjust as needed)
-    $planHierarchy = [
-        1 => 1,
-        2 => 2,
-        3 => 3,
-        4 => 4,
-        5 => 5,
-        6 => 6,
-        7 => 7,
-        8 => 8
-    ];
-    $currentPlanLevel = $planHierarchy[$planId] ?? 0; 
-
-@endphp
+                        <div class="row sec-6-row-bg sec-price g-0">
 @foreach($plan_db as $plan)
-  @php
-        // Get the plan level based on the plan id
-        $planLevel = $planHierarchy[$plan->id] ?? 0;
-        
-        // Determine if this plan is available for upgrade (disable if lower level than current plan)
-        $disable = $planLevel == $currentPlanLevel ? 'dis_cls' :
-                    ($planLevel > $currentPlanLevel ? '' : 'down_cls');
-        // Determine button text based on whether the plan is higher or lower level
-                $actionText = $planLevel == $currentPlanLevel ? 'Selected' : 
-                              ($planLevel > $currentPlanLevel ? 'Upgrade Plan' : 'Downgrade Plan');
-                $actionClass = $planLevel <= $currentPlanLevel ? '' : 'click_change_plan_upd'; // For upgradeable plans
-    @endphp
-      <div class="col-md-3 price_main_column {{ $disable }}" data-dur="{{ $plan->duration }}">
+    <div class="col-md-3 price_main_column" data-dur="{{ $plan->duration }}">
         <div class="price-wrap">
-          <div class="price-inner" style="position:relative;">
-            @if($plan->name == 'Manage')
-     <div class="ribbon ribbon-top-right"><span>Recommended</span></div>
+            <div class="price-inner" @if($plan->name == 'Manage')
+                    style="background:radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #c3e0ff 100.7%);position:relative;"
+                    @endif>
+                @if($plan->name == 'Manage')
+     <div class="ribbon ribbon-top-right"><span>Recomended</span></div>
                     @endif
-            <h3>{{ $plan->name }}
-            </h3>
-            <div class="price-list-num">
+                <h3>{{ $plan->name }}</h3>
+                <div class="price-list-num">
                     @php
                         $monthlyPrice = ($loop->iteration > 4) ? round($plan->price / 12) : $plan->price;
                         $numLength = strlen((string)$monthlyPrice);
@@ -134,12 +111,24 @@
                     <span class="price-num">{{ $monthlyPrice }}</span>
                     <span class="lst-month">/Month</span>
                 </div>
-            <div class="list-price-dis">
+
+                <h2 style="display: none;">
+                    <div class="sh-contents-plan">
+                        @if($loop->iteration == 1 || $loop->iteration == 5)
+                            <span class=" free-month"> Start  1 month free</span>  
+                        @endif
+                        <span class="curn">$</span>
+                        <span class="over-lin"> {{ $monthlyPrice }} </span>
+                        <span class="time">/Month</span>
+                    </div>
+                </h2>
+
+                <div class="list-price-dis">
                     <ul>
                         <li class="gry" style="display:none;">Tools & Management 
                 <div class="contentp" >     <ul class="gry">         <li style="list-style-type: none;">             <ol>                 <li>Stock, Sales, Purchases  Deals Management</li>                 <li>Employee Scheduling  Tasks</li>                 <li>Marketing, Surveys and Brand Development</li>                 <li>Website, Delivery, Pick-up, Subscriptions  Events</li>                 <li>Chat, Reporting, Preferences  More</li>             </ol>         </li>     </ul> </div>
                 </li>
-                         @foreach($plan->keys as $key)
+                @foreach($plan->keys as $key)
                 <li>
                     @if ($key->video_url)
                         <span class="{{ $key->given == 'no' ? 'gry' : $key->given }}" 
@@ -152,15 +141,26 @@
             @endforeach
                     </ul>
                 </div>
-            <a href="javascript:void(0);" class="{{ $actionClass }}" data-id="{{ $plan->stripe_plan }}" >{{ $actionText }}</a>
-            <!-- <button class="learn-more">Learn More</button> -->
-          </div>
+
+                <a href="javascript:void(0);" class="click_reg_a"
+                data-id="{{ $plan->stripe_plan }}">Get Started</a>
+                <!-- <button class="learn-more">Learn More</button> -->
+            </div>
         </div>
-      </div>
-@endforeach
     </div>
-     <div class="row pat-design">
+@endforeach
+
+    </div>
+
+    <div class="row pat-design">
       <img src="{{ asset('pat.png') }}" alt="">
     </div>
                     </div>
                 </div>
+@else
+@if(Auth::user()->stripe_id == null)
+@include('plan_change_start')
+@else
+@include('plan_change_dash')
+@endif
+@endguest

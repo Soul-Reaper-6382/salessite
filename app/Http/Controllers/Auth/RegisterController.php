@@ -119,29 +119,38 @@ class RegisterController extends Controller
     protected function showRegistrationForm($token = null)
     {
 
-         if (!$token) {
+        // Determine the correct Stripe plan column based on the environment variable
+        $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
+
+        // If no token is provided
+        if (!$token) {
+            // Find the default plan (e.g., 'Start') with a non-zero price and monthly duration
             $plan = Plan::where('name', 'Start')
                 ->where('price', '!=', 0)
-               ->where('duration', 'monthly')
-               ->first(['stripe_plan']);
-           if ($plan) {
-        // Redirect to the register page with the fetched stripe_plan
-                return redirect('/register/'.$plan->stripe_plan);
+                ->where('duration', 'monthly')
+                ->first([$stripePlanColumn]);
+
+            if ($plan) {
+                // Redirect to the register page with the fetched stripe plan
+                return redirect('/register/' . $plan->$stripePlanColumn);
             } else {
                 // Handle the case where no matching plan is found
                 return redirect('/home'); // Redirect to home page or any other route
             }
         }
-        $plan = Plan::where('stripe_plan', $token)->first();
 
-            if (!$plan) {
-                return redirect('/home');
-            }
+        // If a token is provided, find the corresponding plan
+        $plan = Plan::where($stripePlanColumn, $token)->first();
+
+        if (!$plan) {
+            // Redirect to home if the plan doesn't exist
+            return redirect('/home');
+        }
+
+        // Pass the Stripe plan and all plans to the view
         $stripe_plan = $token;
-        // dd($stripe_plan);
-        // return view('auth.register', compact('step'));
         $plan_db = Plan::orderBy('id', 'ASC')->get();
-        return view('auth.register', compact('plan_db','stripe_plan'));
-        // return view('auth.register');
+
+        return view('auth.register', compact('plan_db', 'stripe_plan'));
     }
 }

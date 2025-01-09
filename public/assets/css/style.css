@@ -15251,10 +15251,28 @@ ul.account-details_all_btn li a:hover {
         }
 
         .dis_cls .price-inner{
-          background: #f3e3c3f0;
+/*          background: #f3e3c3f0;*/
+background:radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #c3e0ff 100.7%);
         }
         .dis_cls .price-inner a{
-          background: grey;
+          background: #9b9999;
+        }
+         .dis_cls .price-inner a:hover{
+          background: #9b9999;
+          color: black !important;
+          cursor: not-allowed;
+        }
+        .down_cls .price-inner{
+/*          background: #f3e3c3f0;*/
+background:radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #485562 100.7%);
+        }
+        .down_cls .price-inner a{
+          background: #9b9999;
+        }
+         .down_cls .price-inner a:hover{
+          background: #9b9999;
+          color: black !important;
+          cursor: not-allowed;
         }
         .price-list-num{
         margin-top: -37px;

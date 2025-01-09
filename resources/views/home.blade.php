@@ -594,11 +594,28 @@ function fetch_state_func(){
 
         
 
-      $(document).on('click','.click_reg_a',function(){
-        var id = $(this).data('id');
-        var url_reg = "{{ url('register') }}/" + id;
-        location.href = url_reg;
-      })
+        $(document).on('click', '.click_reg_a', function () {
+            var id = $(this).data('id');
+            var isGuest = "{{ Auth::guest() }}"; // Check if the user is a guest
+            var url;
+
+            if (isGuest) {
+                url = "{{ url('register') }}/" + id;
+            } else {
+                var role = "{{ Auth::check() ? Auth::user()->roles->first()->name : '' }}";
+
+                if (role === 'admin') {
+                    url = "{{ url('admin') }}";
+                } else if (role === 'csr') {
+                    url = "{{ url('csr_panel') }}";
+                } else {
+                    url = "{{ url('dashboard') }}";
+                }
+            }
+
+            location.href = url;
+        });
+
             $('.tab_price').on('click', function() {
                 var name = $(this).data('name').toLowerCase(); // Get the data-name value and convert to lowercase
 

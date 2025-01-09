@@ -43,12 +43,10 @@ class DashboardController extends Controller
     public function update_card_detail(Request $request)
     {
         $user = Auth::user();
+        $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
 
-        $planget = Plan::find($user->plan_id);
-
-        $plan = Plan::where('name',$planget->name)
-                     ->where('duration',$planget->duration)
-                     ->where('price',0)
+        $plan = Plan::where('id',$user->plan_id)
+                     ->select('id', 'name', 'slug', $stripePlanColumn . ' as stripe_plan', 'price', 'description', 'duration', 'plan')
                      ->first();
 
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
@@ -68,7 +66,7 @@ class DashboardController extends Controller
           'items' => [
             ['price' => $plan->stripe_plan],
           ],
-          'trial_period_days' => 30, // Set a 30-day trial
+          'trial_period_days' => 60, // Set a 60-day trial
         ]);
     // user db
         $user_stripe_id = $subscription->customer;
@@ -100,24 +98,16 @@ class DashboardController extends Controller
             'quantity' => $quantity,
         ]);
 
-        // Schedule plan change after the trial period
-        $newPlan = Plan::where('name', $planget->name)
-                       ->where('duration', $planget->duration)
-                       ->where('price', '>', 0)
-                       ->first(); // Find the paid plan
-
-        if ($newPlan) {
             // Set up the subscription to change to a paid plan after the trial ends
             $stripe->subscriptions->update($subscription->id, [
                 'items' => [
                     [
                         'id' => $subscription->items->data[0]->id,
-                        'price' => $newPlan->stripe_plan, // This should be the price ID for the paid plan
+                        'price' => $plan->stripe_plan, // This should be the price ID for the paid plan
                     ],
                 ],
                 'proration_behavior' => 'create_prorations', // Optional: handle proration if needed
             ]);
-        }
 
         return redirect('https://smugglers-system.com/');
 
@@ -178,6 +168,53 @@ class DashboardController extends Controller
             'quantity' => $quantity,
         ]);
 
+        $client = new Client();
+        $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
+        $apiToken = env('API_Smugglers_Authorization');
+
+       
+         $end_date = null;
+         $is_trial = false;
+         $plan_name = $plan->name;
+         $formatted_plan_name = strtolower($plan_name);
+
+              $secondData = [
+                    'subscription_plan' => $formatted_plan_name,
+                    'trial_expiry_date' => $end_date,
+                    'is_trial' => $is_trial,
+                    'source_object_id' => $user->source_object_id,
+                ];
+
+
+            try {
+                // Second API call
+                $secondResponse = $client->post($apiUrlStoreSubscriptionPlans, [
+                    'json' => $secondData,
+                    'headers' => [
+                        'Authorization' => $apiToken,
+                    ],
+                ]);
+
+                $secondResponseBody = json_decode($secondResponse->getBody()->getContents(), true);
+
+            } catch (\GuzzleHttp\Exception\ClientException $e) {
+                $errorResponse = $e->getResponse();
+                $errorBody = $errorResponse ? json_decode($errorResponse->getBody()->getContents(), true) : [];
+                if (isset($errorBody['message']['errors'])) {
+                    $validationErrors = '';
+                    foreach ($errorBody['message']['errors'] as $error) {
+                        $detail = $error['detail'];
+                        $validationErrors .= ', ' . $detail;
+                    }
+                    $validationErrors = ltrim($validationErrors, ', ');
+                    return redirect()->back()->with('error', $validationErrors)->withInput();
+                }
+                return redirect()->back()->with('error', 'An error occurred. Please try again.');
+            } catch (\Exception $e) {
+                // dd($e);
+                return redirect()->back()->with('error', 'Error submitting store info: ' . $e->getMessage());
+            }
+
         session()->flash('message', 'Payment Successfully!');
         return redirect('/dashboard');
 
@@ -186,7 +223,9 @@ class DashboardController extends Controller
     {
 
         $layout = (Auth::user()->status == 1) ? 'layouts.dashboard' : 'layouts.reg';
+            $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
         $plan = Plan::where('id', Auth::user()->plan_id)
+                ->select('id', 'name', 'slug', $stripePlanColumn . ' as stripe_plan', 'price', 'description', 'duration', 'plan')
                ->first();
 
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
@@ -215,7 +254,7 @@ class DashboardController extends Controller
         $nextBillingDate = $subscription ? \Carbon\Carbon::createFromTimestamp($subscription->current_period_end) : null;
         $priceId = $subscription ? $subscription->items->data[0]->price->id : 'N/A';
 
-        $plan_get_name = Plan::where('stripe_plan', $priceId)
+        $plan_get_name = Plan::where($stripePlanColumn, $priceId)
                ->first();
         return view('dashboard', ['layout' => $layout, 'plan' => $plan,'stripeCustomer' => $stripeCustomer,
             'subscription' => $subscription,'planName' => $plan_get_name->name,
@@ -236,6 +275,7 @@ class DashboardController extends Controller
         $stripeCustomer = null;
         $subscription = null;
         $invoices = [];
+        $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
 
         if (Auth::user()->stripe_id) {
             // Retrieve customer from Stripe
@@ -258,7 +298,7 @@ class DashboardController extends Controller
         $nextBillingDate = $subscription ? \Carbon\Carbon::createFromTimestamp($subscription->current_period_end) : null;
         $priceId = $subscription ? $subscription->items->data[0]->price->id : 'N/A';
 
-        $plan_get_name = Plan::where('stripe_plan', $priceId)
+        $plan_get_name = Plan::where($stripePlanColumn, $priceId)
                ->first();
         return view('billing_history', [
             'stripeCustomer' => $stripeCustomer,
@@ -306,8 +346,12 @@ class DashboardController extends Controller
 
     public function change_plan_view()
     {
-        $plan_db = Plan::where('price', '!=', 0)->orderBy('id', 'ASC')->get();
-         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
+        $plan_db = Plan::where('price', '!=', 0)
+        ->select('id', 'name', 'slug', $stripePlanColumn . ' as stripe_plan', 'price', 'description', 'duration', 'plan')
+        ->orderBy('id', 'ASC')
+        ->get(); 
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         $stripeCustomer = null;
         $subscription = null;
         $invoices = [];
@@ -328,11 +372,12 @@ class DashboardController extends Controller
         $nextBillingDate = $subscription ? \Carbon\Carbon::createFromTimestamp($subscription->current_period_end) : null;
         $priceId = $subscription ? $subscription->items->data[0]->price->id : 'N/A';
 
-        $plan_get_name = Plan::where('stripe_plan', $priceId)
+        $plan_get_name = Plan::where($stripePlanColumn, $priceId)
                ->first();
         return view('change_plan', [
             'plan_db' => $plan_db,
-            'priceId' => $priceId
+            'priceId' => $priceId,
+            'planId' => $plan_get_name->id
         ]);
     }
 
@@ -348,10 +393,11 @@ class DashboardController extends Controller
         $user = Auth::user();
         $newPlanId = $request->input('plan_id');
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
 
         // Retrieve new plan details from the database
         // Retrieve new plan details from the database
-        $newPlan = Plan::where('stripe_plan', $newPlanId)->first();
+        $newPlan = Plan::where($stripePlanColumn, $newPlanId)->first();
 
         if (!$newPlan) {
             return response()->json(['error' => 'Plan not found.'], 404);
@@ -430,11 +476,62 @@ class DashboardController extends Controller
                 ]);
             }
 
-            // Update plan in the local database
-            $user->plan_id = $newPlan->id;
-            $user->save();
+            $client = new Client();
+       
+         $end_date = null;
+         $is_trial = false;
+         $plan_name = $newPlan->name;
+         $formatted_plan_name = strtolower($plan_name);
 
-            
+        $user->plan_id = $newPlan->id;
+        $user->save();
+
+              $secondData = [
+                    'subscription_plan' => $formatted_plan_name,
+                    'trial_expiry_date' => $end_date,
+                    'is_trial' => $is_trial,
+                    'source_object_id' => $user->source_object_id,
+                ];
+
+
+            try {
+                // Second API call
+                $secondResponse = $client->post('https://api.smugglers-system.dev/api/store/private/store-subscription-plans/', [
+                    'json' => $secondData,
+                    'headers' => [
+                        'Authorization' => 'Token f65d76a173f603a97091a4be7aad79f9881a859d',
+                    ],
+                ]);
+
+                $secondResponseBody = json_decode($secondResponse->getBody()->getContents(), true);
+
+            } catch (\GuzzleHttp\Exception\ClientException $e) {
+                $errorResponse = $e->getResponse();
+                $errorBody = $errorResponse ? json_decode($errorResponse->getBody()->getContents(), true) : [];
+
+                if (isset($errorBody['message']['errors'])) {
+                    $validationErrors = [];
+                    foreach ($errorBody['message']['errors'] as $error) {
+                        $validationErrors[] = $error['detail'];
+                    }
+
+                    return response()->json([
+                        'success' => false,
+                        'errors' => $validationErrors
+                    ], $errorResponse->getStatusCode());
+                }
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'An error occurred. Please try again.'
+                ], $errorResponse->getStatusCode());
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error submitting store info: ' . $e->getMessage()
+                ], 500);
+            }
+
 
             return response()->json(['success' => 'Plan changed successfully.']);
         }
@@ -495,10 +592,12 @@ class DashboardController extends Controller
     public function statefetch_func(Request $request)
     {
         $client = new Client();
+        $apiUrlStates = env('API_Smugglers_URL') . 'api/application/public/states';
+        $apiToken = env('API_Smugglers_Authorization');
       try {
-        $response = $client->get('https://api.smugglers-system.dev/api/application/public/states', [
+        $response = $client->get($apiUrlStates, [
             'headers' => [
-                'Authorization' => 'Token f65d76a173f603a97091a4be7aad79f9881a859d',
+                'Authorization' => $apiToken,
             ],
         ]);
         
@@ -572,18 +671,21 @@ class DashboardController extends Controller
         $user = Auth::user();
         $plan = Plan::find($request->plan_id);
 
-        if($plan->name == 'Start'){
-        $end_date = Carbon::now()->addMonth()->format('Y-m-d'); // Format as YYYY-MM-DD
+        // if($plan->name == 'Start'){
+        $end_date = Carbon::now()->addMonths(2)->format('Y-m-d'); // Format as YYYY-MM-DD
         $is_trial = true;
-        $plan_name = 'Starter';
-         }
-         else{
-         $end_date = '';
-         $is_trial = false;
+        // $plan_name = 'Starter';
+         // }
+         // else{
+         // $end_date = null;
+         // $is_trial = false;
          $plan_name = $plan->name;
-        }
+        // }
         $formatted_plan_name = strtolower($plan_name);
         $client = new Client();
+        $apiUrlOnboard = env('API_Smugglers_URL') . 'api/store/public/onboarding/';
+        $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
+        $apiToken = env('API_Smugglers_Authorization');
 
             // Prepare data to be sent
             $data = [
@@ -599,42 +701,41 @@ class DashboardController extends Controller
                 'store_county' => $request->store_county,
                 'store_state' => $request->state_old,
                 'subscription_plan' => $formatted_plan_name,
-                'subscription_end_date' => $end_date,
+                // 'subscription_end_date' => $end_date,
                 'is_trial' => $is_trial,
                 'source_object_id' => $user->source_object_id,
+                'billing_frequency' => $plan->duration,
             ];
 
             // dd($data);
 
              // Prepare data for the second API call
               $secondData = [
-                    'license_number' => $request->License_old,
-                    'store_county' => $request->store_county,
-                    'store_state' => $request->state_old,
                     'subscription_plan' => $formatted_plan_name,
-                    'subscription_end_date' => $end_date,
-                    'is_trial' => $is_trial,
+                    'trial_expiry_date' => $end_date,
+                    // 'is_trial' => $is_trial,
                     'source_object_id' => $user->source_object_id,
+                    'billing_frequency' => $plan->duration,
                 ];
   
             // dd($secondData);
 
             try {
                 // First API call
-                $response = $client->post('https://api.smugglers-system.dev/api/store/public/onboarding/', [
+                $response = $client->post($apiUrlOnboard, [
                     'json' => $data,
                     'headers' => [
-                        'Authorization' => 'Token f65d76a173f603a97091a4be7aad79f9881a859d',
+                        'Authorization' => $apiToken,
                     ],
                 ]);
 
                 $responseBody = json_decode($response->getBody()->getContents(), true);
 
                 // Second API call
-                $secondResponse = $client->post('https://api.smugglers-system.dev/api/store/private/store-subscription-plans/', [
+                $secondResponse = $client->post($apiUrlStoreSubscriptionPlans, [
                     'json' => $secondData,
                     'headers' => [
-                        'Authorization' => 'Token f65d76a173f603a97091a4be7aad79f9881a859d',
+                        'Authorization' => $apiToken,
                     ],
                 ]);
 
@@ -678,11 +779,11 @@ class DashboardController extends Controller
             ]
         );
 
-        if($plan->name == 'Start'){
-        $user->trial_ends_at = Carbon::now()->addMonth();
+        $user->trial_ends_at = $end_date;
         $user->save();
+        if($plan->name == 'Startabc'){
          }
-         else{
+         else if($plan->name == 'Startabc'){
          $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
         $stripeCustomer = $stripe->customers->create([
@@ -731,13 +832,16 @@ class DashboardController extends Controller
             'quantity' => $quantity,
         ]);
         }
-        session()->flash('message', 'Account Created Successfully!');
-        if($plan->name == 'Start'){
-        return redirect('/card_details');
-        }
         else{
-        return redirect('https://smugglers-system.com/');
+
         }
+        session()->flash('message', 'Account Created Successfully!');
+        // if($plan->name == 'Start'){
+        return redirect('/card_details');
+        // }
+        // else{
+        return redirect('https://smugglers-system.com/');
+        // }
 
     }
 
@@ -788,6 +892,9 @@ class DashboardController extends Controller
 
                 if ($statefetch != $storeData['state']) {
                 return response()->json(['message' => 'notmatch']);
+                }
+                if($licenseNumber == null){
+                $licenseNumber = $data[0];
                 }
                 break;
             }

@@ -1,4 +1,3 @@
-@guest
 <style>
     .box {
   position: relative;
@@ -98,7 +97,7 @@
                     style="background:radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #c3e0ff 100.7%);position:relative;"
                     @endif>
                 @if($plan->name == 'Manage')
-     <div class="ribbon ribbon-top-right"><span>Recomended</span></div>
+     <div class="ribbon ribbon-top-right"><span>Recommended</span></div>
                     @endif
                 <h3>{{ $plan->name }}</h3>
                 <div class="price-list-num">
@@ -157,10 +156,3 @@
     </div>
                     </div>
                 </div>
-@else
-@if(Auth::user()->stripe_id == null)
-@include('plan_change_start')
-@else
-@include('plan_change_dash')
-@endif
-@endguest

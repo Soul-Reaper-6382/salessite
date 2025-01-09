@@ -245,10 +245,12 @@ class HomeController extends Controller
     public function statefetch_func_home(Request $request)
     {
         $client = new Client();
+        $apiUrlStates = env('API_Smugglers_URL') . 'api/application/public/states';
+        $apiToken = env('API_Smugglers_Authorization');
       try {
-         $response = $client->get('https://api.smugglers-system.dev/api/application/public/states', [
+         $response = $client->get($apiUrlStates, [
             'headers' => [
-                'Authorization' => 'Token f65d76a173f603a97091a4be7aad79f9881a859d',
+                'Authorization' => $apiToken,
             ],
         ]);
         
@@ -287,7 +289,12 @@ class HomeController extends Controller
    
     public function pricing()
     {
-        $plan_db = Plan::where('price', '!=', 0)->orderBy('id', 'ASC')->get();
+        $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
+
+        $plan_db = Plan::where('price', '!=', 0)
+        ->select('id', 'name', 'slug', $stripePlanColumn . ' as stripe_plan', 'price', 'description', 'duration', 'plan')
+        ->orderBy('id', 'ASC')
+        ->get();
         $textSettings = Home_Text::first();
         $home_text2 = Home_Text2::first();
         $circleTextSettings = Circle_Text::first();
@@ -346,9 +353,12 @@ class HomeController extends Controller
 
     public function index()
     {
-        // Auth()->logout();
-        // return view('home');
-        $plan_db = Plan::where('price', '!=', 0)->orderBy('id', 'ASC')->get();
+        $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
+
+        $plan_db = Plan::where('price', '!=', 0)
+        ->select('id', 'name', 'slug', $stripePlanColumn . ' as stripe_plan', 'price', 'description', 'duration', 'plan')
+        ->orderBy('id', 'ASC')
+        ->get();
         $textSettings = Home_Text::first();
         $home_text2 = Home_Text2::first();
         $circleTextSettings = Circle_Text::first();

@@ -42,8 +42,8 @@ class RegisterStoreController extends Controller
                 'username.regex' => 'The username must contain at least one uppercase letter, one lowercase letter, and one number.',
                 // You can add other custom messages if needed
             ]);
-
-        $plan = Plan::where('stripe_plan', $request['stripe_plan'])
+        $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
+        $plan = Plan::where($stripePlanColumn, $request['stripe_plan'])
                ->first(['id']);
         $user = User::create([
             'username' => $request['username'],

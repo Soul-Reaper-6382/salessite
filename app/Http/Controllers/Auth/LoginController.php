@@ -37,6 +37,7 @@ class LoginController extends Controller
         $redirects = [
     'admin' => '/admin',
     'user' => '/dashboard',
+    'csr' => '/csr_panel',
         ];
 
         $roles = Auth()->user()->roles->map->name;

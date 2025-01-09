@@ -61,9 +61,11 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                             <div class="col-md-12">
                                 <p style="margin: 0;
     text-align: right;
-    font-weight: 700;">${{ $plan->price }} / {{ $plan->duration }} <a href="{{ url('starting_plan') }}" style="font-size: 11px;
+    font-weight: 700;">${{ $plan->price }} / {{ $plan->duration }} 
+   <!--  <a href="{{ url('starting_plan') }}" style="font-size: 11px;
     color: blue;
-    text-decoration: underline;">Change Plan</a></p>
+    text-decoration: underline;">Change Plan</a> -->
+</p>
                                 <div id="card-element"></div>
                                  <div id="card-errors" role="alert"></div>
                             </div>

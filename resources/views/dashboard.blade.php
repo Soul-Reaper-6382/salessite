@@ -27,23 +27,26 @@
                     </div>
                     <div class="detail-item">
                         <span class="detail-title">Subscription Status:</span>
-                         @if(Auth::user()->stripe_id == null)
+                    @if(Auth::user()->stripe_id == null)
                         <span class="detail-value subscription-status">Trial</span>
-                        @else
-                        <span class="detail-value subscription-status">{{ $planStatus }} 
+                    @else
                         @if ($planStatus === 'trialing' && isset($trialEnd))
-                        Trial End: {{ \Carbon\Carbon::createFromTimestamp($trialEnd)->toDateTimeString() }} 
-                    @endif
+                        <span class="detail-value subscription-status">Trial End: {{ \Carbon\Carbon::createFromTimestamp($trialEnd)->toDateTimeString() }}</span>
+                        @else
+                        <span class="detail-value subscription-status">{{ $planStatus }} </span>
                         @endif
+                    @endif
                     </div>
                     <div class="detail-item">
                         <span class="detail-title">Current Plan:</span>
                         @if(Auth::user()->stripe_id == null)
                         <span class="detail-value subscription-status">Trial</span>
                         @else
-                        <span class="detail-value current-plan">{{ $planName }} / {{ $billingInterval }} <a href="{{ url('change_plan') }}" style="font-size: 11px;
+                        <span class="detail-value current-plan">{{ $planName }} / {{ $billingInterval }} 
+                            <!-- <a href="{{ url('change_plan') }}" style="font-size: 11px;
     color: blue;
-    text-decoration: underline;">Change Plan</a></span>
+    text-decoration: underline;">Change Plan</a> -->
+</span>
                         @endif
                     </div>
                     @if(Auth::user()->stripe_id == null)
@@ -405,12 +408,12 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
 
     </div>
 
-    @if($plan->name == 'Start')
+    @if($plan->name == 'Startaa')
     <div class="alert alert-info" style="padding: 5px;">
         <p style="text-align: center;"><span style="font-size: 13px;
     font-weight: bold;">${{ $plan->price }} / {{ $plan->duration }}</span> start 1 month free</p>
     </div>
-    @else
+    @elseif($plan->name == 'Starta')
     <div class="row mb-1">
 
                             <div class="col-md-12">
@@ -434,7 +437,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                                 <p class="cardwarning">A valid Credit or Debit card is required when establishing a new account.</p>
                             </div>
                         </div>
-
+    @else
     @endif
                 <div class="row">
                             <div class="col-md-10">
