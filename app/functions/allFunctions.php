@@ -56,6 +56,16 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 	               ->first();
 	}
 
+	function getPlanByNameAndDuration($planName, $planDuration)
+	{
+		$stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
+
+	    return Plan::where('name', $planName)
+	               ->where('duration', $planDuration)
+				   ->select('id', 'name', 'slug', "{$stripePlanColumn} as stripe_plan", 'price', 'description', 'duration', 'plan')
+	               ->first();
+	}
+
    function StateFetchDropdown()
     {
         $client = new Client();

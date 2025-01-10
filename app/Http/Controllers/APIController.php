@@ -68,7 +68,8 @@ class APIController extends Controller
         }
 
         // Check if the plan_name exists in the plan table
-        $newPlan = Plan::where('name', $plan_name)->where('price', '!=', 0)->where('duration', $plan_duration)->first();
+        $newPlan = getPlanByNameAndDuration($plan_name, $plan_duration);
+        $existPlan = getUserPlanDetails($user->plan_id);
 
         if (!$newPlan) {
             return response()->json(['message' => 'Plan not found.'], 404);
@@ -77,80 +78,92 @@ class APIController extends Controller
         if (!$user->stripe_id) {
             return response()->json(['message' => 'User does not have a Stripe ID or not added a card'], 404);
         } else {
-            // Retrieve Stripe customer subscriptions
+            
+            // Retrieve the user's current subscription
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             $subscriptions = $stripe->subscriptions->all(['customer' => $user->stripe_id]);
             $currentSubscription = !empty($subscriptions->data) ? $subscriptions->data[0] : null;
-            if ($currentSubscription) {
+            $planStatus = $currentSubscription ? $currentSubscription->status : 'Trial';
 
-                $stripe->subscriptions->update($currentSubscription->id, [
-                    'cancel_at_period_end' => true,
+            if ($currentSubscription && $currentSubscription->status === 'active') {
+                $planHierarchy = ['Start', 'Manage', 'Own', 'Grow']; // Define plan hierarchy in ascending order
+                $currentPlanIndex = array_search($existPlan->name, $planHierarchy); // Get current plan index
+                $newPlanIndex = array_search($plan_name, $planHierarchy); // Get new plan index
+                if ($newPlanIndex <= $currentPlanIndex) {
+                    return response()->json(['message' => "Downgrade not allowed. Currently subscribed to a higher plan."], 403);
+                }
+                if($plan_name == $existPlan->name && $plan_duration == $existPlan->duration){
+                        return response()->json(['message' => "Currently subscribed to this plan"], 200);
+                }
+                
+                $updatedSubscription = $stripe->subscriptions->update($currentSubscription->id, [
+                'items' => [
+                    [
+                        'id' => $currentSubscription->items->data[0]->id,
+                        'price' => $newPlan->stripe_plan, // New plan price ID
+                    ],
+                ],
+                'proration_behavior' => 'create_prorations', // Optional: handle proration if needed
                 ]);
 
-                // Update the local subscription status to 'canceled'
+                // Update the local database subscription record
                 Subscription::where('stripe_id', $currentSubscription->id)->update([
-                    'stripe_status' => 'canceled',
-                    'ends_at' => $currentSubscription->current_period_end,
-                ]);
-                // Update the subscription to the new plan
-                $subscription = $stripe->subscriptions->update($currentSubscription->id, [
-                    'items' => [['price' => $newPlan->stripe_plan]],
-                    'prorate' => true,
-                ]);
-
-                $subscription = $stripe->subscriptions->create([
-                    'customer' => $user->stripe_id,
-                    'items' => [['price' => $newPlan->stripe_plan]],
-                ]);
-
-                // Create Subscription record
-                $subscriptionModel = Subscription::create([
-                    'user_id' => $user->id,
-                    'stripe_id' => $subscription->id,
-                    'stripe_status' => $subscription->status,
+                    'stripe_status' => $updatedSubscription->status,
                     'stripe_price' => $newPlan->stripe_plan,
-                    'quantity' => 1, // Adjust quantity if needed
-                    'ends_at' => $subscription->current_period_end,
+                    'ends_at' => $updatedSubscription->current_period_end,
                 ]);
 
-                // Create or update Subscription_Item record
-                Subscription_Item::create([
-                    'subscription_id' => $subscriptionModel->id,
-                    'stripe_id' => $subscription->items->data[0]->id,
-                    'stripe_product' => $subscription->items->data[0]->price->product,
-                    'stripe_price' => $subscription->items->data[0]->price->id,
-                    'quantity' => 1, // Adjust quantity if needed
-                ]);
-            }
-            else {
-                // Create a new subscription if none exists
-                $subscription = $stripe->subscriptions->create([
-                    'customer' => $user->stripe_id,
-                    'items' => [['price' => $newPlan->stripe_plan]],
+                $user->plan_id = $newPlan->id;
+                $user->save();
+
+                // Call the external API
+                $formatted_plan_name = strtolower($newPlan->name);
+                $is_trial = false;
+                $dataSubscription = prepareDataForSubscription($formatted_plan_name, null, $is_trial, $user, $newPlan);
+
+                $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
+
+                 // Make the API calls
+                $responseBodySubscription = makeApiCall($apiUrlStoreSubscriptionPlans, $dataSubscription);
+
+            } else {
+                // Update the subscription to the new plan without charging during the trial
+                $updatedSubscription = $stripe->subscriptions->update($currentSubscription->id, [
+                    'items' => [
+                        [
+                            'id' => $currentSubscription->items->data[0]->id,
+                            'price' => $newPlan->stripe_plan, // New plan price ID
+                        ],
+                    ],
+                    'proration_behavior' => 'none', // No immediate charge during trial
                 ]);
 
-                // Create Subscription record
-                $subscriptionModel = Subscription::create([
-                    'user_id' => $user->id,
-                    'stripe_id' => $subscription->id,
-                    'stripe_status' => $subscription->status,
+                // Update the local database subscription record
+                Subscription::where('stripe_id', $currentSubscription->id)->update([
+                    'stripe_status' => $updatedSubscription->status,
                     'stripe_price' => $newPlan->stripe_plan,
-                    'quantity' => 1, // Adjust quantity if needed
-                    'ends_at' => $subscription->current_period_end,
+                    'ends_at' => $currentSubscription->trial_end,
                 ]);
-                // Create or update Subscription_Item record
-                Subscription_Item::create([
-                    'subscription_id' => $subscriptionModel->id,
-                    'stripe_id' => $subscription->items->data[0]->id,
-                    'stripe_product' => $subscription->items->data[0]->price->product,
-                    'stripe_price' => $subscription->items->data[0]->price->id,
-                    'quantity' => 1, // Adjust quantity if needed
-                ]);
-            }
 
-            // Update plan in the local database
-            $user->plan_id = $newPlan->id;
-            $user->save();
+                $trialExpiryDate = $currentSubscription->trial_end 
+                ? \Carbon\Carbon::createFromTimestamp($currentSubscription->trial_end)->format('Y-m-d') 
+                : null;
+
+                $user->plan_id = $newPlan->id;
+                $user->trial_ends_at = $trialExpiryDate;
+                $user->save();
+
+                // Call the external API
+                $formatted_plan_name = strtolower($newPlan->name);
+                $is_trial = true;
+                $dataSubscription = prepareDataForSubscription($formatted_plan_name, $trialExpiryDate, $is_trial, $user, $newPlan);
+
+                $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
+
+                 // Make the API calls
+                $responseBodySubscription = makeApiCall($apiUrlStoreSubscriptionPlans, $dataSubscription);
+
+            }
 
             return response()->json(['message' => 'Plan changed successfully.'], 200);
         }
