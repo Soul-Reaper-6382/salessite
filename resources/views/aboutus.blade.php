@@ -483,60 +483,7 @@ function fetch_state_func(){
       })
 
 
-    $('.click_change_plan_upd').on('click', function() {
-    var planId = $(this).data('id');
-    var planName = $(this).closest('.price_main_column').find('h5').text().trim(); // Get and trim the plan name
-
-    // Show a confirmation dialog
-    var confirmMessage = `Are you sure you want to change your plan to ${planName}? This action will ${planId ? 'upgrade' : 'downgrade'} your current plan.`;
-    var confirmed = confirm(confirmMessage);
-
-    if (confirmed) {
-        // Proceed with the AJAX request if confirmed
-        $.ajax({
-            url: '{{ route("change_plan") }}',
-            type: 'POST',
-            data: {
-                plan_id: planId,
-                _token: '{{ csrf_token() }}' // Include CSRF token for security
-            },
-            success: function(response) {
-                // Optionally, you can reload the page or update the UI
-                location.reload();
-            },
-            error: function(xhr) {
-                alert('An error occurred: ' + xhr.responseJSON.error);
-            }
-        });
-    } else {
-        // User canceled the action
-        console.log('Plan change canceled.');
-    }
-
-});
-  
-    $('.click_change_plan').on('click', function() {
-    var planId = $(this).data('id');
-    var planName = $(this).closest('.price_main_column').find('h5').text().trim(); // Get and trim the plan name
-
     
-        // Proceed with the AJAX request if confirmed
-        $.ajax({
-            url: '{{ route("starting_plan_set") }}',
-            type: 'POST',
-            data: {
-                plan_id: planId,
-                _token: '{{ csrf_token() }}' // Include CSRF token for security
-            },
-            success: function(response) {
-                // Optionally, you can reload the page or update the UI
-                location.href = 'add_a_card';
-            },
-            error: function(xhr) {
-                alert('An error occurred: ' + xhr.responseJSON.error);
-            }
-        });
-});
 
 });
 
