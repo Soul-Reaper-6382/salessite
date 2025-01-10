@@ -88,12 +88,13 @@
             _token: '{{ csrf_token() }}'
         },
         success: function (response) {
+            console.log(response)
             if (response.success) {
                 alert(response.message);
                 location.reload(); // Reload the page to reflect the changes
             } else {
                 alert(response.error || 'Failed to update plan.');
-                location.reload();
+                // location.reload();
             }
         },
         error: function (xhr) {

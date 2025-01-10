@@ -3,10 +3,20 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PricingController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\HomeStateController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegisterStoreController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardStateController;
+use App\Http\Controllers\DashboardSubmitStoreController;
+use App\Http\Controllers\TrialCardDetailController;
+use App\Http\Controllers\DashboardBillingController;
+use App\Http\Controllers\SetPlanTrailController;
+use App\Http\Controllers\CardDetailController;
 use App\Http\Controllers\ChangePlanTrailController;
 use App\Http\Controllers\UpdateMakePaymentController;
 use App\Http\Controllers\ActiveChangePlanController;
@@ -37,6 +47,8 @@ Route::get('/clear_all', function(){
             Artisan::call('view:clear');
                     return response()->json(['message' => 'Application cleared']);
 });
+
+// Admin Routes
 Route::group(['middleware'=>['auth','roles:admin']],function(){ 
 Route::get('/admin', [AdminController::class,'index']);
 Route::get('/admin_myaccount', [AdminController::class,'admin_myaccount']);
@@ -109,131 +121,78 @@ Route::post('/testimonials/update/{id}', [TestimonialController::class, 'update'
 Route::delete('/testimonials/delete/{id}', [TestimonialController::class, 'destroy'])->name('testimonials.destroy');
 
 });
-Route::get('/', function () {
-    return redirect('/home');
-});
 
-Route::get('/home', [HomeController::class,'index']);
-Route::get('/pricing', [HomeController::class,'pricing']);
-Route::get('/about-us', [HomeController::class,'aboutus']);
-Route::get('/all_integration', [HomeController::class,'all_integration']);
-Route::post('/statefetch_func_home', [HomeController::class,'statefetch_func_home']);
-Route::post('/stateget_change_home', [HomeController::class,'stateget_change_home']);
-Route::post('/registerstore', [RegisterStoreController::class, 'registerstore']);
+    // Home Routes
+    Route::get('/', function () {
+        return redirect('/home');
+    });
+    Route::get('/home', [HomeController::class,'index']);
 
-Route::post('/lead_storehubspot', function (Request $request) {
-    // dd($request->email);
-    try {
+    // Pricing Routes
+    Route::get('/pricing', [PricingController::class,'pricing']);
+    Route::get('/all_integration', [PricingController::class,'all_integration']);
 
-        $licenseNumber = $request->store_license;
-        $statefetch = $request->statefetch;
-        $storeName = $request->store_name;
-        if (empty($licenseNumber) || empty($statefetch) || empty($storeName)) {
-        }
-        else{
-        $path = public_path('Retail Package Store Licenses.xlsx');
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($path);
-        $worksheet = $spreadsheet->getActiveSheet();
-        $licenseValid = false;
-        $storeData = [];
+    // About Routes
+    Route::get('/about-us', [AboutController::class,'aboutus']);
 
-         foreach ($worksheet->getRowIterator() as $row) {
-            $cellIterator = $row->getCellIterator();
-            $cellIterator->setIterateOnlyExistingCells(false);
-            $data = [];
-            foreach ($cellIterator as $cell) {
-                $data[] = $cell->getValue();
-            }
-        if (($licenseNumber && $data[0] === $licenseNumber) || ($storeName && $data[2] === $storeName)) {
-                $licenseValid = true;
-                $storeData = [
-                    'entity_name' => $data[1],
-                    'store_name' => $data[2],
-                    'store_address' => $data[3],
-                    'city' => $data[4],
-                    'country' => $data[5],
-                    'state' => $data[6],
-                    'phone' => $data[7],
-                ];
+    // State Home Routes
+    Route::post('/statefetch_func_home', [HomeStateController::class,'statefetch_func_home']);
+    Route::post('/stateget_change_home', [HomeStateController::class,'stateget_change_home']);
 
-                if ($statefetch != $storeData['state']) {
-                return response()->json(['message' => 'notmatch']);
-                }
-                break;
-            }
-        }
+    // Register Routes
+    Route::post('/registerstore', [RegisterStoreController::class, 'registerstore']);
 
-        if (!$licenseValid || $statefetch != $storeData['state']) {
-            $error_license = 'notmatch';
-            return response()->json(['message' => 'notmatch']);
-        }
+    // Lead Hubspot Routes
+    Route::post('/lead_storehubspot', [LeadController::class, 'storeLead'])->name('lead.store');
 
-    }
-   
-        // Collect lead data
-         $leadData = [
-            'properties' => [
-                'email'     => $request->input('email'),
-                'firstname' => $request->input('first_name'),
-                'lastname'  => $request->input('last_name'),
-                'phone'     => $request->input('phone_number'),
-                'state'   => $request->input('statefetch'),       // Added State
-                'store_license' => $request->input('store_license'),    // Added Store License
-                'store_name'   => $request->input('store_name'),       // Added Store Name
-            ],
-        ];
-
-
-        // API URL
-        $url = 'https://api.hubapi.com/crm/v3/objects/contacts';
-        
-        // Send request with Guzzle
-        $client = new Client();
-        $response = $client->post($url, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
-                'Content-Type'  => 'application/json',
-            ],
-            'json' => $leadData,
-        ]);
-
-        return response()->json(['message' => 'Lead submitted successfully']);
-    } catch (RequestException $e) {
-        // Handle error and display response from HubSpot
-        if ($e->hasResponse()) {
-            $response = $e->getResponse();
-            $message = json_decode($response->getBody()->getContents(), true);
-            return response()->json(['error' => $message], $response->getStatusCode());
-        }
-        return response()->json(['error' => 'An error occurred while submitting the lead'], 500);
-    }
-})->name('lead.store');
 
 
 
 Route::group(['middleware'=>['auth','roles:user']],function(){ 
-Route::get('/dashboard', [DashboardController::class,'index']);
-Route::get('/card_details', [DashboardController::class,'card_details']);
-Route::get('/billing_history', [DashboardController::class,'billing_history_view']);
-Route::get('/payment_method', [DashboardController::class,'payment_method_view']);
-Route::get('/monthly_yearly', [DashboardController::class,'monthly_yearly_view']);
-Route::get('/starting_plan', [DashboardController::class,'starting_plan_view']);
-Route::post('/starting_plan_set', [DashboardController::class,'starting_plan_set'])->name('starting_plan_set');
-Route::get('/change_password', [DashboardController::class, 'changepassword']);
-Route::get('/add_a_card', [DashboardController::class, 'make_payment']);
-Route::post('/update-password', [DashboardController::class, 'updatePassword']);
-Route::post('/change-plan-trailing', [ChangePlanTrailController::class, 'changePlanTrailing'])->name('change_plan_trailing');
+    
+    // Dashboard Routes
+    Route::get('/dashboard', [DashboardController::class,'index']);
+    Route::post('/submit_checkstore_license', [DashboardController::class,'submit_checkstore_license']);
+    Route::get('/payment_method', [DashboardController::class,'payment_method_view']);
+    Route::get('/monthly_yearly', [DashboardController::class,'monthly_yearly_view']);
+    Route::get('/change_password', [DashboardController::class, 'changepassword']);
+    Route::post('/update-password', [DashboardController::class, 'updatePassword']);
+    Route::get('/change_plan', [DashboardController::class,'change_plan_view']);
 
-Route::post('/submit_checkstore_license', [DashboardController::class,'submit_checkstore_license']);
-Route::post('/stateget_change', [DashboardController::class,'stateget_change']);
-Route::post('/submit_store_info', [DashboardController::class,'submit_store_info']);
-Route::post('/update_make_payment', [UpdateMakePaymentController::class,'update_make_payment']);
-Route::post('/update_card_detail', [DashboardController::class,'update_card_detail']);
-Route::post('/statefetch_func', [DashboardController::class,'statefetch_func']);
 
-Route::get('/change_plan', [DashboardController::class,'change_plan_view']);
-Route::post('/change-plan', [ActiveChangePlanController::class, 'changePlan'])->name('change_plan');
+    // State Dashboard Routes
+    Route::post('/statefetch_func', [DashboardStateController::class,'statefetch_func']);
+    Route::post('/stateget_change', [DashboardStateController::class,'stateget_change']);
+    
+    // Submit Store
+    Route::post('/submit_store_info', [DashboardSubmitStoreController::class,'submit_store_info']);
+    
+    // Trial Card Detail Routes
+    Route::get('/card_details', [TrialCardDetailController::class,'card_details']);
+    Route::post('/update_card_detail', [TrialCardDetailController::class,'update_card_detail']);
+    
+    // Billing Dashboard Routes
+    Route::get('/billing_history', [DashboardBillingController::class,'billing_history_view']);
+    
+    // Set Plan Trail Routes
+    Route::get('/starting_plan', [SetPlanTrailController::class,'starting_plan_view']);
+    Route::post('/starting_plan_set', [SetPlanTrailController::class,'starting_plan_set'])->name('starting_plan_set');
+    
+    // Card Detail Routes
+    Route::get('/add_a_card', [CardDetailController::class, 'make_payment']);
+    Route::post('/update_make_payment', [UpdateMakePaymentController::class,'update_make_payment']);
+    
+    // Change Plan Trial Routes
+    Route::post('/change-plan-trailing', [ChangePlanTrailController::class, 'changePlanTrailing'])->name('change_plan_trailing');
+
+   
+    // Change Plan Active Routes
+    Route::post('/Active-change-plan', [ActiveChangePlanController::class, 'changePlan'])->name('Active_change_plan');
 
 });
-Route::get('/register/{token}', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Auth::routes([]);
+
+    // Register Routes
+    Route::get('/register/{token}', [RegisterController::class, 'showRegistrationForm'])->name('register');
+
+    // Auth
+    Auth::routes([]);

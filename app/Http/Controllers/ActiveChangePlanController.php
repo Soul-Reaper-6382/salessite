@@ -40,12 +40,8 @@ class ActiveChangePlanController extends Controller
         $user = Auth::user();
         $newPlanId = $request->input('plan_id');
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-        $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
-
-        // Retrieve new plan details from the database
-        // Retrieve new plan details from the database
-        $newPlan = Plan::where($stripePlanColumn, $newPlanId)->select('id', 'name', 'slug', $stripePlanColumn . ' as stripe_plan', 'price', 'description', 'duration', 'plan')->first();
-
+        
+        $newPlan = getPlanByPriceId($newPlanId);
         if (!$newPlan) {
             return response()->json(['error' => 'Plan not found.'], 404);
         }
@@ -100,10 +96,6 @@ class ActiveChangePlanController extends Controller
                 //     'quantity' => 1, // Adjust quantity if needed
                 // ]);
             }
-
-            $client = new Client();
-            $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
-            $apiToken = env('API_Smugglers_Authorization');
        
          $end_date = null;
          $is_trial = false;
@@ -113,52 +105,19 @@ class ActiveChangePlanController extends Controller
         $user->plan_id = $newPlan->id;
         $user->save();
 
-              $secondData = [
-                    'subscription_plan' => $formatted_plan_name,
-                    'trial_expiry_date' => $end_date,
-                    'is_trial' => $is_trial,
-                    'source_object_id' => $user->source_object_id,
-                    'billing_frequency' => $newPlan->duration,
-                ];
+        $dataSubscription = prepareDataForSubscription($formatted_plan_name, $end_date, $is_trial, $user, $newPlan);
 
+        $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
 
-            try {
-                // Second API call
-                $secondResponse = $client->post($apiUrlStoreSubscriptionPlans, [
-                    'json' => $secondData,
-                    'headers' => [
-                        'Authorization' => $apiToken,
-                    ],
-                ]);
+         // Make the API calls
+        $responseBodySubscription = makeApiCall($apiUrlStoreSubscriptionPlans, $dataSubscription);
 
-                $secondResponseBody = json_decode($secondResponse->getBody()->getContents(), true);
-
-            } catch (\GuzzleHttp\Exception\ClientException $e) {
-                $errorResponse = $e->getResponse();
-                $errorBody = $errorResponse ? json_decode($errorResponse->getBody()->getContents(), true) : [];
-
-                if (isset($errorBody['message']['errors'])) {
-                    $validationErrors = [];
-                    foreach ($errorBody['message']['errors'] as $error) {
-                        $validationErrors[] = $error['detail'];
-                    }
-
-                    return response()->json([
-                        'success' => false,
-                        'errors' => $validationErrors
-                    ], $errorResponse->getStatusCode());
-                }
-
-                return response()->json([
-                    'success' => false,
-                    'message' => 'An error occurred. Please try again.'
-                ], $errorResponse->getStatusCode());
-            } catch (\Exception $e) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Error submitting store info: ' . $e->getMessage()
-                ], 500);
+        
+            // Process responses or handle errors accordingly
+            if (!$responseBodySubscription) {
+                return redirect()->back()->with('error', 'Error submitting Api.');
             }
+              
 
 
             return response()->json(['success' => 'Plan changed successfully.']);

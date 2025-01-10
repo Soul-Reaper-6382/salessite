@@ -499,51 +499,51 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
 <script>
     const stripe = Stripe('{{ env('STRIPE_KEY') }}')
    
-    const elements = stripe.elements()
-    var style = {
-  base: {
-    color: "#32325d",
-  }
-};
-    const cardElement = elements.create('card', { hidePostalCode: true, style: style })
+//     const elements = stripe.elements()
+//     var style = {
+//   base: {
+//     color: "#32325d",
+//   }
+// };
+//     const cardElement = elements.create('card', { hidePostalCode: true, style: style })
   
-    cardElement.mount('#card-element');
+//     cardElement.mount('#card-element');
    
-    const form = document.getElementById('submit_store_info')
-    const cardBtn = document.getElementById('card-button')
-    const cardHolderName = document.getElementById('first_name')
-    const displayError = document.getElementById('card-errors');
+//     const form = document.getElementById('submit_store_info')
+//     const cardBtn = document.getElementById('card-button')
+//     const cardHolderName = document.getElementById('first_name')
+//     const displayError = document.getElementById('card-errors');
    
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault()
+//     form.addEventListener('submit', async (e) => {
+//         e.preventDefault()
    
-        cardBtn.disabled = true
-        displayError.textContent = '';
-        const { setupIntent, error } = await stripe.confirmCardSetup(
-            cardBtn.dataset.secret, {
-                payment_method: {
-                    card: cardElement,
-                    billing_details: {
-                        name: cardHolderName.value
-                    }   
-                }
-            }
-        )
+//         cardBtn.disabled = true
+//         displayError.textContent = '';
+//         const { setupIntent, error } = await stripe.confirmCardSetup(
+//             cardBtn.dataset.secret, {
+//                 payment_method: {
+//                     card: cardElement,
+//                     billing_details: {
+//                         name: cardHolderName.value
+//                     }   
+//                 }
+//             }
+//         )
    
-        if(error) {
-            displayError.textContent = error.message;
-            console.log(error)
-            cardBtn.disabled = false
+//         if(error) {
+//             displayError.textContent = error.message;
+//             console.log(error)
+//             cardBtn.disabled = false
             
-        } else {
-            let token = document.createElement('input')
-            token.setAttribute('type', 'hidden')
-            token.setAttribute('name', 'token')
-            token.setAttribute('value', setupIntent.payment_method)
-            form.appendChild(token)
-            form.submit();
-        }
-    })
+//         } else {
+//             let token = document.createElement('input')
+//             token.setAttribute('type', 'hidden')
+//             token.setAttribute('name', 'token')
+//             token.setAttribute('value', setupIntent.payment_method)
+//             form.appendChild(token)
+//             form.submit();
+//         }
+//     })
 </script>
 
     <script type="text/javascript">

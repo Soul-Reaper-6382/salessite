@@ -42,11 +42,8 @@ class ChangePlanTrailController extends Controller
         $newPlanId = $request->input('plan_id');
 
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-        $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
 
-        // Retrieve new plan details from the database
-        $newPlan = Plan::where($stripePlanColumn, $newPlanId)->select('id', 'name', 'slug', $stripePlanColumn . ' as stripe_plan', 'price', 'description', 'duration', 'plan')
-                     ->first();
+        $newPlan = getPlanByPriceId($newPlanId);
 
         if (!$newPlan) {
             return response()->json(['success' => false, 'error' => 'Plan not found.'], 404);
@@ -92,36 +89,23 @@ class ChangePlanTrailController extends Controller
                 $user->save();
 
                 // Call the external API
-                $client = new \GuzzleHttp\Client();
-                $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
-                $apiToken = env('API_Smugglers_Authorization');
+                $formatted_plan_name = strtolower($newPlan->name);
+                $is_trial = true;
+        $dataSubscription = prepareDataForSubscription($formatted_plan_name, $trialExpiryDate, $is_trial, $user, $newPlan);
 
-                $secondData = [
-                    'subscription_plan' => strtolower($newPlan->name),
-                    'trial_expiry_date' => $trialExpiryDate,
-                    'is_trial' => true,
-                    'source_object_id' => $user->source_object_id,
-                    'billing_frequency' => $newPlan->duration,
-                ];
+        $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
 
-                try {
-                    $secondResponse = $client->post($apiUrlStoreSubscriptionPlans, [
-                        'json' => $secondData,
-                        'headers' => [
-                            'Authorization' => $apiToken,
-                        ],
-                    ]);
+         // Make the API calls
+        $responseBodySubscription = makeApiCall($apiUrlStoreSubscriptionPlans, $dataSubscription);
 
-                    return response()->json(['success' => true, 'message' => 'Plan updated successfully.']);
-                } catch (\GuzzleHttp\Exception\ClientException $e) {
-                    $errorResponse = $e->getResponse();
-                    $errorBody = $errorResponse ? json_decode($errorResponse->getBody()->getContents(), true) : [];
-                    $validationErrors = $errorBody['message']['errors'] ?? ['An unknown error occurred.'];
+        
+            // Process responses or handle errors accordingly
+            if (!$responseBodySubscription) {
+                return redirect()->back()->with('error', 'Error submitting Api.');
+            }
 
-                    return response()->json(['success' => false, 'errors' => $validationErrors], 422);
-                } catch (\Exception $e) {
-                    return response()->json(['success' => false, 'error' => 'Error communicating with API: ' . $e->getMessage()], 500);
-                }
+            return response()->json(['success' => true, 'message' => 'Plan changed successfully.'], 200);
+
             } else {
                 return response()->json(['success' => false, 'error' => 'User is no longer in the trial period.'], 400);
             }

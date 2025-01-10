@@ -67,7 +67,8 @@
         });
 
     $(document).ready(function() {
-    $('.click_change_plan_upd').on('click', function() {
+    // $('.click_change_plan_upd').on('click', function() {
+    $(document).on('click','.click_change_plan_upd', function() {
     var planId = $(this).data('id');
     var planName = $(this).closest('.price_main_column').find('h3').text().trim(); // Get and trim the plan name
 
@@ -78,7 +79,7 @@
     if (confirmed) {
         // Proceed with the AJAX request if confirmed
         $.ajax({
-            url: '{{ route("change_plan") }}',
+            url: '{{ route("Active_change_plan") }}',
             type: 'POST',
             data: {
                 plan_id: planId,

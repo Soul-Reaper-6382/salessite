@@ -39,11 +39,7 @@ class UpdateMakePaymentController extends Controller
     {
         $user = Auth::user();
 
-        $stripePlanColumn = env('Stripe_Plan') === 'test' ? 'stripe_plan_test' : 'stripe_plan';
-
-        $plan = Plan::where('id',$user->plan_id)
-                     ->select('id', 'name', 'slug', $stripePlanColumn . ' as stripe_plan', 'price', 'description', 'duration', 'plan')
-                     ->first();
+        $plan = getUserPlanDetails($user->plan_id);
 
         $get_trail_ends_at = $user->trial_ends_at;
                 if ($get_trail_ends_at) {
@@ -150,53 +146,24 @@ class UpdateMakePaymentController extends Controller
                             'quantity' => $quantity,
                         ]);
 
-                        $client = new Client();
-                        $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
-                        $apiToken = env('API_Smugglers_Authorization');
+        $end_date = null;
+        $is_trial = false;
+        $plan_name = $plan->name;
+        $formatted_plan_name = strtolower($plan_name);
 
-                       
-                         $end_date = null;
-                         $is_trial = false;
-                         $plan_name = $plan->name;
-                         $formatted_plan_name = strtolower($plan_name);
+        $dataSubscription = prepareDataForSubscription($formatted_plan_name, $end_date, $is_trial, $user, $plan);
 
-                              $secondData = [
-                                   'subscription_plan' => $formatted_plan_name,
-                                    'trial_expiry_date' => $end_date,
-                                    'is_trial' => $is_trial,
-                                    'source_object_id' => $user->source_object_id,
-                                    'billing_frequency' => $plan->duration,
-                                ];
+        $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
 
+         // Make the API calls
+        $responseBodySubscription = makeApiCall($apiUrlStoreSubscriptionPlans, $dataSubscription);
 
-                            try {
-                                // Second API call
-                                $secondResponse = $client->post($apiUrlStoreSubscriptionPlans, [
-                                    'json' => $secondData,
-                                    'headers' => [
-                                        'Authorization' => $apiToken,
-                                    ],
-                                ]);
-
-                                $secondResponseBody = json_decode($secondResponse->getBody()->getContents(), true);
-
-                            } catch (\GuzzleHttp\Exception\ClientException $e) {
-                                $errorResponse = $e->getResponse();
-                                $errorBody = $errorResponse ? json_decode($errorResponse->getBody()->getContents(), true) : [];
-                                if (isset($errorBody['message']['errors'])) {
-                                    $validationErrors = '';
-                                    foreach ($errorBody['message']['errors'] as $error) {
-                                        $detail = $error['detail'];
-                                        $validationErrors .= ', ' . $detail;
-                                    }
-                                    $validationErrors = ltrim($validationErrors, ', ');
-                                    return redirect()->back()->with('error', $validationErrors)->withInput();
-                                }
-                                return redirect()->back()->with('error', 'An error occurred. Please try again.');
-                            } catch (\Exception $e) {
-                                // dd($e);
-                                return redirect()->back()->with('error', 'Error submitting store info: ' . $e->getMessage());
-                            }
+        
+            // Process responses or handle errors accordingly
+            if (!$responseBodySubscription) {
+                return redirect()->back()->with('error', 'Error submitting Api.');
+            }
+                            
                     }
                 } 
                 else {
