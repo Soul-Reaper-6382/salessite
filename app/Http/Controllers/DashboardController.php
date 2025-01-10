@@ -253,14 +253,14 @@ class DashboardController extends Controller
 
         $plan_get_name = getPlanByPriceId($priceId);
         if($planStatus == 'trialing'){
-        return view('change_plan_trailing', [
+        return view('ChangePlanTrail.change_plan_trailing', [
             'plan_db' => $plan_db,
             'priceId' => $priceId,
             'planId' => $plan_get_name->id
         ]);
         }
         else{
-        return view('change_plan', [
+        return view('ChangePlanActive.change_plan', [
             'plan_db' => $plan_db,
             'priceId' => $priceId,
             'planId' => $plan_get_name->id,

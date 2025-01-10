@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Login - Smugglers')
 @section('content')
+@push('styles')
 <style type="text/css">
    .footer-area-wrapper{
         background-color: #cc9249;
@@ -16,6 +17,7 @@
     align-items: center;
    }
 </style>
+@endpush
 <div class="container">
     <div class="row justify-content-center rowcustom">
         <div class="col-md-8">
@@ -85,28 +87,4 @@
     </div>
 </div>
 
- <!--====================  footer area ====================-->
-        <div class="footer-area-wrapper" style="background-color:#df9242;">
-            <div class="footer-copyright-area" style="padding:10px;">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-12 text-center text-md-start">
-                            <p class="copyright-ptext" style="text-align: center;
-    color: white;
-    font-size: 20px;">Copyright © 2024 Smugglers</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--====================  End of footer area  ====================-->
-
-
-
-
-
-
-
-
-@include('layouts.footer_home')
 @endsection

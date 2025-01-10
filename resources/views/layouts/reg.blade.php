@@ -87,6 +87,9 @@
 
    
             @yield('content')
+            @include('layouts.footer_home')
+
+@stack('scripts')
    
 </body>
 </html>

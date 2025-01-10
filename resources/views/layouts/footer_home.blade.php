@@ -1,3 +1,20 @@
+@if (!in_array(Route::currentRouteName(), ['register', 'dashboard', 'card_details']))
+<!--====================  footer area ====================-->
+        <div class="footer-area-wrapper" style="background-color:#df9242;">
+            <div class="footer-copyright-area" style="padding:10px;">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 text-center text-md-start">
+                            <p class="copyright-ptext" style="text-align: center;
+    color: white;
+    font-size: 19px;">Copyright © 2024 Smugglers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--====================  End of footer area  ====================-->
+@endif
 <!-- Modal -->
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -13,34 +30,6 @@
             </div>
         </div>
     </div>
-</div>
-<script type="text/javascript">
-    function showVideoModal(element) {
-    var videoUrl = element.getAttribute('data-url');
-        if (videoUrl) {
-
-    // Set the video source in the modal
-    var videoElement = document.getElementById('modalVideo');
-    videoElement.src = videoUrl;
-    videoElement.autoplay = true;
-    videoElement.loop = true;
-    videoElement.controls = false;
-
-
-    // Show the modal
-    var videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
-    videoModal.show();
-
-    
-    // When modal is hidden, stop the video
-    document.getElementById('videoModal').addEventListener('hidden.bs.modal', function () {
-        videoElement.pause();
-        videoElement.currentTime = 0;
-    }, { once: true });
-    }
-}
-
-</script>
 </div>
     <!--====================  scroll top ====================-->
     <a href="#" class="scroll-top" id="scroll-top">

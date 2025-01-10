@@ -10,7 +10,7 @@
                 @include('trialtext')
                 @else
                 <div class="account-details mt-3 mb-3">
-                    @include('plan_change_dash_trailing')
+                    @include('ChangePlanTrail.plan_change_dash_trailing')
                 </div>
                 @endif
             </section>
@@ -20,32 +20,6 @@
 
 
 <script>
-    $(document).ready(function(){
-  $(".learn-more").click(function(){
-    $(".contentp").slideToggle();
-    $(".learn-more").text(function(i, text){
-      return text === "Learn More" ? "Show Less" : "Learn More";
-    });
-  });
-});
-
-    $(document).ready(function(){
-  $(".learn-more2").click(function(){
-    $(".contentp2").slideToggle();
-    $(this).text(function(i, text){
-      return text === "Learn More" ? "Show Less" : "Learn More";
-    });
-  });
-});
-
-    $(document).ready(function(){
-  $(".learn-more2").click(function(){
-    $(".contentp3").slideToggle();
-    $(this).text(function(i, text){
-      return text === "Learn More" ? "Show Less" : "Learn More";
-    });
-  });
-});
 
     $(document).ready(function(){
     $('.tab_price').on('click', function() {

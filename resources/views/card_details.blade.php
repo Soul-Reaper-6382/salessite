@@ -105,7 +105,14 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
             </div>
         </div>
     </div>
-@include('layouts.footer_dashboard')
+@endsection
+@else
+<script type="text/javascript">
+    location.href = 'dashboard';
+</script>
+@endif
+@endif
+@push('scripts')
 <script src="https://js.stripe.com/v3/"></script>
 <script>
     const stripe = Stripe('{{ env('STRIPE_KEY') }}')
@@ -156,11 +163,4 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
         }
     })
 </script>
-
-@endsection
-@else
-<script type="text/javascript">
-    location.href = 'dashboard';
-</script>
-@endif
-@endif
+@endpush

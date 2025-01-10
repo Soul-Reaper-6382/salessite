@@ -252,9 +252,6 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
      <label for="store-license" class="col-md-12 col-form-label">Store License Number</label>
     <div class="col-md-12" style="position: relative;">
         <input name="store_license" type="text"  class="form-control @error('store_license') is-invalid @enderror" id="store_license">
-        <span class="invalid-feedback error_already" role="alert" style="display:none;">
-            <strong>License already exists</strong>
-        </span>
         @error('store_license')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -262,6 +259,12 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
         @enderror
         <div class="spinner_license" style="display:none;"></div>
     </div>
+    </div>
+
+    <div class="col-md-12" style="text-align:center;">
+        <span class="invalid-feedback error_already" role="alert" style="display:none;">
+            <strong>Store name or License already exists</strong>
+        </span>
     </div>
 
     </div>
@@ -491,8 +494,8 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
 
 
 
-
-    @include('layouts.footer_home')
+@endsection
+@push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
 <script src="https://js.stripe.com/v3/"></script>
@@ -764,6 +767,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
         }
     })
     </script>
-@endsection
+@endpush
+
 
 @endif

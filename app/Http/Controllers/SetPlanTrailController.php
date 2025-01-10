@@ -37,8 +37,8 @@ class SetPlanTrailController extends Controller
     
     public function starting_plan_view()
     {
-        $plan_db = Plan::where('price', '!=', 0)->orderBy('id', 'ASC')->get();
-        return view('starting_plan', ['plan_db'=>$plan_db]);
+        $plan_db = getPlans();
+        return view('StartPlan.starting_plan', ['plan_db'=>$plan_db]);
     }
 
     public function starting_plan_set(Request $request)

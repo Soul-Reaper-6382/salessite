@@ -151,7 +151,7 @@ Route::delete('/testimonials/delete/{id}', [TestimonialController::class, 'destr
 Route::group(['middleware'=>['auth','roles:user']],function(){ 
     
     // Dashboard Routes
-    Route::get('/dashboard', [DashboardController::class,'index']);
+    Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
     Route::post('/submit_checkstore_license', [DashboardController::class,'submit_checkstore_license']);
     Route::get('/payment_method', [DashboardController::class,'payment_method_view']);
     Route::get('/monthly_yearly', [DashboardController::class,'monthly_yearly_view']);
@@ -168,7 +168,7 @@ Route::group(['middleware'=>['auth','roles:user']],function(){
     Route::post('/submit_store_info', [DashboardSubmitStoreController::class,'submit_store_info']);
     
     // Trial Card Detail Routes
-    Route::get('/card_details', [TrialCardDetailController::class,'card_details']);
+    Route::get('/card_details', [TrialCardDetailController::class,'card_details'])->name('card_details');
     Route::post('/update_card_detail', [TrialCardDetailController::class,'update_card_detail']);
     
     // Billing Dashboard Routes
