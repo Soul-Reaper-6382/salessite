@@ -82,17 +82,22 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                         </div>
 
                         </div>
+
+                        <div class="card-body">
+                            
                         <div class="row">
-                               <div class="col-md-12" style="justify-content:center;display: flex;">
-                                <a href="https://smugglers-system.com/" style="    line-height: 3;
-    font-size: 18px;
-    text-decoration: underline;
-    color: blue;
-    margin: 0px 10px;">skip card</a>
+                               <div class="col-md-12" style="justify-content: center;display: flex;position: relative;">
                                    <button type="submit" class="btn loginbtn" data-secret="{{ $intent->client_secret }}" id="card-button">
                                     {{ __('Continue') }}
                                 </button>
+                                <a href="https://smugglers-system.com/" style="    line-height: 3;
+    font-size: 15px;
+    text-decoration: underline;
+    color: blue;
+    margin: 0px 10px;position: absolute;
+    right: 10px;">I'll do this later</a>
                                </div> 
+                        </div>
                         </div>
 
                     </form>

@@ -100,7 +100,7 @@ p.pcls{
                             <h5 class="hour_h5"><span class="hour_span">1</span> hours</h5>
                             <div class="range-item">
                             <div class="range-input d-flex position-relative">
-                              <input type="range" min="0" max="19" class="form-range" name="dataShared" id="hoursSaved" value="0" />
+                              <input type="range" min="0" max="19" class="form-range" name="dataShared" id="hoursSaved" value="13" />
                               <div class="range-line">
                                 <span class="active-line"></span>
                               </div>
@@ -176,7 +176,7 @@ p.pcls{
                             <div class="col-md-12 text-center">
                             <p class="m-0">{{ $calcSettings->text_two }} </p>
                              <div class="input-container">
-                              <input type="text" class="numberInput" value="50" min="0" max="100000" name="hourly_rate" id="hourlyRate" style="    padding: 0px 0px 0px 15px;"> / hr
+                              <input type="text" class="numberInput" value="60" min="0" max="100000" name="hourly_rate" id="hourlyRate" style="    padding: 0px 0px 0px 15px;"> / hr
                                   <span class="currency-symbol">$</span>
                               </div>
                                 </div>
@@ -211,7 +211,7 @@ p.pcls{
                             <h5 class="hour_h5"><span class="hour_span">No Risk</span></h5>
                             <div class="range-item">
                             <div class="range-input d-flex position-relative">
-                              <input type="range" min="0" max="5" class="form-range" name="dataShared" id="hoursSaved2" value="0" />
+                              <input type="range" min="0" max="5" class="form-range" name="dataShared" id="hoursSaved2" value="2" />
                               <div class="range-line">
                                 <span class="active-line"></span>
                               </div>
@@ -245,7 +245,7 @@ p.pcls{
                             <div class="col-md-6 text-center">
                             <p class="m-0">{{ $calcSettings->text_eighteen }} </p>
                              <div class="input-container">
-                              <input type="text" class="numberInput" value="1,000" min="0" max="100000" name="hourly_rate" id="monthlyRate" style="    padding: 0px 0px 0px 15px;"> / mo
+                              <input type="text" class="numberInput" value="60,000" min="0" max="100000" name="hourly_rate" id="monthlyRate" style="    padding: 0px 0px 0px 15px;"> / mo
                                   <span class="currency-symbol">$</span>
                               </div>
                                 </div>
@@ -254,7 +254,7 @@ p.pcls{
                             <div class="col-md-6 text-center">   
                             <p class="m-0">{{ $calcSettings->text_eleven }} </p>
                             <div class="input-container">
-                                    <input type="text" class="numberInput" value="5" min="0" max="100" name="hourly_rate" id="netprofit"> %
+                                    <input type="text" class="numberInput" value="13" min="0" max="100" name="hourly_rate" id="netprofit"> %
                                 </div>
                                 </div>
                                 </div>
@@ -290,7 +290,7 @@ p.pcls{
                             <h5 class="hour_h5"><span class="hour_span">No Discounts</span></h5>
                             <div class="range-item">
                             <div class="range-input d-flex position-relative">
-                              <input type="range" min="0" max="3" class="form-range" name="dataShared" id="hoursSaved4" value="0" />
+                              <input type="range" min="1" max="3" class="form-range" name="dataShared" id="hoursSaved4" value="0" />
                               <div class="range-line">
                                 <span class="active-line"></span>
                               </div>
@@ -318,14 +318,14 @@ p.pcls{
                           <div class="col-md-6 text-center">
                               <p class="m-0">{{ $calcSettings->text_thirty_six }}</p>
                               <div class="input-container">
-                                  <input type="text" class="numberInput" value="1,000" min="0" max="100000" name="hourly_rate" id="pexpense" style="    padding: 0px 0px 0px 15px;"> / mo
+                                  <input type="text" class="numberInput" value="40,000" min="0" max="100000" name="hourly_rate" id="pexpense" style="    padding: 0px 0px 0px 15px;"> / mo
                                   <span class="currency-symbol">$</span>
                               </div>
                           </div>
                           <div class="col-md-6 text-center">
                               <p class="m-0">{{ $calcSettings->text_twenty_nine }}</p>
                               <div class="input-container">
-                                  <input type="text" class="numberInput" value="500" min="0" max="100000" name="hourly_rate" id="npexpense" style="    padding: 0px 0px 0px 15px;"> / mo
+                                  <input type="text" class="numberInput" value="15000" min="0" max="100000" name="hourly_rate" id="npexpense" style="    padding: 0px 0px 0px 15px;"> / mo
                                   <span class="currency-symbol">$</span>
                               </div>
                           </div>
@@ -362,7 +362,7 @@ p.pcls{
                             <h5 class="hour_h5"><span class="hour_span">1</span> times</h5>
                             <div class="range-item">
                             <div class="range-input d-flex position-relative">
-                              <input type="range" min="0" max="19" class="form-range" name="dataShared" id="hoursSaved3" value="0" />
+                              <input type="range" min="0" max="19" class="form-range" name="dataShared" id="hoursSaved3" value="6" />
                               <div class="range-line">
                                 <span class="active-line"></span>
                               </div>
