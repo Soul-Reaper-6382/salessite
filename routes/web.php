@@ -144,6 +144,7 @@ Route::delete('/testimonials/delete/{id}', [TestimonialController::class, 'destr
 
     // Lead Hubspot Routes
     Route::post('/lead_storehubspot', [LeadController::class, 'storeLead'])->name('lead.store');
+    Route::post('/submit_home_lead', [LeadController::class, 'submit_home_lead']);
 
 
 

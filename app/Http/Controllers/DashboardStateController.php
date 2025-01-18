@@ -60,9 +60,10 @@ class DashboardStateController extends Controller
 
         // Prepare the response
         return response()->json([
-            'message' => $result['storeData'],
-            'storename' => $result['allStoreNames']
+            'stores' => $result['stores'],
+            'userstores' => $result['userStores']
         ]);
+        // return response()->json($result);
     }
     
 

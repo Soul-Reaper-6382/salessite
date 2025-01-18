@@ -33,7 +33,76 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('assets/css/codepen_bg_panel.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+<style>
+    /* Set the height of the Select2 dropdown */
+.select2-container .select2-selection--single {
+    height: 38px !important; /* Adjust the height as needed */
+    display: flex !important;
+    align-items: center; /* Vertically align text */
+    border-color: #e3dbdb !important;
+}
+
+/* Adjust font size and padding */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    font-size: 16px; /* Adjust font size */
+    padding-left: 10px; /* Adjust padding for the text */
+    line-height: 50px; /* Match the height */
+}
+
+/* Style the dropdown arrow */
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 35px !important; /* Match the height */
+    width: 35px !important; /* Adjust arrow container width */
+}
+
+/* Adjust dropdown options height */
+.select2-results__option {
+    padding: 10px; /* Adjust padding for dropdown items */
+    font-size: 14px; /* Adjust font size */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    position: absolute !important;
+    right: 30px;
+}
+
+
+/* Preloader container */
+#preloader_state_fetch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(231 226 226 / 80%);
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Spinner styling */
+.spinner_state_fetch {
+    width: 40px;
+    height: 40px;
+    border: 6px solid #ccc;
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+.select2-container--default .select2-results__option[aria-disabled=true] {
+    color: #db7e7e;
+}
+</style>
     @stack('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body>
@@ -157,6 +226,7 @@
   gtag('config', 'G-0N5EYJ2644');
 </script>
 <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/46911547.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
     function showVideoModal(element) {
@@ -187,38 +257,47 @@
 
 
 <script type="text/javascript">
-$(document).on('click','#lead_form_next',function(){
-    const firstName = document.getElementById("first_name");
-    const lastName = document.getElementById("last_name");
-    const phoneNumber = document.getElementById("phone_number");
-    const email = document.getElementById("email");
-     function validateEmail(email) {
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        return emailPattern.test(email);
-    }
-    if (firstName.value.trim() === "" || 
-            lastName.value.trim() === "" || 
-            phoneNumber.value.trim() === "" || 
-            email.value.trim() === "") {
+$('#submit_home_lead').submit(function(e) {
+    e.preventDefault();
+            let formData = new FormData(this);
 
-            alert("Please fill in all required fields.");
+           $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({
+        url: $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: formData,
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "json",
+         success: function(data) {
+            console.log(data)
+            if(data.status == 'success'){
+                $('.success_lead').show();
+                setTimeout(function(){
+                $('.success_lead').hide();
+                $('#lead_form_one').hide();
+                $('#lead_form_two').show();
+                },2000)
+                window.lastHUBId = data.id;
+                $('#lastHUBId').val(window.lastHUBId)
+            }
+            else{
+                $('.error_invalid_lead').show();
+                $('.error_invalid_lead p').text(data.message);
+                setTimeout(function(){
+                $('.error_invalid_lead').hide();
+                },3000)
+            }
         }
-         else if (!validateEmail(email.value.trim())) {
-            alert("Please enter a valid email address.");
-        } 
-         else {
-        $('#lead_form_one').hide();
-        $('#lead_form_two').show();
-        }
+        })
 })
 $('#multi-step-form').submit(function(e) {
         e.preventDefault();
-        $('.error_invalid_lead_lic').hide();
-        $('.error_invalid_lead').hide();
-        $('.success_lead').hide();
-        var storeName = $('#store_names').val();
-        var licenseNumber = $('#store_license').val();
-        var stateSelected = $('#statefetch').val();
 
         let formData = new FormData(this);
         $.ajaxSetup({
@@ -227,9 +306,6 @@ $('#multi-step-form').submit(function(e) {
           }
       });
          $.ajax({
-        // headers: {
-        //     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        // },
         url: $(this).attr('action'),
         type: $(this).attr('method'),
         data: formData,
@@ -239,85 +315,91 @@ $('#multi-step-form').submit(function(e) {
         dataType: "json",
          success: function(data) {
             console.log(data);
-            if(data.message == 'notmatch'){
-            $('.error_invalid_lead_lic').show();
-            }
+            if(data.status == 'success'){
+                    $('.success_lead').show();
+                    setTimeout(function(){
+                    $('.success_lead').hide();
+                    location.reload(true);
+                    },2000)
+                }
             else{
-                $('.success_lead').show();
+                $('.error_invalid_lead').show();
+                $('.error_invalid_lead p').text(data.message);
                 setTimeout(function(){
-                location.href="https://calendly.com/awilliams-mdq/smugglers-product-demo-q-a";
-                },2000)
+                $('.error_invalid_lead').hide();
+                },3000)
             }
-        },
-        error: function(err) {
-            if (err.responseJSON && err.responseJSON.message) {
-                console.log('Error message:', err.responseJSON.message);
-                $('.error_invalid_lead p').text(err.responseJSON.message);
-            } else if (err.responseText) {
-                // Fallback in case responseJSON is not available
-                console.log('Raw error response:', err.responseText);
-                $('.error_invalid_lead p').text('An unexpected error occurred. Please try again.');
-            } else {
-                console.log('Unknown error:', err);
-                $('.error_invalid_lead p').text('Something went wrong. Please contact support.');
-            }
-            $('.error_invalid_lead').show();
         }
 
     });
     });
-function fetch_state_func(){
-            $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-            });
-        var url_statefetch_func = "{{ url('statefetch_func_home') }}";
-          $.ajax({
-        url: url_statefetch_func,
-        type: 'POST',
-         success: function(data) {
-            console.log(data);
-            if (data.response && data.response.results && data.response.results.data) {
-                var states = data.response.results.data;
-                var $select = $('#statefetch');
-                
-                // Clear existing options
-                $select.empty();
-                
-                // Add default option
-                $select.append('<option value="">Select State</option>');
-                
-                // Loop through the states array and append options
-                $.each(states, function(index, state) {
-                    $select.append('<option value="' + state.display_name + '" data-id="' + state.name + '">' + state.display_name + '</option>');
-                });
-            } else {
-                console.error('Invalid data format', data);
-            }
-        },
-        error: function(err) {
-            console.log(err)
-        }
-    });
-        }
+
+        function fetch_state_func(){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    
+                    var url_statefetch_func = "{{ url('statefetch_func_home') }}";
+                     // Show the preloader before making the AJAX request
+                    $('.preloader_state_fetch_select').show();
+
+                    $.ajax({
+                        url: url_statefetch_func,
+                        type: 'POST',
+                        success: function(data) {
+                            console.log('Response:', data);  // Log the response data
+                            if (data.response) {
+                                var states = data.response;  // The states are an array of names
+                                var $select = $('#statefetch');
+                                
+                                // Clear existing options
+                                $select.empty();
+                                
+                                // Add default option
+                                $select.append('<option value="">Select State</option>');
+                                
+                                // Loop through the states array and append options
+                                $.each(states, function(index, state) {
+                                    // Here, you directly use `state` (which is the name of the state)
+                                    $select.append('<option value="' + state + '" data-id="' + state + '">' + state + '</option>');
+                                });
+                                $select.select2({
+                                    placeholder: 'Search for a state',
+                                    allowClear: true,
+                                    width: '100%'  // Adjust the width to fit the container
+                                });
+                            } else {
+                                console.error('Invalid data format', data);
+                            }
+
+                        },
+                        error: function(err) {
+                            console.log('Error:', err);  // Log any errors
+                        },
+                        complete: function() {
+                        // Hide the preloader after the request is complete
+                        $('.preloader_state_fetch_select').hide();
+                        }
+                    });
+                }
 
         $(document).on('change','#statefetch',function() {
-            var stateget_val = $(this).find('option:selected').text();
-            var stateget_id = $(this).find('option:selected').attr('data-id');
-            var stateget_val1 = $(this).val();
-            $('.store_license_div').hide();
-            $('.spinner_license_text').show();
-            if (stateget_val == 'Select State') {
+            // var stateget_val = $(this).find('option:selected').text();
+            // var stateget_id = $(this).find('option:selected').attr('data-id');
+            var stateget_val = $(this).val();
+            if (stateget_val == '') {
                  $('#store_license').unmask();
                  $('#store_license').val('')
                  $('#store_license').attr('placeholder', 'License Number');
                  $('#state_old').val('');
-                 $('.spinner_license_text').hide();
+                 $('#store_names').empty();
             }
             else{
-            $('#state_old').val(stateget_id);
-            $('.spinner_license').show();
+            $('#state_old').val(stateget_val);
+            $('.preloader_store_fetch_select').show();
+            $('.preloader_lic_fetch_select').show();
             $('#store_license').attr('readonly','readonly')
             $('#store_license').val('')
             $.ajaxSetup({
@@ -330,51 +412,69 @@ function fetch_state_func(){
         url: url_statefetch,
         type: 'POST',
         data: {stateget_val : stateget_val},
-        // processData: false,
-        // contentType: false,
-        // cache: false,
-        // dataType: "json",
          success: function(data) {
-            console.log(data);
-            console.log(data.message.license_no);
-            $('#store_names').empty();
+            console.log(data)
+            var $select = $('#store_names');
+            $select.empty();
 
-             // Check if store names are available
-            if (data.storename && data.storename.length > 0) {
+            // Check if store names are available
+            if (data && data.stores && data.stores.length > 0) {
                 // Append a default "Select a Store" option
-                $('#store_names').append('<option value="">Select a Store</option>');
-                
+                $select.append('<option value="">Select a Store</option>');
+
+                // Create a list of user store names for quick matching
+                let userStoreNames = data.userstores.map(userStore => userStore.store_name);
+
                 // Loop through the store names and append them to the select dropdown
-                $.each(data.storename, function(index, storeName) {
-                    $('#store_names').append('<option value="' + storeName + '">' + storeName + '</option>');
+                $.each(data.stores, function (index, store) {
+                    // Check if the store name exists in userstores
+                    if (userStoreNames.includes(store.name)) {
+                        // Add the option as disabled if it matches a user store
+                        $select.append('<option value="' + store.name + '" disabled>' + store.name + ' (Already selected)</option>');
+                    } else {
+                        // Add the option as selectable
+                        $select.append('<option value="' + store.name + '">' + store.name + '</option>');
+                    }
+                });
+
+                // Initialize or refresh Select2
+                $select.select2({
+                    placeholder: 'Search for a store name',
+                    allowClear: true,
+                    width: '100%' // Adjust the width to fit the container
                 });
             } else {
                 // If no stores are found, show a placeholder
-                $('#store_names').append('<option value="">No stores available</option>');
+                $select.append('<option value="">No stores available</option>');
             }
 
-            if(data.message.license_no === undefined){
+
+           var store = data.stores[0]; // Assume you want to check the first store in the array
+            var licenseNo = store.state_license_number;
+
+            if (licenseNo === undefined || licenseNo === '') {
+                // If no license number, unmask and clear the field
                 $('#store_license').unmask();
-                 $('#store_license').val('')
-                 $('#store_license').attr('placeholder', 'License Number');
-            $('.spinner_license').hide();
-            $('.spinner_license_text').hide();
-            $('#store_license').removeAttr('readonly')
-            }
-            else{
-            var maskFormat = data.message.license_no.replace(/[A-Za-z]/g, 'A').replace(/[0-9]/g, '0');
-            applyMask(maskFormat);
-            $('.store_license_div').show();
-            $('.spinner_license').hide();
-            $('.spinner_license_text').hide();
-            $('#store_license').removeAttr('readonly')
+                $('#store_license').val('');
+                $('#store_license').attr('placeholder', 'License Number');
+                $('#store_license').removeAttr('readonly');
+            } else {
+                // If license number exists, apply the mask
+                var maskFormat = licenseNo.replace(/[A-Za-z]/g, 'A').replace(/[0-9]/g, '0');
+                applyMask(maskFormat);
+                $('#store_license').removeAttr('readonly');
             }
         },
         error: function(err) {
             console.log(err)
-            $('.spinner_license').hide();
+            $('.preloader_lic_fetch_select').hide();
+            $('.preloader_store_fetch_select').hide();
             $('#store_license').removeAttr('readonly');
-        }
+        },
+        complete: function() {
+                $('.preloader_lic_fetch_select').hide();
+                $('.preloader_store_fetch_select').hide();
+                }
     });
       }
         })
@@ -405,7 +505,7 @@ function fetch_state_func(){
 
         if (firstName && lastName && phoneNumber && email) {
         // If all fields are filled, submit the form
-        $('#multi-step-form').submit(); 
+        $('#submit_home_lead').submit(); 
         }
 
         modal.classList.toggle("show-modal_form");

@@ -38,13 +38,74 @@ class DashboardSubmitStoreController extends Controller
     public function submit_store_info(Request $request)
     {
         $user = Auth::user();
-        $plan = Plan::find($request->plan_id);
-
-        $end_date = Carbon::now()->addMonths(2)->format('Y-m-d'); // Format as YYYY-MM-DD
-        $is_trial = true;
+        $plan = getUserPlanDetails($request->plan_id);
+        $storeName = $request->store_name;
+        $licenseNumber = $request->License_old;
+        $getStoreInfo = getStoresByStateORLic($storeName, $licenseNumber);
         $plan_name = $plan->name;
         $formatted_plan_name = strtolower($plan_name);
+        $start_date = Carbon::now();
+        $end_date = null;
+        $is_trial = false;
+        $free_trial = $getStoreInfo['stores'][0]['free_trial'];
+        
+        if($free_trial == '' || $free_trial == 'No Free Trial'){
+            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
+            $stripeCustomer = $stripe->customers->create([
+                'payment_method' => $request->token,
+                'name' => $request->first_name.' '.$request->last_name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                 'invoice_settings' => [
+                        'default_payment_method' => $request->token
+                      ]
+            ]);
+
+             $subscription =  $stripe->subscriptions->create([
+              'customer' => $stripeCustomer->id,
+              'items' => [
+                ['price' => $plan->stripe_plan],
+              ],
+            ]);
+
+                $user_stripe_id = $subscription->customer;
+                $subscription_stripe_id = $subscription->id;
+                $stripe_status = $subscription->status;
+                $stripe_price = $plan->stripe_plan;
+                $subscription_item_stripe_id = $subscription->items->data[0]->id;
+                $quantity = 1;
+                $stripe_product = $subscription->plan->product;
+                $user->stripe_id = $stripeCustomer->id;
+                $user->save();
+
+                 $subscription_db = Subscription::create([
+                    'user_id' => $user->id,
+                    'stripe_id' => $subscription_stripe_id,
+                    'stripe_status' => $stripe_status,
+                    'stripe_price' => $stripe_price,
+                    'quantity' => $quantity,
+                ]);
+               $subscriptionlastid = $subscription_db->id;
+
+               $subscription_item_db = Subscription_Item::create([
+                    'subscription_id' => $subscriptionlastid,
+                    'stripe_id' => $subscription_item_stripe_id,
+                    'stripe_product' => $stripe_product,
+                    'stripe_price' => $stripe_price,
+                    'quantity' => $quantity,
+                ]);
+        }
+        else{
+            $start_date = Carbon::now();
+                if (preg_match('/(\d+)\s*Day Free Trial/', $free_trial, $matches)) {
+                    $days = (int) $matches[1];
+                    $end_date = $start_date->addDays($days)->format('Y-m-d');
+                } else {
+                    $end_date = $start_date->format('Y-m-d');
+                }
+            $is_trial = true;
+        }
         // Prepare data for both API calls
         $dataOnboarding = prepareDataForOnboarding($request, $user, $plan, $formatted_plan_name, $is_trial);
         $dataSubscription = prepareDataForSubscription($formatted_plan_name, $end_date, $is_trial, $user, $plan);
@@ -85,8 +146,13 @@ class DashboardSubmitStoreController extends Controller
         );
 
         
-        session()->flash('message', 'Account Created Successfully!');
-        return redirect('/card_details');
+            session()->flash('message', 'Account Created Successfully!');
+        if($is_trial){
+            return redirect('/card_details');
+        }
+        else{
+            return redirect('https://smugglers-system.com/');
+        }
     }
 
     

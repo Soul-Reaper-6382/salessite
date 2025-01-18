@@ -4,6 +4,8 @@
 @if(Auth::user()->status == 1)
 @section('title', 'Dashboard - Smugglers')
 @section('content')
+<!-- CSS -->
+
 <div class="container">
     <div class="row justify-content-center">
     <section id="account-overview">
@@ -126,26 +128,6 @@
     animation: spin 1s linear infinite;
 }
 
-.spinner_license{
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border-left-color: #09f;
-    animation: spin 1s linear infinite;
-    position: absolute;
-    top: 7px;
-    left: 50%;
-}
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
 .headingcard{
     text-align: center;
     margin: 0px 0px 0px 35px;
@@ -176,7 +158,73 @@
     color: red;
     font-family: cursive;
 }
+/* Set the height of the Select2 dropdown */
+.select2-container .select2-selection--single {
+    height: 38px !important; /* Adjust the height as needed */
+    display: flex !important;
+    align-items: center; /* Vertically align text */
+    border-color: #e3dbdb !important;
+}
+
+/* Adjust font size and padding */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    font-size: 16px; /* Adjust font size */
+    padding-left: 10px; /* Adjust padding for the text */
+    line-height: 50px; /* Match the height */
+}
+
+/* Style the dropdown arrow */
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 35px !important; /* Match the height */
+    width: 35px !important; /* Adjust arrow container width */
+}
+
+/* Adjust dropdown options height */
+.select2-results__option {
+    padding: 10px; /* Adjust padding for dropdown items */
+    font-size: 14px; /* Adjust font size */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    position: absolute !important;
+    right: 30px;
+}
+
+
+/* Preloader container */
+#preloader_state_fetch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(231 226 226 / 80%);
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Spinner styling */
+.spinner_state_fetch {
+    width: 40px;
+    height: 40px;
+    border: 6px solid #ccc;
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+.select2-container--default .select2-results__option[aria-disabled=true] {
+    color: #db7e7e;
+}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @php
 $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
@@ -219,9 +267,12 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
     <form method="POST" action="{{ url('submit_checkstore_license') }}" id="checkstore_license">
     @csrf
     <div class="row mb-3">
-    <div class="col-md-4">
+    <div class="col-md-5">
     <label for="state" class="col-md-12 col-form-label">State</label>
-    <div class="col-md-12">
+    <div class="col-md-12" style="position:relative;">
+        <div id="preloader_state_fetch" class="preloader_state_fetch_select" style="display: none;">
+        <div class="spinner_state_fetch"></div>
+    </div>
         <select id="statefetch" name="statefetch" class="form-control @error('statefecth') is-invalid @enderror" required>
         </select>
         @error('statefetch')
@@ -232,9 +283,12 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
     </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-8">
      <label for="store-license" class="col-md-12 col-form-label">Store Name</label>
     <div class="col-md-12" style="position: relative;">
+        <div id="preloader_state_fetch" class="preloader_store_fetch_select" style="display: none;">
+        <div class="spinner_state_fetch"></div>
+        </div>
         <select name="store_name"  class="form-control @error('store_name') is-invalid @enderror" id="store_names">
         </select>
         <span class="invalid-feedback error_already_storename" role="alert" style="display:none;">
@@ -251,13 +305,15 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
     <div class="col-md-4">
      <label for="store-license" class="col-md-12 col-form-label">Store License Number</label>
     <div class="col-md-12" style="position: relative;">
+        <div id="preloader_state_fetch" class="preloader_lic_fetch_select" style="display: none;">
+        <div class="spinner_state_fetch"></div>
+        </div>
         <input name="store_license" type="text"  class="form-control @error('store_license') is-invalid @enderror" id="store_license">
         @error('store_license')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
-        <div class="spinner_license" style="display:none;"></div>
     </div>
     </div>
 
@@ -411,20 +467,22 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
 
     </div>
 
-    @if($plan->name == 'Startaa')
-    <div class="alert alert-info" style="padding: 5px;">
-        <p style="text-align: center;"><span style="font-size: 13px;
-    font-weight: bold;">${{ $plan->price }} / {{ $plan->duration }}</span> start 1 month free</p>
+    <div class="alert alert-info free_trial_info" style="padding: 5px;display: none;">
     </div>
+    @if($plan->name == 'Startaa')
+        
     @elseif($plan->name == 'Starta')
-    <div class="row mb-1">
+    @else
+    @endif
+
+    <div class="row mb-1 stripe_card_mounted_row">
 
                             <div class="col-md-12">
                                 <p class="headingcard">Enter Credit or Debit card details.</p>
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-3 stripe_card_mounted_row">
                             <div class="col-md-12">
                                 <p style="margin: 0;
     text-align: right;
@@ -434,14 +492,13 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                             </div>
                         </div>
                        
-                        <div class="row mb-1">
+                        <div class="row mb-1 stripe_card_mounted_row">
 
                             <div class="col-md-12">
                                 <p class="cardwarning">A valid Credit or Debit card is required when establishing a new account.</p>
                             </div>
                         </div>
-    @else
-    @endif
+                        
                 <div class="row">
                             <div class="col-md-10">
                                 <input id="state_old" type="hidden" class="form-control" name="state_old">
@@ -496,57 +553,60 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
 
 @endsection
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<!-- JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <script>
+    function card_mounted(){
     const stripe = Stripe('{{ env('STRIPE_KEY') }}')
    
-//     const elements = stripe.elements()
-//     var style = {
-//   base: {
-//     color: "#32325d",
-//   }
-// };
-//     const cardElement = elements.create('card', { hidePostalCode: true, style: style })
+    const elements = stripe.elements()
+    var style = {
+  base: {
+    color: "#32325d",
+  }
+};
+    const cardElement = elements.create('card', { hidePostalCode: true, style: style })
   
-//     cardElement.mount('#card-element');
+    cardElement.mount('#card-element');
    
-//     const form = document.getElementById('submit_store_info')
-//     const cardBtn = document.getElementById('card-button')
-//     const cardHolderName = document.getElementById('first_name')
-//     const displayError = document.getElementById('card-errors');
+    const form = document.getElementById('submit_store_info')
+    const cardBtn = document.getElementById('card-button')
+    const cardHolderName = document.getElementById('first_name')
+    const displayError = document.getElementById('card-errors');
    
-//     form.addEventListener('submit', async (e) => {
-//         e.preventDefault()
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault()
    
-//         cardBtn.disabled = true
-//         displayError.textContent = '';
-//         const { setupIntent, error } = await stripe.confirmCardSetup(
-//             cardBtn.dataset.secret, {
-//                 payment_method: {
-//                     card: cardElement,
-//                     billing_details: {
-//                         name: cardHolderName.value
-//                     }   
-//                 }
-//             }
-//         )
+        cardBtn.disabled = true
+        displayError.textContent = '';
+        const { setupIntent, error } = await stripe.confirmCardSetup(
+            cardBtn.dataset.secret, {
+                payment_method: {
+                    card: cardElement,
+                    billing_details: {
+                        name: cardHolderName.value
+                    }   
+                }
+            }
+        )
    
-//         if(error) {
-//             displayError.textContent = error.message;
-//             console.log(error)
-//             cardBtn.disabled = false
+        if(error) {
+            displayError.textContent = error.message;
+            console.log(error)
+            cardBtn.disabled = false
             
-//         } else {
-//             let token = document.createElement('input')
-//             token.setAttribute('type', 'hidden')
-//             token.setAttribute('name', 'token')
-//             token.setAttribute('value', setupIntent.payment_method)
-//             form.appendChild(token)
-//             form.submit();
-//         }
-//     })
+        } else {
+            let token = document.createElement('input')
+            token.setAttribute('type', 'hidden')
+            token.setAttribute('name', 'token')
+            token.setAttribute('value', setupIntent.payment_method)
+            form.appendChild(token)
+            form.submit();
+        }
+    })
+}
 </script>
 
     <script type="text/javascript">
@@ -568,49 +628,65 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
 
         $(document).ready(function(){
             document.getElementById('submit_store_info').style.display = 'none';
-            fetch_state_func();
         })
+        fetch_state_func();
 
         function fetch_state_func(){
             $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
-        var url_statefetch_func = "{{ url('statefetch_func') }}";
-          $.ajax({
-        url: url_statefetch_func,
-        type: 'POST',
-         success: function(data) {
-            console.log(data);
-            if (data.response && data.response.results && data.response.results.data) {
-                var states = data.response.results.data;
-                var $select = $('#statefetch');
-                
-                // Clear existing options
-                $select.empty();
-                
-                // Add default option
-                $select.append('<option value="">Select State</option>');
-                
-                // Loop through the states array and append options
-                $.each(states, function(index, state) {
-                    $select.append('<option value="' + state.display_name + '" data-id="' + state.name + '">' + state.display_name + '</option>');
-                });
-            } else {
-                console.error('Invalid data format', data);
-            }
-        },
-        error: function(err) {
-            console.log(err)
+            
+            var url_statefetch_func = "{{ url('statefetch_func') }}";
+             // Show the preloader before making the AJAX request
+            $('.preloader_state_fetch_select').show();
+
+            $.ajax({
+                url: url_statefetch_func,
+                type: 'POST',
+                success: function(data) {
+                    console.log('Response:', data);  // Log the response data
+                    if (data.response) {
+                        var states = data.response;  // The states are an array of names
+                        var $select = $('#statefetch');
+                        
+                        // Clear existing options
+                        $select.empty();
+                        
+                        // Add default option
+                        $select.append('<option value="">Select State</option>');
+                        
+                        // Loop through the states array and append options
+                        $.each(states, function(index, state) {
+                            // Here, you directly use `state` (which is the name of the state)
+                            $select.append('<option value="' + state + '" data-id="' + state + '">' + state + '</option>');
+                        });
+                        $select.select2({
+                            placeholder: 'Search for a state',
+                            allowClear: true,
+                            width: '100%'  // Adjust the width to fit the container
+                        });
+                    } else {
+                        console.error('Invalid data format', data);
+                    }
+
+                },
+                error: function(err) {
+                    console.log('Error:', err);  // Log any errors
+                },
+                complete: function() {
+                // Hide the preloader after the request is complete
+                $('.preloader_state_fetch_select').hide();
+                }
+            });
         }
-    });
-        }
+
         $(document).on('change','#statefetch',function() {
-            var stateget_val = $(this).find('option:selected').text();
-            var stateget_id = $(this).find('option:selected').attr('data-id');
-            var stateget_val1 = $(this).val();
-            if (stateget_val == 'Select State') {
+            // var stateget_val = $(this).find('option:selected').text();
+            // var stateget_id = $(this).find('option:selected').attr('data-id');
+            var stateget_val = $(this).val();
+            if (stateget_val == '') {
                  $('#store_license').unmask();
                  $('#store_license').val('')
                  $('#store_license').attr('placeholder', 'License Number');
@@ -618,8 +694,9 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                  $('#store_names').empty();
             }
             else{
-            $('#state_old').val(stateget_id);
-            $('.spinner_license').show();
+            $('#state_old').val(stateget_val);
+            $('.preloader_store_fetch_select').show();
+            $('.preloader_lic_fetch_select').show();
             $('#store_license').attr('readonly','readonly')
             $('#store_license').val('')
             $.ajaxSetup({
@@ -632,47 +709,69 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
         url: url_statefetch,
         type: 'POST',
         data: {stateget_val : stateget_val},
-        // processData: false,
-        // contentType: false,
-        // cache: false,
-        // dataType: "json",
          success: function(data) {
-            console.log(data.message.license_no);
-            $('#store_names').empty();
+            console.log(data)
+            var $select = $('#store_names');
+            $select.empty();
 
-             // Check if store names are available
-            if (data.storename && data.storename.length > 0) {
+            // Check if store names are available
+            if (data && data.stores && data.stores.length > 0) {
                 // Append a default "Select a Store" option
-                $('#store_names').append('<option value="">Select a Store</option>');
-                
+                $select.append('<option value="">Select a Store</option>');
+
+                // Create a list of user store names for quick matching
+                let userStoreNames = data.userstores.map(userStore => userStore.store_name);
+
                 // Loop through the store names and append them to the select dropdown
-                $.each(data.storename, function(index, storeName) {
-                    $('#store_names').append('<option value="' + storeName + '">' + storeName + '</option>');
+                $.each(data.stores, function (index, store) {
+                    // Check if the store name exists in userstores
+                    if (userStoreNames.includes(store.name)) {
+                        // Add the option as disabled if it matches a user store
+                        $select.append('<option value="' + store.name + '" disabled>' + store.name + ' (Already selected)</option>');
+                    } else {
+                        // Add the option as selectable
+                        $select.append('<option value="' + store.name + '">' + store.name + '</option>');
+                    }
+                });
+
+                // Initialize or refresh Select2
+                $select.select2({
+                    placeholder: 'Search for a store name',
+                    allowClear: true,
+                    width: '100%' // Adjust the width to fit the container
                 });
             } else {
                 // If no stores are found, show a placeholder
-                $('#store_names').append('<option value="">No stores available</option>');
+                $select.append('<option value="">No stores available</option>');
             }
 
-            if(data.message.license_no === undefined){
+
+           var store = data.stores[0]; // Assume you want to check the first store in the array
+            var licenseNo = store.state_license_number;
+
+            if (licenseNo === undefined || licenseNo === '') {
+                // If no license number, unmask and clear the field
                 $('#store_license').unmask();
-                 $('#store_license').val('')
-                 $('#store_license').attr('placeholder', 'License Number');
-            $('.spinner_license').hide();
-            $('#store_license').removeAttr('readonly')
-            }
-            else{
-            var maskFormat = data.message.license_no.replace(/[A-Za-z]/g, 'A').replace(/[0-9]/g, '0');
-            applyMask(maskFormat);
-            $('.spinner_license').hide();
-            $('#store_license').removeAttr('readonly')
+                $('#store_license').val('');
+                $('#store_license').attr('placeholder', 'License Number');
+                $('#store_license').removeAttr('readonly');
+            } else {
+                // If license number exists, apply the mask
+                var maskFormat = licenseNo.replace(/[A-Za-z]/g, 'A').replace(/[0-9]/g, '0');
+                applyMask(maskFormat);
+                $('#store_license').removeAttr('readonly');
             }
         },
         error: function(err) {
             console.log(err)
-            $('.spinner_license').hide();
+            $('.preloader_lic_fetch_select').hide();
+            $('.preloader_store_fetch_select').hide();
             $('#store_license').removeAttr('readonly');
-        }
+        },
+        complete: function() {
+                $('.preloader_lic_fetch_select').hide();
+                $('.preloader_store_fetch_select').hide();
+                }
     });
       }
         })
@@ -731,24 +830,40 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                 $('.error_already').show();
                 $('.ci_submit_btn_loader').hide();
             }
-            if(data.message == 'notmatch'){
+            else if(data.message == 'notmatch'){
          	$('.ci_submit_btn').show();
         	$('.error_licenses').show();
         	$('.ci_submit_btn_loader').hide();
             }
-            if(data.message == 'match'){
+            else if(data.message == 'match'){
             	$('#checkstore_license').hide();
                 $('#submit_store_info').show();
                 $('.ci_submit_btn').show();
                 $('.ci_submit_btn_loader').hide();
-                $('#store_name').val(data.storeData.store_name);
+                $('#store_name').val(data.storeData.name);
                 $('#entity_name').val(data.storeData.entity_name);
-                $('#store_address').val(data.storeData.store_address);
+                $('#store_address').val(data.storeData.address);
                 $('#store_city').val(data.storeData.city);
-                $('#store_county').val(data.storeData.country);
+                $('#store_county').val(data.storeData.license_county);
                 $('#store_state').val(data.storeData.state);
-                $('#License_old').val(data.licenseNumber);
+                $('#License_old').val(data.storeData.state_license_number);
+                if(data.storeData.free_trial == '' || data.storeData.free_trial == 'No Free Trial'){
+                    $('.stripe_card_mounted_row').show();
+                    card_mounted();
+                    $('.free_trial_info').hide();
+                }
+                else{
+                    $('.stripe_card_mounted_row').hide();
+                    $('.free_trial_info').show();
+                    $('.free_trial_info').append('<p style="text-align: center;">Start '+data.storeData.free_trial+'</p>');
+                }
             }
+            else{
+            $('.ci_submit_btn').show();
+            $('.error_licenses').show();
+            $('.ci_submit_btn_loader').hide();
+            }
+
         },
         error: function(err) {
             console.log(err)

@@ -328,51 +328,77 @@ class DashboardController extends Controller
         if ($storeName) {
             $query->orWhere('store_name', $storeName);
         }
-    })->where('store_state', $statefetch)->first();
+        })->where('store_state', $statefetch)->first();
 
-    if ($existingRecord) {
-        return response()->json(['message' => 'already_exist']);
-    }
-        $path = public_path('Retail Package Store Licenses.xlsx');
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($path);
-        $worksheet = $spreadsheet->getActiveSheet();
-        $licenseValid = false;
-        $storeData = [];
+        if ($existingRecord) {
+            return response()->json(['message' => 'already_exist']);
+        }
+         // Fetch stores based on state and/or license number
+        $storeData = getStoresByStateORLic($storeName, $licenseNumber);
 
-         foreach ($worksheet->getRowIterator() as $row) {
-            $cellIterator = $row->getCellIterator();
-            $cellIterator->setIterateOnlyExistingCells(false);
-            $data = [];
-            foreach ($cellIterator as $cell) {
-                $data[] = $cell->getValue();
+        // Check if we received valid data
+        if (isset($storeData['error'])) {
+            return response()->json(['message' => $storeData['error']]);
+        }
+
+        // Loop through fetched stores and check for a match
+        foreach ($storeData['stores'] as $store) {
+            if ($storeName && $store['name'] == $storeName) {
+                return response()->json(['message' => 'match', 'storeData' => $store]);
             }
-        if (($licenseNumber && $data[0] === $licenseNumber) || ($storeName && $data[2] === $storeName)) {
-                $licenseValid = true;
-                $storeData = [
-                    'entity_name' => $data[1],
-                    'store_name' => $data[2],
-                    'store_address' => $data[3],
-                    'city' => $data[4],
-                    'country' => $data[5],
-                    'state' => $data[6],
-                    'phone' => $data[7],
-                ];
 
-                if ($statefetch != $storeData['state']) {
-                return response()->json(['message' => 'notmatch']);
-                }
-                if($licenseNumber == null){
-                $licenseNumber = $data[0];
-                }
-                break;
+            if ($licenseNumber && $store['state_license_number'] == $licenseNumber) {
+                return response()->json(['message' => 'match', 'storeData' => $store]);
+            }
+
+            if ($storeName && $licenseNumber && $store['name'] == $storeName && $store['state_license_number'] == $licenseNumber) {
+                return response()->json(['message' => 'match', 'storeData' => $store]);
             }
         }
 
-        if (!$licenseValid || $statefetch != $storeData['state']) {
-            $error_license = 'notmatch';
-            return response()->json(['message' => 'notmatch']);
-        }
-            return response()->json(['message' => 'match', 'storeData' => $storeData, 'licenseNumber' => $licenseNumber , 'statefetch' => $statefetch]);
+        // If no match found
+        return response()->json(['message' => 'notmatch']);
+
+        // $path = public_path('Retail Package Store Licenses.xlsx');
+        // $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($path);
+        // $worksheet = $spreadsheet->getActiveSheet();
+        // $licenseValid = false;
+        // $storeData = [];
+
+        //  foreach ($worksheet->getRowIterator() as $row) {
+        //     $cellIterator = $row->getCellIterator();
+        //     $cellIterator->setIterateOnlyExistingCells(false);
+        //     $data = [];
+        //     foreach ($cellIterator as $cell) {
+        //         $data[] = $cell->getValue();
+        //     }
+        // if (($licenseNumber && $data[0] === $licenseNumber) || ($storeName && $data[2] === $storeName)) {
+        //         $licenseValid = true;
+        //         $storeData = [
+        //             'entity_name' => $data[1],
+        //             'store_name' => $data[2],
+        //             'store_address' => $data[3],
+        //             'city' => $data[4],
+        //             'country' => $data[5],
+        //             'state' => $data[6],
+        //             'phone' => $data[7],
+        //         ];
+
+        //         if ($statefetch != $storeData['state']) {
+        //         return response()->json(['message' => 'notmatch']);
+        //         }
+        //         if($licenseNumber == null){
+        //         $licenseNumber = $data[0];
+        //         }
+        //         break;
+        //     }
+        // }
+
+        // if (!$licenseValid || $statefetch != $storeData['state']) {
+        //     $error_license = 'notmatch';
+        //     return response()->json(['message' => 'notmatch']);
+        // }
+        //     return response()->json(['message' => 'match', 'storeData' => $storeData, 'licenseNumber' => $licenseNumber , 'statefetch' => $statefetch]);
    }
 
    

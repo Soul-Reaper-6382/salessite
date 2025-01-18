@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use App\Models\UserDetail;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use GuzzleHttp\Exception\RequestException;
 
@@ -12,6 +13,23 @@ class LeadController extends Controller
     /**
      * Store lead in HubSpot after validating store license and name.
      */
+    public function submit_home_lead(Request $request)
+    {
+        // dd($request->all());
+        $leadDetails = [
+            'email' => $request['email'],
+            'firstname' => $request['first_name'],
+            'lastname' => $request['last_name'],
+            'phone' => $request['phone'],
+            'state' => '',
+            'store_license' => '',
+            'store_name' => '',
+        ];
+
+        $result = storeNewLead($leadDetails);
+        return response()->json($result);
+    }
+
     public function storeLead(Request $request)
     {
         try {
@@ -20,64 +38,37 @@ class LeadController extends Controller
             $statefetch = $request->statefetch;
             $storeName = $request->store_name;
 
-            // Validation: Check if required fields are empty
-            if (empty($licenseNumber) || empty($statefetch) || empty($storeName)) {
-                
+            $existingRecord = null; // Initialize the variable
+            if (!empty($licenseNumber) || !empty($storeName)) {
+            $existingRecord = UserDetail::where(function ($query) use ($licenseNumber, $storeName) {
+            if ($licenseNumber) {
+                $query->where('lic_no', $licenseNumber);
             }
-            else{
-
-            // Load the Excel file to validate the store data
-            $path = public_path('Retail Package Store Licenses.xlsx');
-            $spreadsheet = IOFactory::load($path);
-            $worksheet = $spreadsheet->getActiveSheet();
-
-            $licenseValid = false;
-            $storeData = [];
-
-            // Iterate through rows in the Excel file
-            foreach ($worksheet->getRowIterator() as $row) {
-                $cellIterator = $row->getCellIterator();
-                $cellIterator->setIterateOnlyExistingCells(false);
-                $data = [];
-
-                foreach ($cellIterator as $cell) {
-                    $data[] = $cell->getValue();
-                }
-
-                // Check if store license or name matches
-                if (($licenseNumber && $data[0] === $licenseNumber) || ($storeName && $data[2] === $storeName)) {
-                    $licenseValid = true;
-                    $storeData = [
-                        'entity_name' => $data[1],
-                        'store_name' => $data[2],
-                        'store_address' => $data[3],
-                        'city' => $data[4],
-                        'country' => $data[5],
-                        'state' => $data[6],
-                        'phone' => $data[7],
-                    ];
-
-                    // If state doesn't match, return error
-                    if ($statefetch != $storeData['state']) {
-                        return response()->json(['message' => 'State does not match'], 400);
-                    }
-                    break;
-                }
+            if ($storeName) {
+                $query->orWhere('store_name', $storeName);
+            }
+            })->first();
             }
 
-            // If license is not valid, return an error
-            if (!$licenseValid || $statefetch != $storeData['state']) {
-                return response()->json(['message' => 'Invalid license or state mismatch'], 400);
+            if ($existingRecord) {
+                return response()->json(['status' => 'error', 'message' => 'Store name or License already exists']);
             }
-        }
+             // Fetch stores based on state and/or license number
+            $storeData = getStoresByStateORLic($storeName, $licenseNumber);
+            
+            if (isset($storeData['error'])) {
+            return response()->json(['status' => 'error', 'message' => $storeData['error']]);
+            }
+
+            if (!empty($licenseNumber) || !empty($storeName)) {
+            if (empty($storeData['stores'])) {
+                return response()->json(['status' => 'error', 'message' => 'No stores found. Please make sure the info you provided is correct.']);
+            }
+            }
 
             // Prepare lead data for HubSpot API
             $leadData = [
                 'properties' => [
-                    'email'     => $request->input('email'),
-                    'firstname' => $request->input('first_name'),
-                    'lastname'  => $request->input('last_name'),
-                    'phone'     => $request->input('phone_number'),
                     'state'     => $request->input('statefetch'),
                     'store_license' => $request->input('store_license'),
                     'store_name' => $request->input('store_name'),
@@ -85,28 +76,30 @@ class LeadController extends Controller
             ];
 
             // HubSpot API URL
-            $url = 'https://api.hubapi.com/crm/v3/objects/contacts';
+            $updateContactUrl = "https://api.hubapi.com/crm/v3/objects/contacts/{$request->input('lastHUBId')}";
 
             // Send request with Guzzle
             $client = new Client();
-            $response = $client->post($url, [
+            $response = $client->patch($updateContactUrl, [
                 'headers' => [
                     'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
                     'Content-Type'  => 'application/json',
                 ],
                 'json' => $leadData,
             ]);
-
-            // Return success response
-            return response()->json(['message' => 'Lead submitted successfully']);
-        } catch (RequestException $e) {
-            // Handle error and display response from HubSpot
-            if ($e->hasResponse()) {
-                $response = $e->getResponse();
-                $message = json_decode($response->getBody()->getContents(), true);
-                return response()->json(['error' => $message], $response->getStatusCode());
+            $responseMsg =  json_decode($response->getStatusCode(), true);
+            if ($responseMsg === 200) {
+            $responseMsg_success = json_decode($response->getBody()->getContents(), true);
+                return response()->json(['status' => 'success', 'message' => 'Lead successfully updated.', 'id' => $responseMsg_success['id']]);
+            } else {
+                return response()->json(['status' => 'error', 'message' => 'Failed to create a lead'. $e->getMessage()]);
             }
-            return response()->json(['error' => 'An error occurred while submitting the lead'], 500);
+        } catch (\Exception $e) {
+            if ($e->getResponse() && $e->getResponse()->getStatusCode() === 409) {
+            $responseBody = json_decode($e->getResponse()->getBody()->getContents(), true);
+            return $responseBody;
+            }
+            return ['status' => 'error', 'message' => 'Failed to create a lead'. $e->getMessage()];
         }
     }
 }

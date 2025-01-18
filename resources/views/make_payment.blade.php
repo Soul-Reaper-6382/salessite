@@ -84,7 +84,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                         <div class="row mb-0 mt-3">
                                <div class="col-md-12" style="justify-content:center;display: flex;">
                                    <button type="submit" class="btn loginbtn" data-secret="{{ $intent->client_secret }}" id="card-button">
-                                    {{ __('Confirm Payment') }}
+                                    {{ __('Confirm') }}
                                 </button>
                                </div> 
                         </div>

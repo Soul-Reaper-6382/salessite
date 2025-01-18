@@ -1,8 +1,7 @@
 <div class="modal_form">
   <div class="modal-content_form">
     <span class="close-button_form">&times;</span>
-    <form id="multi-step-form" method="POST" action="{{ url('lead_storehubspot') }}">
-    @csrf
+    
      <div class="row mb-3">
         <div class="col-md-12 text-center">
             <h5 class="heading" style="font-size: 20px;">We're excited that you're interested in Smugglers!</h5>
@@ -10,6 +9,8 @@
         </div>
      </div>
      <div id="lead_form_one">
+    <form id="submit_home_lead" method="POST" action="{{ url('submit_home_lead') }}">
+    @csrf
      <div class="row mb-3">
     <div class="col-md-6">
     <label for="first-name" class="col-md-12 col-form-label">First Name</label>
@@ -64,19 +65,35 @@
 </div>
 </div>
 
+<div class="col-md-12 success_lead" style="display:none;">
+        <p class="" style="    text-align: center;
+    color: green;;">Lead submitted successfully</p>
+    </div>
+
+<div class="col-md-12 error_invalid_lead" style="display:none;">
+        <p class="" style="    text-align: center;
+    color: red;;"></p>
+    </div>
 <div class="row mb-0 ">
                             <div class="col-md-12" style="justify-content:center;display: flex;">
-                                <button type="button" id="lead_form_next" class="btn loginbtn">
+                                <button type="submit" id="lead_form_next" class="btn loginbtn">
                                     {{ __('Next') }}
                                 </button>
                             </div>
                         </div>
+        </form>
 </div>
+
+
 <div id="lead_form_two" style="display:none;">
+    <form id="multi-step-form" method="POST" action="{{ url('lead_storehubspot') }}">
 <div class="row mb-3">
     <div class="col-md-12">
     <label for="state" class="col-md-12 col-form-label">State</label>
-    <div class="col-md-12">
+    <div class="col-md-12" style="position:relative;">
+         <div id="preloader_state_fetch" class="preloader_state_fetch_select" style="display: none;">
+        <div class="spinner_state_fetch"></div>
+        </div>
         <select id="statefetch" name="statefetch" class="form-control @error('statefecth') is-invalid @enderror">
         </select>
         @error('statefetch')
@@ -102,25 +119,12 @@
     </div>
     </div>
 
-    <div class="col-md-6 store_license_div" style="display:none;">
-     <label for="store-license" class="col-md-12 col-form-label">Store License Number</label>
-    <div class="col-md-12" style="position: relative;">
-        <input name="store_license" type="text"  class="form-control @error('store_license') is-invalid @enderror" id="store_license" >
-        <span class="invalid-feedback error_already" role="alert" style="display:none;">
-            <strong>License already exists</strong>
-        </span>
-        @error('store_license')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-        <div class="spinner_license" style="display:none;"></div>
-    </div>
-    </div>
-
-    <div class="col-md-6 store_license_div" style="display:none;">
+     <div class="col-md-8 store_license_div" style="display:;">
      <label for="store-name" class="col-md-12 col-form-label">Store Name</label>
     <div class="col-md-12" style="position: relative;">
+        <div id="preloader_state_fetch" class="preloader_store_fetch_select" style="display: none;">
+        <div class="spinner_state_fetch"></div>
+        </div>
         <select id="store_names" name="store_name" class="form-control @error('store_name') is-invalid @enderror">
         </select>
         <span class="invalid-feedback error_already_store_name" role="alert" style="display:none;">
@@ -133,6 +137,27 @@
         @enderror
     </div>
     </div>
+
+    <div class="col-md-4 store_license_div" style="display:;">
+     <label for="store-license" class="col-md-12 col-form-label">Store License Number</label>
+    <div class="col-md-12" style="position: relative;">
+        <div id="preloader_state_fetch" class="preloader_lic_fetch_select" style="display: none;">
+        <div class="spinner_state_fetch"></div>
+        </div>
+        <input name="store_license" type="text"  class="form-control @error('store_license') is-invalid @enderror" id="store_license" >
+        <input name="lastHUBId" type="hidden"  class="lastHUBId" id="lastHUBId" >
+        <span class="invalid-feedback error_already" role="alert" style="display:none;">
+            <strong>License already exists</strong>
+        </span>
+        @error('store_license')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+    </div>
+
+
 
     <div class="col-md-12 error_invalid_lead_lic" style="display:none;">
         <p class="" style="    text-align: center;
@@ -158,9 +183,9 @@
                                 </button>
                             </div>
                         </div>
+                    </form>
     </div>
 
-        </form>
 
   </div>
 </div>

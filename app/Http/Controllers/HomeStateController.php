@@ -57,14 +57,14 @@ class HomeStateController extends Controller
 
         // Prepare the response
         return response()->json([
-            'message' => $result['storeData'],
-            'storename' => $result['allStoreNames']
+            'stores' => $result['stores'],
+            'userstores' => $result['userStores']
         ]);
     }
 
     public function statefetch_func_home(Request $request)
     {
-        // Call the StateFetchDropdown helper function
+         // Call the StateFetchDropdown helper function
         $states = StateFetchDropdown();
 
         // Check if the API call was successful
