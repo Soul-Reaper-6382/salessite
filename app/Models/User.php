@@ -23,8 +23,16 @@ class User extends Authenticatable
     {
         parent::boot();
 
+        // static::creating(function ($user) {
+        //     $user->source_object_id = Str::random(18);
+        // });
         static::creating(function ($user) {
-            $user->source_object_id = Str::random(18);
+        do {
+            // Generate a random 12-digit number
+            $randomNumber = str_pad(mt_rand(0, 999999999999), 12, '0', STR_PAD_LEFT);
+        } while (self::where('source_object_id', $randomNumber)->exists()); // Ensure uniqueness
+
+        $user->source_object_id = $randomNumber;
         });
     }
     

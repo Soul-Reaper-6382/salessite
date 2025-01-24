@@ -19,6 +19,20 @@
    margin-top: 30px;
    }
   }
+  .spinner_btn {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border-left-color: #09f;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
 </style>
 <div class="container">
     <div class="row justify-content-center">
@@ -28,7 +42,7 @@
 
                 <div class="card-body">
                     <p class="text-center mt-2">Already have an account? <a class="btn-link" href="{{ route('login') }}">{{ __('Log in here') }}</a></p>
-    <form id="multi-step-form" method="POST" action="{{ url('registerstore') }}">
+    <form id="RegisterForm" method="POST" action="{{ url('registerstore') }}">
     @csrf
     <input type="hidden" name="stripe_plan" value="{{ $stripe_plan }}">
      <div class="row mb-3">
@@ -114,9 +128,10 @@
 
                         <div class="row mb-0 ">
                             <div class="col-md-12" style="justify-content:center;display: flex;">
-                                <button type="submit" class="btn loginbtn">
+                                <button type="submit" class="btn loginbtn ci_submit_btn">
                                     {{ __('Verify Me') }}
                                 </button>
+                                 <button type="button" class="btn loginbtn ci_submit_btn_loader" style="display:none;">    <div class="spinner_btn"></div></button>
                             </div>
                         </div>
 
@@ -126,4 +141,16 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("RegisterForm");
+
+        // Disable button after form submission
+        form.addEventListener("submit", function (e) {
+            $('.ci_submit_btn').hide();
+            $('.ci_submit_btn_loader').show();
+        });
+
+    });
+</script>
 @endsection

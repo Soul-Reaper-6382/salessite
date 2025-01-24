@@ -328,6 +328,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 	            // Process the response to extract the required data
 	            foreach ($responseBody['results'] as $company) {
 	                $companiesData[] = [
+	                	'companyId' => $company['id'],
 	                    'name' => $company['properties']['name'] ?? '',
 	                    'state_license_number' => $company['properties']['state_license_number'] ?? '',
 	                ];
@@ -424,6 +425,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 	            // Process the response to extract the required data
 	            foreach ($responseBody['results'] as $company) {
 	                $companiesData[] = [
+	                    'companyId' => $company['id'],
 	                    'name' => $company['properties']['name'] ?? '',
 	                    'state_license_number' => $company['properties']['state_license_number'] ?? '',
 	                    'state' => $company['properties']['state'] ?? '',

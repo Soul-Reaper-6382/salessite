@@ -209,8 +209,8 @@
 .spinner_state_fetch {
     width: 40px;
     height: 40px;
-    border: 6px solid #ccc;
-    border-top-color: #3498db;
+    border: 6px solid #2f3f58;
+    border-top-color: #df9242;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -222,6 +222,16 @@
 }
 .select2-container--default .select2-results__option[aria-disabled=true] {
     color: #db7e7e;
+}
+
+#loadingMessageState{
+    color: #df9242;
+    position: absolute;
+    right: 35px;
+    z-index: 9;
+    top: 4px;
+    font-size: 16px;
+    display: none;
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -273,6 +283,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
         <div id="preloader_state_fetch" class="preloader_state_fetch_select" style="display: none;">
         <div class="spinner_state_fetch"></div>
     </div>
+            <span id="loadingMessageState">Please wait...</span>
         <select id="statefetch" name="statefetch" class="form-control @error('statefecth') is-invalid @enderror" required>
         </select>
         @error('statefetch')
@@ -705,6 +716,8 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
           }
             });
         var url_statefetch = "{{ url('stateget_change') }}";
+        $('#statefetch').prop('disabled', true);
+        $('#loadingMessageState').show();
           $.ajax({
         url: url_statefetch,
         type: 'POST',
@@ -771,6 +784,8 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
         complete: function() {
                 $('.preloader_lic_fetch_select').hide();
                 $('.preloader_store_fetch_select').hide();
+                $('#statefetch').prop('disabled', false);
+                $('#loadingMessageState').hide();
                 }
     });
       }
@@ -784,7 +799,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                 }
             });
 
-            var placeholder = format_type.replace(/A/g, 'X').replace(/0/g, '1');
+            var placeholder = format_type.replace(/A/g, 'X').replace(/0/g, '#');
             $('#store_license').attr('placeholder', placeholder);
         }
 

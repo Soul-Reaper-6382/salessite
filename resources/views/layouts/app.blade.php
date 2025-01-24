@@ -81,12 +81,21 @@
     align-items: center;
 }
 
+.spinner_btn {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border-left-color: #09f;
+    animation: spin 1s linear infinite;
+}
+
 /* Spinner styling */
 .spinner_state_fetch {
     width: 40px;
     height: 40px;
-    border: 6px solid #ccc;
-    border-top-color: #3498db;
+    border: 6px solid #2f3f58;
+    border-top-color: #df9242;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -98,6 +107,16 @@
 }
 .select2-container--default .select2-results__option[aria-disabled=true] {
     color: #db7e7e;
+}
+
+#loadingMessageState{
+    color: #df9242;
+    position: absolute;
+    right: 35px;
+    z-index: 9;
+    top: 4px;
+    font-size: 16px;
+    display: none;
 }
 </style>
     @stack('styles')
@@ -259,6 +278,8 @@
 <script type="text/javascript">
 $('#submit_home_lead').submit(function(e) {
     e.preventDefault();
+    $('.ci_submit_btn_next').hide();
+    $('.ci_submit_btn_loader_next').show();
             let formData = new FormData(this);
 
            $.ajaxSetup({
@@ -287,6 +308,8 @@ $('#submit_home_lead').submit(function(e) {
                 $('#lastHUBId').val(window.lastHUBId)
             }
             else{
+                $('.ci_submit_btn_next').show();
+                $('.ci_submit_btn_loader_next').hide();
                 $('.error_invalid_lead').show();
                 $('.error_invalid_lead p').text(data.message);
                 setTimeout(function(){
@@ -298,7 +321,8 @@ $('#submit_home_lead').submit(function(e) {
 })
 $('#multi-step-form').submit(function(e) {
         e.preventDefault();
-
+         $('.ci_submit_btn_submit').hide();
+        $('.ci_submit_btn_loader_submit').show();
         let formData = new FormData(this);
         $.ajaxSetup({
           headers: {
@@ -319,10 +343,14 @@ $('#multi-step-form').submit(function(e) {
                     $('.success_lead').show();
                     setTimeout(function(){
                     $('.success_lead').hide();
+                     $('.ci_submit_btn_submit').show();
+                     $('.ci_submit_btn_loader_submit').hide();
                     location.reload(true);
                     },2000)
                 }
             else{
+                $('.ci_submit_btn_submit').show();
+                $('.ci_submit_btn_loader_submit').hide();
                 $('.error_invalid_lead').show();
                 $('.error_invalid_lead p').text(data.message);
                 setTimeout(function(){
@@ -403,12 +431,15 @@ $('#multi-step-form').submit(function(e) {
             $('#store_license').attr('readonly','readonly')
             $('#store_license').val('')
             $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-            });
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+                });
         var url_statefetch = "{{ url('stateget_change_home') }}";
-          $.ajax({
+            $('#statefetch').prop('disabled', true);
+            $('#loadingMessageState').show();
+
+       $.ajax({
         url: url_statefetch,
         type: 'POST',
         data: {stateget_val : stateget_val},
@@ -474,6 +505,8 @@ $('#multi-step-form').submit(function(e) {
         complete: function() {
                 $('.preloader_lic_fetch_select').hide();
                 $('.preloader_store_fetch_select').hide();
+                 $('#statefetch').prop('disabled', false);
+                 $('#loadingMessageState').hide();
                 }
     });
       }
@@ -487,7 +520,7 @@ $('#multi-step-form').submit(function(e) {
                 }
             });
 
-            var placeholder = format_type.replace(/A/g, 'X').replace(/0/g, '1');
+            var placeholder = format_type.replace(/A/g, 'X').replace(/0/g, '#');
             $('#store_license').attr('placeholder', placeholder);
         }
 

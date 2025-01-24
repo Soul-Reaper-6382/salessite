@@ -33,6 +33,9 @@ class LeadController extends Controller
     public function storeLead(Request $request)
     {
         try {
+            // Send request with Guzzle
+            $client = new Client();
+
             // Fetch the request data
             $licenseNumber = $request->store_license;
             $statefetch = $request->statefetch;
@@ -61,9 +64,10 @@ class LeadController extends Controller
             }
 
             if (!empty($licenseNumber) || !empty($storeName)) {
-            if (empty($storeData['stores'])) {
-                return response()->json(['status' => 'error', 'message' => 'No stores found. Please make sure the info you provided is correct.']);
-            }
+                if (empty($storeData['stores'])) {
+                    return response()->json(['status' => 'error', 'message' => 'No stores found. Please make sure the info you provided is correct.']);
+                }
+            $companyId = $storeData['stores'][0]['companyId'];
             }
 
             // Prepare lead data for HubSpot API
@@ -73,13 +77,12 @@ class LeadController extends Controller
                     'store_license' => $request->input('store_license'),
                     'store_name' => $request->input('store_name'),
                 ],
-            ];
+                ];
 
             // HubSpot API URL
             $updateContactUrl = "https://api.hubapi.com/crm/v3/objects/contacts/{$request->input('lastHUBId')}";
 
-            // Send request with Guzzle
-            $client = new Client();
+        
             $response = $client->patch($updateContactUrl, [
                 'headers' => [
                     'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
@@ -89,8 +92,36 @@ class LeadController extends Controller
             ]);
             $responseMsg =  json_decode($response->getStatusCode(), true);
             if ($responseMsg === 200) {
+                 $association_url = "https://api.hubapi.com/crm/v4/associations/contacts/companies/batch/create";
+                 $associations = [
+                    'inputs' => [
+                        [
+                            "types" => [
+                                [
+                                    "associationCategory" => "HUBSPOT_DEFINED", // Default category for standard associations
+                                    "associationTypeId" => 1, // Standard association type ID for contacts to companies
+                                ]
+                            ],
+                            'from' => [
+                                'id' => $request->input('lastHUBId'),
+                            ],
+                            'to' => [
+                                'id' => $companyId,
+                            ]
+                        ],
+                    ],
+                ];
+
+
+                $response_associations = $client->post($association_url, [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
+                        'Content-Type'  => 'application/json',
+                    ],
+                    'json' => $associations,
+                ]);
             $responseMsg_success = json_decode($response->getBody()->getContents(), true);
-                return response()->json(['status' => 'success', 'message' => 'Lead successfully updated.', 'id' => $responseMsg_success['id']]);
+                return response()->json(['status' => 'success', 'message' => 'Lead successfully updated.', 'id' => $responseMsg_success['id'], 'ab' => $associations]);
             } else {
                 return response()->json(['status' => 'error', 'message' => 'Failed to create a lead'. $e->getMessage()]);
             }

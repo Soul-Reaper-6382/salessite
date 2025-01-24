@@ -65,20 +65,22 @@
 </div>
 </div>
 
-<div class="col-md-12 success_lead" style="display:none;">
-        <p class="" style="    text-align: center;
-    color: green;;">Lead submitted successfully</p>
-    </div>
+<div class="col-md-12 success_message" style="display:none;">
+    <p class="" style="text-align: center; color: green;">Thank you! Your request has been received successfully.</p>
+</div>
+
 
 <div class="col-md-12 error_invalid_lead" style="display:none;">
         <p class="" style="    text-align: center;
     color: red;;"></p>
     </div>
-<div class="row mb-0 ">
+
+    <div class="row mb-0 ">
                             <div class="col-md-12" style="justify-content:center;display: flex;">
-                                <button type="submit" id="lead_form_next" class="btn loginbtn">
+                                <button type="submit" id="lead_form_next" class="btn loginbtn ci_submit_btn_next">
                                     {{ __('Next') }}
                                 </button>
+                                 <button type="button" class="btn loginbtn ci_submit_btn_loader_next" style="display:none;">    <div class="spinner_btn"></div></button>
                             </div>
                         </div>
         </form>
@@ -94,6 +96,7 @@
          <div id="preloader_state_fetch" class="preloader_state_fetch_select" style="display: none;">
         <div class="spinner_state_fetch"></div>
         </div>
+        <span id="loadingMessageState">Please wait...</span>
         <select id="statefetch" name="statefetch" class="form-control @error('statefecth') is-invalid @enderror">
         </select>
         @error('statefetch')
@@ -171,18 +174,19 @@
 
     <div class="col-md-12 success_lead" style="display:none;">
         <p class="" style="    text-align: center;
-    color: green;;">Lead submitted successfully</p>
+    color: green;;">Thank you! Your request has been received successfully.</p>
     </div>
 
     </div>
-
-     <div class="row mb-0 ">
+                        <div class="row mb-0 ">
                             <div class="col-md-12" style="justify-content:center;display: flex;">
-                                <button type="submit" class="btn loginbtn">
+                                <button type="submit" class="btn loginbtn ci_submit_btn_submit">
                                     {{ __('Submit') }}
                                 </button>
+                                 <button type="button" class="btn loginbtn ci_submit_btn_loader_submit" style="display:none;">    <div class="spinner_btn"></div></button>
                             </div>
                         </div>
+
                     </form>
     </div>
 

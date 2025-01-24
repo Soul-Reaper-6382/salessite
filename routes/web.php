@@ -127,6 +127,7 @@ Route::delete('/testimonials/delete/{id}', [TestimonialController::class, 'destr
         return redirect('/home');
     });
     Route::get('/home', [HomeController::class,'index']);
+    // Route::get('/send', [HomeController::class,'send']);
 
     // Pricing Routes
     Route::get('/pricing', [PricingController::class,'pricing']);

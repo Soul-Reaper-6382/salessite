@@ -37,6 +37,7 @@ class DashboardSubmitStoreController extends Controller
 
     public function submit_store_info(Request $request)
     {
+        $client = new Client();
         $user = Auth::user();
         $plan = getUserPlanDetails($request->plan_id);
         $storeName = $request->store_name;
@@ -48,7 +49,8 @@ class DashboardSubmitStoreController extends Controller
         $end_date = null;
         $is_trial = false;
         $free_trial = $getStoreInfo['stores'][0]['free_trial'];
-        
+        $companyId = $getStoreInfo['stores'][0]['companyId'];
+
         if($free_trial == '' || $free_trial == 'No Free Trial'){
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
@@ -144,6 +146,24 @@ class DashboardSubmitStoreController extends Controller
                 'plan_id' => $request->plan_id,
             ]
         );
+
+        $Company_update_storeId = [
+                'properties' => [
+                    'store_id'     => $user->source_object_id,
+                ],
+                ];
+
+            // HubSpot API URL
+            $updateCompanyUrl = "https://api.hubapi.com/crm/v3/objects/companies/{$companyId}";
+
+        
+            $response_company = $client->patch($updateCompanyUrl, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
+                    'Content-Type'  => 'application/json',
+                ],
+                'json' => $Company_update_storeId,
+            ]);
 
         
             session()->flash('message', 'Account Created Successfully!');

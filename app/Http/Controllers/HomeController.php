@@ -213,6 +213,38 @@ class HomeController extends Controller
          
         }
 
-   
+    public function send(){
+            // Example Usage
+        $contactId = '93532843522';
+        $companyId = '28884941084';
+        $apiKey = env('HUBSPOT_ACCESS_TOKEN');
+        $result = $this->associateCompanyWithContact($contactId, $companyId, $apiKey);
+        dd($result);
+    }
+
+    function associateCompanyWithContact($contactId, $companyId, $apiKey)
+        {
+            $client = new Client();
+             $Company_update_storeId = [
+                'properties' => [
+                    'store_id'     => "12",
+                ],
+                ];
+
+            // HubSpot API URL
+            $updateCompanyUrl = "https://api.hubapi.com/crm/v3/objects/companies/{$companyId}";
+
+        
+            $response = $client->patch($updateCompanyUrl, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
+                    'Content-Type'  => 'application/json',
+                ],
+                'json' => $Company_update_storeId,
+            ]);
+            $responseMsg =  json_decode($response->getStatusCode(), true);
+            dd($responseMsg);
+        }
+
 
 }
