@@ -495,18 +495,16 @@ $('#multi-step-form').submit(function(e) {
                 applyMask(maskFormat);
                 $('#store_license').removeAttr('readonly');
             }
+            $('.preloader_lic_fetch_select').hide();
+            $('.preloader_store_fetch_select').hide();
+            $('#statefetch').prop('disabled', false);
+            $('#loadingMessageState').hide();
         },
         error: function(err) {
             console.log(err)
             $('#statefetch').change()
             $('#store_license').removeAttr('readonly');
-        },
-        complete: function() {
-                $('.preloader_lic_fetch_select').hide();
-                $('.preloader_store_fetch_select').hide();
-                 $('#statefetch').prop('disabled', false);
-                 $('#loadingMessageState').hide();
-                }
+        }
     });
       }
         })
