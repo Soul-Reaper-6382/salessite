@@ -722,6 +722,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
         url: url_statefetch,
         type: 'POST',
         data: {stateget_val : stateget_val},
+        timeout: 30000, // Timeout in milliseconds
          success: function(data) {
             console.log(data)
             var $select = $('#store_names');
