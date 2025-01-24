@@ -52,11 +52,8 @@ class DashboardStateController extends Controller
     {
         $stateGetVal = $request->stateget_val;
 
-        // Define the path to your Excel file
-        $filePath = public_path('Retail Package Store Licenses.xlsx');
-
         // Call the helper function
-        $result = getStoresByState($stateGetVal, $filePath);
+        $result = getStoresByState($stateGetVal);
 
         // Prepare the response
         return response()->json([
