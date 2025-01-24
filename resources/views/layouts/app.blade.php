@@ -498,8 +498,7 @@ $('#multi-step-form').submit(function(e) {
         },
         error: function(err) {
             console.log(err)
-            $('.preloader_lic_fetch_select').hide();
-            $('.preloader_store_fetch_select').hide();
+            $('#statefetch').change()
             $('#store_license').removeAttr('readonly');
         },
         complete: function() {
