@@ -147,6 +147,7 @@ class DashboardSubmitStoreController extends Controller
             ]
         );
 
+        if($user->lead_id !== null){
         $leadData = [
                 'properties' => [
                     'state'     => $request->store_state,
@@ -195,6 +196,7 @@ class DashboardSubmitStoreController extends Controller
                     ],
                     'json' => $associations,
                 ]);
+        }
 
         $Company_update_storeId = [
                 'properties' => [
