@@ -48,6 +48,7 @@ class User extends Authenticatable
         'plan_id',
         'password_apo',
         'source_object_id',
+        'lead_id',
     ];
 
     /**

@@ -147,6 +147,55 @@ class DashboardSubmitStoreController extends Controller
             ]
         );
 
+        $leadData = [
+                'properties' => [
+                    'state'     => $request->store_state,
+                    'store_license' => $request->License_old,
+                    'store_name' => $request->store_name,
+                ],
+                ];
+
+            // HubSpot API URL
+            $updateContactUrl = "https://api.hubapi.com/crm/v3/objects/contacts/{$user->lead_id}";
+
+        
+            $response = $client->patch($updateContactUrl, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
+                    'Content-Type'  => 'application/json',
+                ],
+                'json' => $leadData,
+            ]);
+
+            $association_url = "https://api.hubapi.com/crm/v4/associations/contacts/companies/batch/create";
+                 $associations = [
+                    'inputs' => [
+                        [
+                            "types" => [
+                                [
+                                    "associationCategory" => "HUBSPOT_DEFINED", // Default category for standard associations
+                                    "associationTypeId" => 1, // Standard association type ID for contacts to companies
+                                ]
+                            ],
+                            'from' => [
+                                'id' => $user->lead_id,
+                            ],
+                            'to' => [
+                                'id' => $companyId,
+                            ]
+                        ],
+                    ],
+                ];
+
+
+                $response_associations = $client->post($association_url, [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
+                        'Content-Type'  => 'application/json',
+                    ],
+                    'json' => $associations,
+                ]);
+
         $Company_update_storeId = [
                 'properties' => [
                     'store_id'     => $user->source_object_id,

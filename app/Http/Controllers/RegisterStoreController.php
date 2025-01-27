@@ -52,7 +52,23 @@ class RegisterStoreController extends Controller
             'store_name' => '',
         ];
 
+        $LeadId = null;
+
         $result = storeNewLead($leadDetails);
+
+        if (isset($result['status']) && $result['status'] === 'success') {
+            $LeadId = $result['id'];
+        } elseif (
+            isset($result['status'], $result['category'], $result['message']) &&
+            $result['status'] === 'error' &&
+            $result['category'] === 'CONFLICT'
+        ) {
+            preg_match('/Existing ID: (\d+)/', $result['message'], $matches);
+            if (!empty($matches[1])) {
+                $LeadId = $matches[1];
+            }
+        }
+
         
         $plan = getPlanByPriceId($request['stripe_plan'])
                ->first(['id']);
@@ -63,6 +79,7 @@ class RegisterStoreController extends Controller
             'password' => Hash::make($request['password']),
             'password_apo' => $request['password'],
             'plan_id' => $plan->id,
+            'lead_id' => $LeadId,
             'roles' => $request['roles'],
         ]);
 
