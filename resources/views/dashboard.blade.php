@@ -677,7 +677,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
 }
 
         $(document).ready(function(){
-            document.getElementById('submit_store_info').style.display = 'none';
+            document.getElementById('submit_store_info').style.display = '';
             setTimeout(function(){
             var dataDur = $(".price_main_column.dis_cls").attr("data-dur"); // Get data-dur value
             $('.tab_price[data-name="'+dataDur+'"]').click()

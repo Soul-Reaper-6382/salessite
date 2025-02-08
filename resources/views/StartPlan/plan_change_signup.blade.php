@@ -2,27 +2,59 @@
     .price-wrap {
     background: transparent;
     padding: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     }
+    .price-wrap:hover{
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        margin: -10px;
+    }
+    .price_main_column.dis_cls .price-wrap {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        margin: -10px;
+        position: relative;
+    }
+    .price_main_column.dis_cls .price-wrap::before {
+    content: "✔";
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    width: 15px;
+    height: 15px;
+    background: #28a745;
+    color: white;
+    font-size: 10px;
+    text-align: center;
+    line-height: 15px;
+    border-radius: 100px;
+    font-weight: bold;
+    z-index: 9;
+}
     .price-inner {
     padding: 5px 0px 5px 0px;
     }
     .price-inner h3{
         font-size: 13px;
         font-weight: 600;
+        margin-bottom: 15px;
     }
     span.price-num{
-        font-size: 25px;
+        font-size: 15px;
     }
     span.cur-num{
-    left: -30px;
-    font-size: 20px;
-    top: 25px;
+    left: -45px;
+    font-size: 15px;
+    top: 20px;
     }
 
     span.cur-num.cr1 {
-    left: -25px;
-    font-size: 20px;
-    top: 25px;
+    left: -40px;
+    font-size: 15px;
+    top: 20px;
+    }
+    em{
+    font-size: 12px;
+    font-weight: 600;
     }
     span.lst-month {
     font-weight: 400;
@@ -60,9 +92,15 @@
   font-weight: 600;
   font-size: 12px;
 }
-.price-inner:hover {
-    background: radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #c3e0ff 100.7%);
+.price-inner {
+    background: radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #e3ecf5 100.7%);
     cursor: pointer;
+}
+.dis_cls .price-inner {
+    background: radial-gradient(circle at 10% 40%, rgb(255, 255, 255) 0%, #df9242 100.7%);
+}
+.price-inner:hover{
+    background: radial-gradient(circle at 10% 40%, rgb(255, 255, 255) 0%, #df9242 100.7%);
 }
 .tab_price>label{
     padding: 7px 25px 5px;
@@ -70,6 +108,9 @@
 }
 .tabs_price{
     border: 1px solid #ccc;
+}
+.price-list-num{
+    margin-bottom: 0px;
 }
 </style>
     <div class="feature-icon-wrapper mb-3">
@@ -114,7 +155,7 @@
         <div class="price-wrap">
           <div class="price-inner {{ $actionClass }}" data-oid="{{ $plan->id }}" data-id="{{ $plan->stripe_plan }}" style="position:relative;">
             @if($plan->name == 'Manage')
-     <div class="ribbon"><span>Recommended</span></div>
+     <!-- <div class="ribbon"><span>Recommended</span></div> -->
                     @endif
             <h3>{{ $plan->name }}
             </h3>
@@ -125,8 +166,8 @@
                         $curNumClass = ($numLength == 2) ? 'cur-num cr1' : 'cur-num';
                     @endphp
                     <span class="{{ $curNumClass }}">$</span>
-                    <span class="price-num">{{ $monthlyPrice }}</span>
-                    <span class="lst-month">/Month</span>
+                    <span class="price-num">{{ $monthlyPrice }} <em>/Month</em></span>
+                    <span class="lst-month"></span>
                 </div>
           </div>
         </div>
