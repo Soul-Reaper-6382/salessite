@@ -50,6 +50,7 @@ class RegisterStoreController extends Controller
             'state' => '',
             'store_license' => '',
             'store_name' => '',
+            'lifecyclestage' => 'lead',
         ];
 
         $LeadId = null;

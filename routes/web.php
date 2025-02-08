@@ -127,7 +127,7 @@ Route::delete('/testimonials/delete/{id}', [TestimonialController::class, 'destr
         return redirect('/home');
     });
     Route::get('/home', [HomeController::class,'index']);
-    // Route::get('/send', [HomeController::class,'send']);
+    Route::get('/send', [HomeController::class,'send']);
 
     // Pricing Routes
     Route::get('/pricing', [PricingController::class,'pricing']);
@@ -179,6 +179,7 @@ Route::group(['middleware'=>['auth','roles:user']],function(){
     // Set Plan Trail Routes
     Route::get('/starting_plan', [SetPlanTrailController::class,'starting_plan_view']);
     Route::post('/starting_plan_set', [SetPlanTrailController::class,'starting_plan_set'])->name('starting_plan_set');
+    Route::post('/signup_plan_set', [SetPlanTrailController::class,'signup_plan_set'])->name('signup_plan_set');
     
     // Card Detail Routes
     Route::get('/add_a_card', [CardDetailController::class, 'make_payment']);

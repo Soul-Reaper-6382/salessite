@@ -15148,7 +15148,7 @@ display: flex;
     display: none;
 }
 
-.tab_price[data-name="Yearly"] label.active {
+.tab_price[data-name="yearly"] label.active {
     background: #2f3f58;
 }
 

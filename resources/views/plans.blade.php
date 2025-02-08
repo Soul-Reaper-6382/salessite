@@ -82,7 +82,7 @@
     font-size: 14px;
     font-weight: bold;">save 40%+</span>
                                     <li class="tab_price" data-name="monthly"><label class="active">Monthly</label></li>
-                                    <li class="tab_price" data-name="Yearly"><label>Yearly</label></li>
+                                    <li class="tab_price" data-name="yearly"><label>Yearly</label></li>
                                     </ul>
                                     </div>
                                 </div>

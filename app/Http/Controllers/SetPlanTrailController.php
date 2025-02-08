@@ -41,6 +41,15 @@ class SetPlanTrailController extends Controller
         return view('StartPlan.starting_plan', ['plan_db'=>$plan_db]);
     }
 
+    public function signup_plan_set(Request $request)
+    {
+        $user = Auth::user();
+        $newPlanId = $request->input('plan_id');
+       
+        $user->plan_id = $newPlanId;
+        $user->save();
+    }
+
     public function starting_plan_set(Request $request)
     {
         $user = Auth::user();

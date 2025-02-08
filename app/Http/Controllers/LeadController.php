@@ -24,6 +24,7 @@ class LeadController extends Controller
             'state' => '',
             'store_license' => '',
             'store_name' => '',
+            'lifecyclestage' => 'marketingqualifiedlead', // Updated lifecycle stage
         ];
 
         $result = storeNewLead($leadDetails);

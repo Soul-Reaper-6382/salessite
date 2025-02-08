@@ -1,4 +1,16 @@
 <style>
+    .price-inner h3{
+        font-size: 15px;
+    }
+    span.price-num{
+        font-size: 35px;
+    }
+    span.cur-num{
+        left: -40px;
+    }
+    span.cur-num.cr1{
+        left: -30px;
+    }
     .box {
   position: relative;
   max-width: 600px;
@@ -8,26 +20,20 @@
   box-shadow: 0 0 15px rgba(0,0,0,.1);
 }
 
-/* common */
 .ribbon {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: 50px;
   overflow: hidden;
   position: absolute;
-}
-.ribbon::before,
-.ribbon::after {
-  position: absolute;
-  z-index: -1;
-  content: '';
-  display: block;
-  border: 5px solid #2980b9;
+  top: 0px;
+  left: 0px;
+  border-radius: 10px;
 }
 .ribbon span {
   position: absolute;
   display: block;
-  width: 250px;
-  padding: 5px 0;
+  width: 100%;
+  padding: 3px 0;
   background-color: #2f3f58;
   box-shadow: 0 5px 10px rgba(0,0,0,.1);
   color: #fff;
@@ -36,34 +42,14 @@
   text-transform: uppercase;
   text-align: center;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 12px;
 }
-
-/* top right*/
-.ribbon-top-right {
-  top: -10px;
-  right: -10px;
-}
-.ribbon-top-right::before,
-.ribbon-top-right::after {
-  border-top-color: transparent;
-  border-right-color: transparent;
-}
-.ribbon-top-right::before {
-  top: 0;
-  left: 0;
-}
-.ribbon-top-right::after {
-  bottom: 0;
-  right: 0;
-}
-.ribbon-top-right span {
-  left: -25px;
-  top: 30px;
-  transform: rotate(45deg);
+.price-inner:hover {
+    background: radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #c3e0ff 100.7%);
+    cursor: pointer;
 }
 </style>
-    <div class="feature-icon-wrapper ">
+    <div class="feature-icon-wrapper mb-3">
                     <div class="container-md">
                        <div class="row">
                             <div class="col-lg-12">
@@ -88,26 +74,24 @@
                             </div>
                         </div>
 
-                        <div class="row sec-6-row-bg sec-price">
+                        <div class="row sec-6-row-bg">
 @foreach($plan_db as $plan)
 @if(Auth()->user()->plan_id == $plan->id)
      @php
             $disable = 'dis_cls';
-            $actionText = 'Selected';
             $actionClass = '';
     @endphp
 @else
     @php
             $disable = '';
-            $actionText = 'Select Plan';
             $actionClass = 'click_change_plan';
     @endphp
 @endif
       <div class="col-md-3 price_main_column {{ $disable }}" data-dur="{{ $plan->duration }}">
         <div class="price-wrap">
-          <div class="price-inner" style="position:relative;">
+          <div class="price-inner {{ $actionClass }}" data-oid="{{ $plan->id }}" data-id="{{ $plan->stripe_plan }}" style="position:relative;">
             @if($plan->name == 'Manage')
-     <div class="ribbon ribbon-top-right"><span>Recommended</span></div>
+     <div class="ribbon"><span>Recommended</span></div>
                     @endif
             <h3>{{ $plan->name }}
             </h3>
@@ -121,34 +105,10 @@
                     <span class="price-num">{{ $monthlyPrice }}</span>
                     <span class="lst-month">/Month</span>
                 </div>
-            <div class="list-price-dis">
-                    <ul>
-                        <li class="gry" style="display:none;">Tools & Management 
-                <div class="contentp" >     <ul class="gry">         <li style="list-style-type: none;">             <ol>                 <li>Stock, Sales, Purchases  Deals Management</li>                 <li>Employee Scheduling  Tasks</li>                 <li>Marketing, Surveys and Brand Development</li>                 <li>Website, Delivery, Pick-up, Subscriptions  Events</li>                 <li>Chat, Reporting, Preferences  More</li>             </ol>         </li>     </ul> </div>
-                </li>
-                         @foreach($plan->keys as $key)
-                <li>
-                    @if ($key->video_url)
-                        <span class="{{ $key->given == 'no' ? 'gry' : $key->given }}" 
-                              data-url="{{ asset($key->video_url) }}" 
-                              onclick="showVideoModal(this)" style="cursor: pointer;">{{ $key->key_name }}</span>
-                    @else
-                        <span class="{{ $key->given == 'no' ? 'gry' : $key->given }}" title="Video not available">{{ $key->key_name }}</span>
-                    @endif
-                </li>
-            @endforeach
-                    </ul>
-                </div>
-           <a href="javascript:void(0);" class="{{ $actionClass }}" data-id="{{ $plan->id }}" >{{ $actionText }}</a>
-
-            <!-- <button class="learn-more">Learn More</button> -->
           </div>
         </div>
       </div>
 @endforeach
-    </div>
-    <div class="row pat-design">
-      <img src="{{ asset('pat.png') }}" alt="">
     </div>
                     </div>
                 </div>

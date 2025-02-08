@@ -113,6 +113,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 	                'state'     => $leadDetails['state'] ?? '',
 	                'store_license' => $leadDetails['store_license'] ?? '',
 	                'store_name' => $leadDetails['store_name'] ?? '',
+	                'lifecyclestage' => $leadDetails['lifecyclestage'] ?? '', // Updated lifecycle stage
 	            ],
 	        ];
 

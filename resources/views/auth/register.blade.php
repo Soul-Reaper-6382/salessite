@@ -6,7 +6,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-   margin-top: 30px;
    }
    .underbody {
     top: 0;
@@ -48,15 +47,18 @@
      <div class="row mb-3">
      <div class="col-md-6">
     <label for="username" class="col-md-12 col-form-label">Username</label>
-    <div class="col-md-12">
-        <input name="username" type="text"  class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Username" value="{{ old('username') }}" required>
+    <div class="col-md-12 position-relative">
+        <input name="username" type="text" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Username" value="{{ old('username') }}" required>
+        
+        <i class="fas fa-info-circle position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="right" title="The username must contain at least one uppercase letter, one lowercase letter, and one number."></i>
+        
         @error('username')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
     </div>
-    </div>
+</div>
 
     <div class="col-md-6">
     <label for="first-name" class="col-md-12 col-form-label">Phone Number</label>
@@ -143,6 +145,11 @@
 </div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function () {
+         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
         const form = document.getElementById("RegisterForm");
 
         // Disable button after form submission

@@ -215,34 +215,26 @@ class HomeController extends Controller
 
     public function send(){
             // Example Usage
-        $contactId = '93532843522';
-        $companyId = '28884941084';
+        $contactId = '96989709467';
         $apiKey = env('HUBSPOT_ACCESS_TOKEN');
-        $result = $this->associateCompanyWithContact($contactId, $companyId, $apiKey);
+        $result = $this->associateCompanyWithContact($contactId,$apiKey);
         dd($result);
     }
 
-    function associateCompanyWithContact($contactId, $companyId, $apiKey)
+    function associateCompanyWithContact($contactId, $apiKey)
         {
             $client = new Client();
-             $Company_update_storeId = [
-                'properties' => [
-                    'store_id'     => "12",
-                ],
-                ];
-
             // HubSpot API URL
-            $updateCompanyUrl = "https://api.hubapi.com/crm/v3/objects/companies/{$companyId}";
+            $updateCompanyUrl = "https://api.hubapi.com/crm/v3/objects/contacts/{$contactId}?properties=lifecyclestage";
 
         
-            $response = $client->patch($updateCompanyUrl, [
+            $response = $client->get($updateCompanyUrl, [
                 'headers' => [
                     'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
                     'Content-Type'  => 'application/json',
-                ],
-                'json' => $Company_update_storeId,
+                ]
             ]);
-            $responseMsg =  json_decode($response->getStatusCode(), true);
+            $responseMsg =  json_decode($response->getBody()->getContents(), true);
             dd($responseMsg);
         }
 

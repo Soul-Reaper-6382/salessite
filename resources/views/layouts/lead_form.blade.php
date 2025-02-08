@@ -122,7 +122,7 @@
     </div>
     </div>
 
-     <div class="col-md-8 store_license_div" style="display:;">
+     <div class="col-md-7 store_license_div" style="display:;">
      <label for="store-name" class="col-md-12 col-form-label">Store Name</label>
     <div class="col-md-12" style="position: relative;">
         <div id="preloader_state_fetch" class="preloader_store_fetch_select" style="display: none;">
@@ -141,7 +141,7 @@
     </div>
     </div>
 
-    <div class="col-md-4 store_license_div" style="display:;">
+    <div class="col-md-5 store_license_div" style="display:;">
      <label for="store-license" class="col-md-12 col-form-label">Store License Number</label>
     <div class="col-md-12" style="position: relative;">
         <div id="preloader_state_fetch" class="preloader_lic_fetch_select" style="display: none;">

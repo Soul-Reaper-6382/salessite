@@ -102,14 +102,50 @@
 
 @section('content')
 <style type="text/css">
-    body{
+    body {
     display: flex;
     justify-content: center;
     align-items: center;
-   margin-top: 30px;
-   }
+    position: relative;
+    min-height: 100vh;
+}
+
+.card {
+    position: relative; /* Change from fixed to relative for better responsiveness */
+    top: auto;
+    width: 90%; /* Adjust width dynamically */
+    max-width: 800px; /* Limit max width for large screens */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background: #fff;
+}
+
+.card-body {
+    height: 600px;
+    overflow-y: auto; /* Scrollable content */
+}
    .underbody {
     top: 0;
+}
+/* Responsive Design */
+@media only screen and (max-width: 768px) { 
+    .card {
+        width: 95%; /* Increase width on smaller screens */
+        max-width: 100%;
+    }
+    .card-body {
+        height: auto; /* Adjust height for smaller devices */
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .card {
+        width: 100%; /* Full width on very small screens */
+        border-radius: 0; /* Remove border-radius for a natural mobile feel */
+    }
+    .card-body {
+        height: auto; /* Further reduce height for better usability */
+    }
 }
 @media only screen and (max-width: 767px) {
   body {
@@ -277,7 +313,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
     <form method="POST" action="{{ url('submit_checkstore_license') }}" id="checkstore_license">
     @csrf
     <div class="row mb-3">
-    <div class="col-md-5">
+    <div class="col-md-6">
     <label for="state" class="col-md-12 col-form-label">State</label>
     <div class="col-md-12" style="position:relative;">
         <div id="preloader_state_fetch" class="preloader_state_fetch_select" style="display: none;">
@@ -294,7 +330,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
     </div>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-7">
      <label for="store-license" class="col-md-12 col-form-label">Store Name</label>
     <div class="col-md-12" style="position: relative;">
         <div id="preloader_state_fetch" class="preloader_store_fetch_select" style="display: none;">
@@ -313,7 +349,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
     </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-5">
      <label for="store-license" class="col-md-12 col-form-label">Store License Number</label>
     <div class="col-md-12" style="position: relative;">
         <div id="preloader_state_fetch" class="preloader_lic_fetch_select" style="display: none;">
@@ -478,6 +514,9 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
 
     </div>
 
+    @include('StartPlan.plan_change_signup')
+
+
     <div class="alert alert-info free_trial_info" style="padding: 5px;display: none;">
     </div>
     @if($plan->name == 'Startaa')
@@ -497,7 +536,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                             <div class="col-md-12">
                                 <p style="margin: 0;
     text-align: right;
-    font-weight: 700;">${{ $plan->price }} / {{ $plan->duration }}</p>
+    font-weight: 700;display:none; ">${{ $plan->price }} / {{ $plan->duration }}</p>
                                 <div id="card-element"></div>
                                  <div id="card-errors" role="alert"></div>
                             </div>
@@ -639,6 +678,50 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
 
         $(document).ready(function(){
             document.getElementById('submit_store_info').style.display = 'none';
+            setTimeout(function(){
+            var dataDur = $(".price_main_column.dis_cls").attr("data-dur"); // Get data-dur value
+            $('.tab_price[data-name="'+dataDur+'"]').click()
+            },5000)
+
+            $('.tab_price').on('click', function() {
+                var name = $(this).data('name').toLowerCase(); // Get the data-name value and convert to lowercase
+
+                // Remove active class from all labels and add to the clicked one
+                $('.tab_price label').removeClass('active');
+                $(this).find('label').addClass('active');
+
+                // Show elements matching the data-name and hide others
+                $('.price_main_column').each(function() {
+                    if ($(this).data('dur') === name) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+            $(document).on('click','.click_change_plan',function(){
+                $('.price-inner').addClass('click_change_plan');
+                $(this).removeClass('click_change_plan');
+                $('.price_main_column').removeClass('dis_cls')
+                $(this).closest('.price_main_column').addClass('dis_cls')
+                var planId = $(this).data('id');
+                var planoId = $(this).data('oid');
+                $('#plan_id').val(planId)
+                        $.ajax({
+                        url: '{{ route("signup_plan_set") }}',
+                        type: 'POST',
+                        data: {
+                            plan_id: planoId,
+                            _token: '{{ csrf_token() }}' // Include CSRF token for security
+                        },
+                        success: function(response) {
+                        },
+                        error: function(xhr) {
+                            console.log(xhr)
+                            alert('An error occurred: ' + xhr.responseJSON.error);
+                        }
+                    });
+            })
         })
         fetch_state_func();
 

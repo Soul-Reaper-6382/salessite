@@ -153,7 +153,8 @@ class DashboardController extends Controller
 
         $layout = (Auth::user()->status == 1) ? 'layouts.dashboard' : 'layouts.reg';
             
-        $plan = getUserPlanDetails(Auth::user()->plan_id);    
+        $plan = getUserPlanDetails(Auth::user()->plan_id); 
+        $plan_db = getPlans();   
 
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
@@ -192,7 +193,7 @@ class DashboardController extends Controller
             'priceId' => $priceId]);
         }
         else{
-            return view('dashboard', ['layout' => $layout, 'plan' => $plan]);
+            return view('dashboard', ['layout' => $layout, 'plan' => $plan, 'plan_db' => $plan_db]);
         }
     }
 

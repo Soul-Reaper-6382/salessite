@@ -125,7 +125,7 @@ class RegisterController extends Controller
         // If no token is provided
         if (!$token) {
             // Find the default plan (e.g., 'Start') with a non-zero price and monthly duration
-            $plan = Plan::where('name', 'Start')
+            $plan = Plan::where('name', 'Manage')
                 ->where('price', '!=', 0)
                 ->where('duration', 'monthly')
                 ->first([$stripePlanColumn]);
@@ -149,8 +149,6 @@ class RegisterController extends Controller
 
         // Pass the Stripe plan and all plans to the view
         $stripe_plan = $token;
-        $plan_db = Plan::orderBy('id', 'ASC')->get();
-
-        return view('auth.register', compact('plan_db', 'stripe_plan'));
+        return view('auth.register', compact('stripe_plan'));
     }
 }
