@@ -1,15 +1,31 @@
 <style>
+    .price-wrap {
+    background: transparent;
+    padding: 0;
+    }
+    .price-inner {
+    padding: 5px 0px 5px 0px;
+    }
     .price-inner h3{
-        font-size: 15px;
+        font-size: 13px;
+        font-weight: 600;
     }
     span.price-num{
-        font-size: 35px;
+        font-size: 25px;
     }
     span.cur-num{
-        left: -40px;
+    left: -30px;
+    font-size: 20px;
+    top: 25px;
     }
-    span.cur-num.cr1{
-        left: -30px;
+
+    span.cur-num.cr1 {
+    left: -25px;
+    font-size: 20px;
+    top: 25px;
+    }
+    span.lst-month {
+    font-weight: 400;
     }
     .box {
   position: relative;
@@ -25,7 +41,7 @@
   height: 50px;
   overflow: hidden;
   position: absolute;
-  top: 0px;
+  top: -20px;
   left: 0px;
   border-radius: 10px;
 }
@@ -48,6 +64,13 @@
     background: radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #c3e0ff 100.7%);
     cursor: pointer;
 }
+.tab_price>label{
+    padding: 7px 25px 5px;
+    font-size: 12px;
+}
+.tabs_price{
+    border: 1px solid #ccc;
+}
 </style>
     <div class="feature-icon-wrapper mb-3">
                     <div class="container-md">
@@ -57,15 +80,15 @@
                                     <!-- <h3 class="heading">Pricing</h3> -->
                                     <div class="parent_tabs_price">
                                     <ul class="tabs_price" style="position:relative;">
-                                        <span style="    position: absolute;
-    right: 10px;
-    top: 40px;
+                                        <span style="position: absolute;
+    right: 5px;
+    top: 25px;
     background: #df9242;
     border-radius: 100px;
     color: white;
-    padding: 2px 10px 2px 10px;
-    font-size: 14px;
-    font-weight: bold;">save 40%+</span>
+    padding: 2px 6px 2px 6px;
+    font-size: 12px;
+    font-weight: 600;">save 40%+</span>
                                     <li class="tab_price" data-name="monthly"><label class="active">Monthly</label></li>
                                     <li class="tab_price" data-name="yearly"><label>Yearly</label></li>
                                     </ul>
