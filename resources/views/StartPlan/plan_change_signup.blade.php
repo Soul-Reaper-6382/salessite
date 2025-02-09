@@ -6,12 +6,10 @@
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     }
     .price-wrap:hover{
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-        margin: -10px;
+/*        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
     }
     .price_main_column.dis_cls .price-wrap {
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-        margin: -10px;
+/*        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
         position: relative;
     }
     .price_main_column.dis_cls .price-wrap::before {
@@ -97,10 +95,12 @@
     cursor: pointer;
 }
 .dis_cls .price-inner {
-    background: radial-gradient(circle at 10% 40%, rgb(255, 255, 255) 0%, #df9242 100.7%);
+    background: radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #e3ecf5 100.7%);
+    border: 2px solid #2f3f58;
 }
 .price-inner:hover{
-    background: radial-gradient(circle at 10% 40%, rgb(255, 255, 255) 0%, #df9242 100.7%);
+    background: radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #e3ecf5 100.7%);
+    border: 2px solid #2f3f58;
 }
 .tab_price>label{
     padding: 7px 25px 5px;
