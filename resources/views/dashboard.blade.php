@@ -706,7 +706,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                 $(this).closest('.price_main_column').addClass('dis_cls')
                 var planId = $(this).data('id');
                 var planoId = $(this).data('oid');
-                $('#plan_id').val(planId)
+                $('#plan_id').val(planoId)
                         $.ajax({
                         url: '{{ route("signup_plan_set") }}',
                         type: 'POST',
