@@ -90,6 +90,17 @@
   font-weight: 600;
   font-size: 12px;
 }
+.ribbon2{
+    position: absolute;
+    background: #2f3f58;
+    color: white;
+    top: -15px;
+    right: 0px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0px 5px 0px 5px;
+    border-radius: 0px 10px 0px 0px;
+}
 .price-inner {
     background: radial-gradient(circle at 10% 20%, rgb(255, 255, 255) 0%, #e3ecf5 100.7%);
     cursor: pointer;
@@ -155,7 +166,7 @@
         <div class="price-wrap">
           <div class="price-inner {{ $actionClass }}" data-oid="{{ $plan->id }}" data-id="{{ $plan->stripe_plan }}" style="position:relative;">
             @if($plan->name == 'Manage')
-     <!-- <div class="ribbon"><span>Recommended</span></div> -->
+     <div class="ribbon2"><span>Recommended</span></div>
                     @endif
             <h3>{{ $plan->name }}
             </h3>
