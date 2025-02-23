@@ -52,7 +52,7 @@ class RegisterStoreController extends Controller
             'store_name' => '',
             'lifecyclestage' => 'lead',
         ];
-
+        $plan = getPlanByPriceId($request['stripe_plan']);
         $LeadId = null;
 
         $result = storeNewLead($leadDetails);
@@ -71,8 +71,6 @@ class RegisterStoreController extends Controller
         }
 
         
-        $plan = getPlanByPriceId($request['stripe_plan'])
-               ->first(['id']);
         $user = User::create([
             'username' => $request['username'],
             'phone' => $request['phone_number'],

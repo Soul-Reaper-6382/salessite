@@ -677,7 +677,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
 }
 
         $(document).ready(function(){
-            document.getElementById('submit_store_info').style.display = 'none';
+            document.getElementById('submit_store_info').style.display = '';
             setTimeout(function(){
             var dataDur = $(".price_main_column.dis_cls").attr("data-dur"); // Get data-dur value
             $('.tab_price[data-name="'+dataDur+'"]').click()
@@ -689,7 +689,18 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                 // Remove active class from all labels and add to the clicked one
                 $('.tab_price label').removeClass('active');
                 $(this).find('label').addClass('active');
-
+                if(name == 'monthly'){
+                    var monthly_len = $(".price_main_column.dis_cls[data-dur='monthly']").length;
+                    if(monthly_len == 0){
+                        $(".click_change_plan[data-oid='2']").click();
+                    }
+                }
+                else{
+                    var yearly_len = $(".price_main_column.dis_cls[data-dur='yearly']").length;
+                    if(yearly_len == 0){
+                        $(".click_change_plan[data-oid='6']").click();
+                    }
+                }
                 // Show elements matching the data-name and hide others
                 $('.price_main_column').each(function() {
                     if ($(this).data('dur') === name) {
