@@ -98,7 +98,7 @@
 @endsection
 @else
 @extends($layout)
-@section('title', 'Dashboard - Smuggler')
+@section('title', 'Dashboard - Smugglers')
 
 @section('content')
 <style type="text/css">
