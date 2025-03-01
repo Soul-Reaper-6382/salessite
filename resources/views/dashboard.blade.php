@@ -310,7 +310,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
             </div>
         </div>
         @endif
-    <form method="POST" action="{{ url('submit_checkstore_license') }}" id="checkstore_license">
+    <form method="POST" action="{{ url('submit_dash_checkstore_license') }}" id="checkstore_license">
     @csrf
     <div class="row mb-3">
     <div class="col-md-6">
@@ -553,6 +553,8 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                             <div class="col-md-10">
                                 <input id="state_old" type="hidden" class="form-control" name="state_old">
                                 <input id="License_old" type="hidden" class="form-control" name="License_old">
+                                <input id="free_trial" type="hidden" class="form-control" name="free_trial">
+                                <input id="companyId" type="hidden" class="form-control" name="companyId">
                                 <input id="plan_id" type="hidden" class="form-control" name="plan_id" value="{{ Auth::user()->plan_id}}">
                             </div>
                         </div>
@@ -954,6 +956,8 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                 $('#store_county').val(data.storeData.license_county);
                 $('#store_state').val(data.storeData.state);
                 $('#License_old').val(data.storeData.state_license_number);
+                $('#free_trial').val(data.storeData.free_trial);
+                $('#companyId').val(data.storeData.companyId);
                 if(data.storeData.free_trial == '' || data.storeData.free_trial == 'No Free Trial'){
                     $('.stripe_card_mounted_row').show();
                     card_mounted();
@@ -974,6 +978,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
         },
         error: function(err) {
             console.log(err)
+            $('#checkstore_license').submit();
         }
     });
     });

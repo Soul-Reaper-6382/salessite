@@ -155,6 +155,7 @@ Route::group(['middleware'=>['auth','roles:user']],function(){
     // Dashboard Routes
     Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
     Route::post('/submit_checkstore_license', [DashboardController::class,'submit_checkstore_license']);
+    Route::post('/submit_dash_checkstore_license', [DashboardController::class,'submit_dash_checkstore_license']);
     Route::get('/payment_method', [DashboardController::class,'payment_method_view']);
     Route::get('/monthly_yearly', [DashboardController::class,'monthly_yearly_view']);
     Route::get('/change_password', [DashboardController::class, 'changepassword']);

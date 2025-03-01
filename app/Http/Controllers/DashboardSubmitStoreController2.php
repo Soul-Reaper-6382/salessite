@@ -42,47 +42,17 @@ class DashboardSubmitStoreController extends Controller
         $plan = getUserPlanDetails($request->plan_id);
         $storeName = $request->store_name;
         $licenseNumber = $request->License_old;
+        $getStoreInfo = getStoresByStateORLic($storeName, $licenseNumber);
         $plan_name = $plan->name;
         $formatted_plan_name = strtolower($plan_name);
         $start_date = Carbon::now();
         $end_date = null;
         $is_trial = false;
-        $free_trial = $request->free_trial;
-        $companyId = $request->companyId;
-
-         if($free_trial == '' || $free_trial == 'No Free Trial'){
-           
-        }
-        else{
-            $start_date = Carbon::now();
-                if (preg_match('/(\d+)\s*Day Free Trial/', $free_trial, $matches)) {
-                    $days = (int) $matches[1];
-                    $end_date = $start_date->addDays($days)->format('Y-m-d');
-                } else {
-                    $end_date = $start_date->format('Y-m-d');
-                }
-            $is_trial = true;
-        }
-
-        // Prepare data for both API calls
-        $dataOnboarding = prepareDataForOnboarding($request, $user, $plan, $formatted_plan_name, $is_trial);
-        $dataSubscription = prepareDataForSubscription($formatted_plan_name, $end_date, $is_trial, $user, $plan);
-
-        
-        $apiUrlOnboard = env('API_Smugglers_URL') . 'api/store/public/onboarding/';
-        $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
-
-         // Make the API calls
-        $responseBodyOnboarding = makeApiCall($apiUrlOnboard, $dataOnboarding);
-        $responseBodySubscription = makeApiCall($apiUrlStoreSubscriptionPlans, $dataSubscription);
-
-        // Process responses or handle errors accordingly
-            if (!$responseBodyOnboarding || !$responseBodySubscription) {
-                return redirect()->back()->with('error', 'Error submitting store info.');
-            }
+        $free_trial = $getStoreInfo['stores'][0]['free_trial'];
+        $companyId = $getStoreInfo['stores'][0]['companyId'];
 
         if($free_trial == '' || $free_trial == 'No Free Trial'){
-         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
             $stripeCustomer = $stripe->customers->create([
                 'payment_method' => $request->token,
@@ -127,7 +97,35 @@ class DashboardSubmitStoreController extends Controller
                     'stripe_price' => $stripe_price,
                     'quantity' => $quantity,
                 ]);
+        }
+        else{
+            $start_date = Carbon::now();
+                if (preg_match('/(\d+)\s*Day Free Trial/', $free_trial, $matches)) {
+                    $days = (int) $matches[1];
+                    $end_date = $start_date->addDays($days)->format('Y-m-d');
+                } else {
+                    $end_date = $start_date->format('Y-m-d');
+                }
+            $is_trial = true;
+        }
+        // Prepare data for both API calls
+        $dataOnboarding = prepareDataForOnboarding($request, $user, $plan, $formatted_plan_name, $is_trial);
+        $dataSubscription = prepareDataForSubscription($formatted_plan_name, $end_date, $is_trial, $user, $plan);
+
+        
+        $apiUrlOnboard = env('API_Smugglers_URL') . 'api/store/public/onboarding/';
+        $apiUrlStoreSubscriptionPlans = env('API_Smugglers_URL') . 'api/store/private/store-subscription-plans/';
+
+         // Make the API calls
+        $responseBodyOnboarding = makeApiCall($apiUrlOnboard, $dataOnboarding);
+        $responseBodySubscription = makeApiCall($apiUrlStoreSubscriptionPlans, $dataSubscription);
+
+        
+            // Process responses or handle errors accordingly
+            if (!$responseBodyOnboarding || !$responseBodySubscription) {
+                return redirect()->back()->with('error', 'Error submitting store info.');
             }
+
 
         $user->fname = $request->first_name;
         $user->lname = $request->last_name;
@@ -149,9 +147,58 @@ class DashboardSubmitStoreController extends Controller
             ]
         );
 
-        
+        if($user->lead_id !== null){
+        $leadData = [
+                'properties' => [
+                    'state'     => $request->store_state,
+                    'store_license' => $request->License_old,
+                    'store_name' => $request->store_name,
+                ],
+                ];
 
-            $Company_update_storeId = [
+            // HubSpot API URL
+            $updateContactUrl = "https://api.hubapi.com/crm/v3/objects/contacts/{$user->lead_id}";
+
+        
+            $response = $client->patch($updateContactUrl, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
+                    'Content-Type'  => 'application/json',
+                ],
+                'json' => $leadData,
+            ]);
+
+            $association_url = "https://api.hubapi.com/crm/v4/associations/contacts/companies/batch/create";
+                 $associations = [
+                    'inputs' => [
+                        [
+                            "types" => [
+                                [
+                                    "associationCategory" => "HUBSPOT_DEFINED", // Default category for standard associations
+                                    "associationTypeId" => 1, // Standard association type ID for contacts to companies
+                                ]
+                            ],
+                            'from' => [
+                                'id' => $user->lead_id,
+                            ],
+                            'to' => [
+                                'id' => $companyId,
+                            ]
+                        ],
+                    ],
+                ];
+
+
+                $response_associations = $client->post($association_url, [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
+                        'Content-Type'  => 'application/json',
+                    ],
+                    'json' => $associations,
+                ]);
+        }
+
+        $Company_update_storeId = [
                 'properties' => [
                     'store_id'     => $user->source_object_id,
                 ],

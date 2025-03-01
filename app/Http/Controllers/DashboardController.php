@@ -402,6 +402,117 @@ class DashboardController extends Controller
         //     return response()->json(['message' => 'match', 'storeData' => $storeData, 'licenseNumber' => $licenseNumber , 'statefetch' => $statefetch]);
    }
 
+
+
+   public function submit_dash_checkstore_license(Request $request)
+    {
+
+        $licenseNumber = $request->store_license;
+        $statefetch = $request->statefetch;
+        $storeName = $request->store_name;
+
+        // Check if the license number and state already exist in the user_detail table
+        $existingRecord = UserDetail::where(function ($query) use ($licenseNumber, $storeName) {
+        if ($licenseNumber) {
+            $query->where('lic_no', $licenseNumber);
+        }
+        if ($storeName) {
+            $query->orWhere('store_name', $storeName);
+        }
+        })->where('store_state', $statefetch)->first();
+
+        if ($existingRecord) {
+            return response()->json(['message' => 'already_exist']);
+        }
+         // Fetch stores based on state and/or license number
+        $storeData = getStoresByStateORLic($storeName, $licenseNumber);
+
+        // Check if we received valid data
+        if (isset($storeData['error'])) {
+            return response()->json(['message' => $storeData['error']]);
+        }
+
+        // Loop through fetched stores and check for a match
+        foreach ($storeData['stores'] as $store) {
+            if ($storeName && $store['name'] == $storeName) {
+                $this->UpdateApiUser_Hubspot($statefetch, $store['state_license_number'], $store['name'], $store['companyId']);
+                return response()->json(['message' => 'match', 'storeData' => $store]);
+            }
+
+            if ($licenseNumber && $store['state_license_number'] == $licenseNumber) {
+                $this->UpdateApiUser_Hubspot($statefetch, $store['state_license_number'], $store['name'], $store['stores'][0]['companyId']);
+                return response()->json(['message' => 'match', 'storeData' => $store]);
+            }
+
+            if ($storeName && $licenseNumber && $store['name'] == $storeName && $store['state_license_number'] == $licenseNumber) {
+                $this->UpdateApiUser_Hubspot($statefetch, $store['state_license_number'], $store['name'], $store['stores'][0]['companyId']);
+                return response()->json(['message' => 'match', 'storeData' => $store]);
+            }
+        }
+
+        // If no match found
+        return response()->json(['message' => 'notmatch']);
+
+       
+   }
+
+
+   public function UpdateApiUser_Hubspot($store_state, $License_old, $store_name, $companyId){
+    $client = new Client();
+    $user = Auth::user();
+    
+     if($user->lead_id !== null){
+        $leadData = [
+                'properties' => [
+                    'state'     => $store_state,
+                    'store_license' => $License_old,
+                    'store_name' => $store_name,
+                ],
+                ];
+
+            // HubSpot API URL
+            $updateContactUrl = "https://api.hubapi.com/crm/v3/objects/contacts/{$user->lead_id}";
+
+        
+            $response = $client->patch($updateContactUrl, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
+                    'Content-Type'  => 'application/json',
+                ],
+                'json' => $leadData,
+            ]);
+
+            $association_url = "https://api.hubapi.com/crm/v4/associations/contacts/companies/batch/create";
+                 $associations = [
+                    'inputs' => [
+                        [
+                            "types" => [
+                                [
+                                    "associationCategory" => "HUBSPOT_DEFINED", // Default category for standard associations
+                                    "associationTypeId" => 1, // Standard association type ID for contacts to companies
+                                ]
+                            ],
+                            'from' => [
+                                'id' => $user->lead_id,
+                            ],
+                            'to' => [
+                                'id' => $companyId,
+                            ]
+                        ],
+                    ],
+                ];
+
+
+                $response_associations = $client->post($association_url, [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . env('HUBSPOT_ACCESS_TOKEN'),
+                        'Content-Type'  => 'application/json',
+                    ],
+                    'json' => $associations,
+                ]);
+        }
+
+   }
    
 
 }
