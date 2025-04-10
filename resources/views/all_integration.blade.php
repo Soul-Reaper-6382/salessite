@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'All Integration - Smugglers')
 @section('content')
+@push('styles')
 <style type="text/css">
     .ht-box-icon.style-01 .icon-box-wrap .icon {
     height: auto;
@@ -17,26 +18,28 @@
     padding: 10px 10px 10px 10px;
 }
 
-.close-button_form {
+.close-button_forma {
   float: right;
-  width: 1rem;
-  font-size: 1em;
-  line-height: 2;
-  padding: 0 .2em .15em;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 0.25rem;
-  background-color: #ddd;
-  color: #333;
-  transition: color 0.12s ease-in-out;
-  position: absolute;
-  top: 10px;
-  right: 20px;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1em;
+    line-height: 2;
+    padding: 0 .2em .15em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 100px;
+    background-color: #ddd;
+    color: #333;
+    transition: color 0.12s ease-in-out;
+    position: absolute;
+    top: 10px;
+    right: 20px;
 }
-.close-button_form:hover {
+.close-button_forma:hover {
   color: #d75b4c;
 }
 </style>
+@endpush
     <div id="main-wrapper">
         <div class="site-wrapper-reveal">
             <div class="bg-white">
@@ -117,25 +120,7 @@
 
             </div>
         </div>
-
-
-
-
-        <!--====================  footer area ====================-->
-        <div class="footer-area-wrapper" style="background-color:#df9242;">
-            <div class="footer-copyright-area" style="padding:10px;">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-12 text-center text-md-start">
-                            <p class="copyright-ptext" style="text-align: center;
-    color: white;
-    font-size: 19px;">Copyright © 2024 Smugglers</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-        <!--====================  End of footer area  ====================-->
 
 
 
@@ -149,7 +134,7 @@
   <div class="modal-dialog modal-dialog-centered modal-md">
     <div class="modal-content" style="border: 2px solid #df9242;">
       <div class="modal-header" style="border:none;">
-        <button type="button" class="btn-close close-button_form" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="close-button_forma">x</button>
       </div>
       <div class="modal-body text-center">
         <img id="integrationImage" src="" class="img-fluid mb-3" alt="Integration Image">
@@ -161,10 +146,11 @@
 </div>
 
 
+@endsection
 
 
-@include('layouts.footer_home')
 
+@push('scripts')
 <script>
     function showIntegrationDetails(integration) {
         // Set the modal data with integration details
@@ -177,6 +163,9 @@
     }
 
     // Example of using this function
+    $(document).on('click', '.close-button_forma', function() {
+                $('#learnMoreModal').modal('hide');
+    });
     $(document).on('click', '.learn-more-btn', function() {
         const integration = $(this).data('integration');
 
@@ -208,7 +197,4 @@
    
 });
 </script>
-<!-- Mirrored from htmldemo.net/mitech/index-cybersecurity.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 16 Jul 2023 20:59:07 GMT -->
-</html>
-@endsection
-
+@endpush

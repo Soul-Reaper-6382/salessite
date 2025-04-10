@@ -837,7 +837,7 @@ $intent = $stripe->setupIntents->create(['usage' => 'on_session']);
                     // Check if the store name exists in userstores
                     if (userStoreNames.includes(store.name)) {
                         // Add the option as disabled if it matches a user store
-                        $select.append('<option value="' + store.name + '" disabled>' + store.name + ' (Already selected)</option>');
+                        // $select.append('<option value="' + store.name + '" disabled>' + store.name + ' (Already selected)</option>');
                     } else {
                         // Add the option as selectable
                         $select.append('<option value="' + store.name + '">' + store.name + '</option>');
