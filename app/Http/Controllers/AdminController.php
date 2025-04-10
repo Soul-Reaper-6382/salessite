@@ -38,6 +38,22 @@ class AdminController extends Controller
         return view('admin.admin_myaccount');
     }
 
+    public function allusers(){
+        $all_user = User::with('UserDetail')->where('id', '!=' ,12)->get();
+        return view('admin.allusers', compact('all_user'));
+    }
+
+     public function delete_user($id)
+    {
+        $user = User::find($id);
+        if ($user) {
+            $user->roles()->detach();
+            $user->delete();
+            return back()->with('message', 'User deleted successfully!');
+        }
+        return back()->with('message', 'User not found!');
+    }
+
     public function updateaccount(Request $request)
     {
             # Validation

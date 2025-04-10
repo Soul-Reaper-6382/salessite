@@ -7,6 +7,13 @@
       </a>
     </li>
 
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url('/allusers') }}">
+        <span class="menu-title">All Users</span>
+        <i class="mdi mdi-account-box menu-icon"></i>
+      </a>
+    </li>
+
      <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#homepage_set" aria-expanded="false" aria-controls="ui-basic">
         <span class="menu-title">Home Page Setting</span>

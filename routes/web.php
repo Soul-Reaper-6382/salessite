@@ -56,6 +56,8 @@ Route::post('/update-account', [AdminController::class, 'updateaccount']);
 Route::get('/admin_changepassword', [AdminController::class,'admin_changepassword']);
 Route::post('/admin_update-password', [AdminController::class,'admin_update_password']);
 Route::get('/download-all-csv', [AdminController::class, 'downloadAllCsv'])->name('licenses.downloadAllCsv');
+Route::get('/allusers', [AdminController::class, 'allusers'])->name('allusers');
+Route::delete('/delete_user/{id}', [AdminController::class, 'delete_user'])->name('delete_user');
 
 Route::get('/price_setting', [HomePageController::class, 'price_setting_view'])->name('price_setting');
 Route::get('/edit_pricing/{id}/{duration}', [HomePageController::class, 'editPricing'])->name('edit_pricing');
